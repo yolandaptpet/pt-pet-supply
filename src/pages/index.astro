@@ -1,20 +1,29 @@
 ---
+interface MainProps {
+  activeAnnouncement: boolean;
+}
+
+import Layout from "../components/layouts/Layout.astro"
+
 import Announcements from "../components/sections/Announcements.astro"
 import Navbar from "../components/sections/Navbar.astro"
+import Hero from "../components/sections/Hero.astro";
+import Testimonials from "../components/sections/Testimonials.astro";
+import Products from "../components/sections/Products.astro";
+import Staff from "../components/sections/Staff.astro";
+import About from "../components/sections/About.astro";
+import Contact from "../components/sections/Contact.astro";
 
-const activeAnnouncement = true;
+const { activeAnnouncement = true } = Astro.props as MainProps;
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>PT Pet Supply</title>
-	</head>
-	<body>
-		<Announcements isVisible={activeAnnouncement} />
-		<Navbar />
-	</body>
-</html>
+<Layout>
+	<Announcements isVisible={activeAnnouncement} />
+	<Navbar />
+	<Hero />
+	<Testimonials />
+	<Products />
+	<Staff />
+	<About />
+	<Contact />
+</Layout>
