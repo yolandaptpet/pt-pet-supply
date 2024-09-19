@@ -1,28 +1,39 @@
 ---
 interface NavbarProps {
   currentPage: string;
+  phoneNumber: string;
 }
 
 import Button from "../ui/Button.astro"
 import OpenStatus from "../ui/OpenStatus.astro"
 
+import MobileDetect from 'mobile-detect';
+
 const currentPage = Astro.url.pathname;
+
+const phoneNumber = '508-943-9600';
+const address = '86 Worcester Rd, Webster MA';
+
+const userAgent = Astro.request.headers.get('user-agent') ?? '';
+const md = new MobileDetect(userAgent);
+const isMobile = md.mobile();
 ---
 
 <section>
   <div>
-    <!-- Phone Number here -->
+    <img src="src/assets/phone.svg" alt="phone" />
+    {isMobile ? <a href={`tel:${phoneNumber}`}>{phoneNumber}</a> : phoneNumber}
   </div>
 
   <div>
-    <!-- Location Pin here -->
+    <img src="src/assets/map-pin.svg" alt="location" />
+    <a href={`https://www.google.com/maps/place/${address}`}>{address}</a>
   </div>
 
   <OpenStatus />
 
   <Button text="Products" href="/#products" />
   <Button text="About Us" href="/#about" />
-  <!-- Conditionally render the button based on the current page -->
   {currentPage !== '/grooming' && (
     <Button text="Grooming Services" href="/grooming" />
   )}
