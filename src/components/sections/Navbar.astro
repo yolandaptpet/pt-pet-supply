@@ -1,15 +1,8 @@
 ---
-interface NavbarProps {
-  currentPage: string;
-  phoneNumber: string;
-}
-
-import Button from "../ui/Button.astro"
-import OpenStatus from "../ui/OpenStatus.astro"
+import OpenStatus from "./OpenStatus.astro";
+import Links from "./Links.astro";
 
 import MobileDetect from 'mobile-detect';
-
-const currentPage = Astro.url.pathname;
 
 const phoneNumber = '508-943-9600';
 const address = '86 Worcester Rd, Webster MA';
@@ -32,10 +25,5 @@ const isMobile = md.mobile();
 
   <OpenStatus />
 
-  <Button text="Products" href="/#products" />
-  <Button text="About Us" href="/#about" />
-
-  {currentPage !== '/grooming' && (
-    <Button text="Grooming Services" href="/grooming" />
-  )}
+  <Links />
 </section>
