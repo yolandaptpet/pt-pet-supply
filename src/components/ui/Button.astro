@@ -1,12 +1,12 @@
 ---
-interface Props {
+interface ButtonProps {
   text: string;
   href?: string;
   type?: "button" | "submit" | "reset";
   className?: string;
 }
 
-const { text, href, type = "button", className = "" } = Astro.props;
+const { text, href, type = "button", className = "" } = Astro.props as ButtonProps;
 ---
 
 {href ? (
@@ -18,7 +18,3 @@ const { text, href, type = "button", className = "" } = Astro.props;
     {text}
   </button>
 )}
-
-<style>
-
-</style>

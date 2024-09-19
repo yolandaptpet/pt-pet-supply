@@ -17,13 +17,19 @@ import Contact from "../components/sections/Contact.astro";
 const { activeAnnouncement = true } = Astro.props as MainProps;
 ---
 
-<Layout>
+<Layout title="home">
 	<Announcements isVisible={activeAnnouncement} />
 	<Navbar />
 	<Hero />
 	<Testimonials />
 	<Products />
-	<Staff />
 	<About />
+	<Staff />
 	<Contact />
 </Layout>
+
+<style>
+	html {
+    scroll-behavior: smooth;
+  }
+</style>
