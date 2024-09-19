@@ -1,12 +1,7 @@
 ---
-interface MainProps {
-  activeAnnouncement: boolean;
-}
-
 import Layout from "../components/layouts/Layout.astro"
 
-import Announcements from "../components/sections/Announcements.astro"
-import Navbar from "../components/sections/Navbar.astro"
+import Header from "../components/sections/Header.astro";
 import Hero from "../components/sections/Hero.astro";
 import Testimonials from "../components/sections/Testimonials.astro";
 import Products from "../components/sections/Products.astro";
@@ -14,14 +9,11 @@ import Staff from "../components/sections/Staff.astro";
 import About from "../components/sections/About.astro";
 import Contact from "../components/sections/Contact.astro";
 
-const { activeAnnouncement = true } = Astro.props as MainProps;
-
 import '@/styles/globals.css'
 ---
 
 <Layout title="home">
-	<Announcements isVisible={activeAnnouncement} />
-	<Navbar />
+	<Header />
 	<Hero />
 	<Testimonials />
 	<Products />
