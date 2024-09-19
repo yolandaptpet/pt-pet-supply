@@ -1,3 +1,13 @@
+---
+interface OpenStatusProps {
+  storeStatus: string,
+}
+
+import { getStoreStatus } from './StoreHours.astro';
+
+const storeStatus = getStoreStatus() as OpenStatusProps['storeStatus'];
+---
+
 <div>
-  <h3>Open Status</h3>
+  <p>{storeStatus}</p>
 </div>

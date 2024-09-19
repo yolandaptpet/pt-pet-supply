@@ -13,5 +13,5 @@ const currentPage = Astro.url.pathname as LinksProps['currentPage'];
 <Button text="About Us" href="/#about" />
 
 {currentPage !== '/grooming' && (
-  <Button text="Grooming Services" href="/grooming" />
+  <Button transition:slide text="Grooming Services" href="/grooming" />
 )}

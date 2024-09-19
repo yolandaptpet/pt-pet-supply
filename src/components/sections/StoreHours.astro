@@ -1,0 +1,74 @@
+---
+interface StoreHours {
+  [key: string]: { open: string; close: string };
+}
+
+export const getStoreStatus = () => {
+  const storeHours: StoreHours = {
+    Monday: { open: "09:00", close: "18:00" },
+    Tuesday: { open: "09:00", close: "18:00" },
+    Wednesday: { open: "09:00", close: "18:00" },
+    Thursday: { open: "09:00", close: "18:00" },
+    Friday: { open: "09:00", close: "18:00" },
+    Saturday: { open: "10:00", close: "16:00" },
+    Sunday: { open: "10:00", close: "14:00" },
+  };
+
+  const now = new Date();
+
+  console.log(now);
+
+  const easternTime = now.toLocaleString("en-US", { weekday: "long" });
+
+  const currentHour = parseInt(easternTime.split(":")[0]);
+  const currentMinute = parseInt(easternTime.split(":")[1]);
+  const currentDay = now.toLocaleString("en-US", {
+    timeZone: "America/New_York",
+    weekday: "long",
+  });
+
+  const todayHours = storeHours[currentDay];
+
+  // Check if the store is open
+  if (todayHours) {
+    const [openHour, openMinute] = todayHours.open.split(":").map(Number);
+    const [closeHour, closeMinute] = todayHours.close.split(":").map(Number);
+
+    // Convert open and close times to minutes for comparison
+    const currentTimeInMinutes = currentHour * 60 + currentMinute;
+    const openTimeInMinutes = openHour * 60 + openMinute;
+    const closeTimeInMinutes = closeHour * 60 + closeMinute;
+
+    if (
+      currentTimeInMinutes >= openTimeInMinutes &&
+      currentTimeInMinutes < closeTimeInMinutes
+    ) {
+      // Store is currently open
+      const closeTimeFormatted = `${closeHour % 12 || 12}PM`;
+      return `Open until ${closeTimeFormatted}`;
+    } else {
+      // Store is closed, find the next opening time
+      let nextOpenDay = currentDay;
+      let nextOpenTime = null;
+
+      // Find the next open time
+      while (!nextOpenTime) {
+        const nextDayIndex =
+          (Object.keys(storeHours).indexOf(nextOpenDay) + 1) % 7;
+        nextOpenDay = Object.keys(storeHours)[nextDayIndex];
+
+        const nextDayHours = storeHours[nextOpenDay];
+        if (nextDayHours) {
+          nextOpenTime = nextDayHours.open;
+        }
+      }
+
+      const [nextOpenHour] = nextOpenTime.split(":").map(Number);
+      const nextOpenTimeFormatted = `${nextOpenHour % 12 || 12}AM`;
+      return `Closed until ${nextOpenTimeFormatted}`;
+    }
+  }
+
+  return null;
+};
+---

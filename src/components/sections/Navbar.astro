@@ -13,17 +13,17 @@ const isMobile = md.mobile();
 ---
 
 <section>
-  <div>
+  <div transition:persist>
     <img src="src/assets/phone.svg" alt="phone" />
     {isMobile ? <a href={`tel:${phoneNumber}`}>{phoneNumber}</a> : phoneNumber}
   </div>
 
-  <div>
+  <div transition:persist>
     <img src="src/assets/map-pin.svg" alt="location" />
-    <a href={`https://www.google.com/maps/place/${address}`}>{address}</a>
+    <a href='https://www.google.com/maps/place/P+T+Pet+Supply/@42.0714526,-71.8662691,17z/data=!3m1!4b1!4m6!3m5!1s0x89e41ed7234c136d:0xe30644b400274c0!8m2!3d42.0714526!4d-71.8662691!16s%2Fg%2F1tt1tq6m?entry=ttu&g_ep=EgoyMDI0MDkxNi4wIKXMDSoASAFQAw%3D%3D'>{address}</a>
   </div>
 
-  <OpenStatus />
+  <OpenStatus transition:persist />
 
   <Links />
 </section>
