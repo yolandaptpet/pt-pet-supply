@@ -1,14 +1,5 @@
 ---
-interface LayoutProps {
-  activeAnnouncement: boolean;
-}
-
-import Announcements from "../sections/Announcements.astro"
-import Navbar from "../sections/Navbar.astro"
-
 import { ViewTransitions } from "astro:transitions";
-
-const { activeAnnouncement = true } = Astro.props as LayoutProps;
 ---
 
 <!DOCTYPE html>
@@ -22,14 +13,6 @@ const { activeAnnouncement = true } = Astro.props as LayoutProps;
 		<ViewTransitions />
 	</head>
 	<body>
-		<Announcements isVisible={activeAnnouncement} />
-		<Navbar />
     <slot/>
 	</body>
 </html>
-
-<style>
-	html {
-    scroll-behavior: smooth;
-  }
-</style>
