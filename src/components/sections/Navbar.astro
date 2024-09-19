@@ -1,6 +1,12 @@
 ---
+interface NavbarProps {
+  currentPage: string;
+}
+
 import Button from "../ui/Button.astro"
 import OpenStatus from "../ui/OpenStatus.astro"
+
+const currentPage = Astro.url.pathname;
 ---
 
 <section>
@@ -14,7 +20,10 @@ import OpenStatus from "../ui/OpenStatus.astro"
 
   <OpenStatus />
 
-  <Button text="Grooming Services" href="/grooming" />
   <Button text="Products" href="/#products" />
   <Button text="About Us" href="/#about" />
+  <!-- Conditionally render the button based on the current page -->
+  {currentPage !== '/grooming' && (
+    <Button text="Grooming Services" href="/grooming" />
+  )}
 </section>
