@@ -1,7 +1,11 @@
 ---
+import ReviewsCard from "../ui/ReviewsCard.jsx";
 
+const businessId = "YOUR_BUSINESS_ID";
 ---
 
-<section>
-  <h3>Testimonials</h3>
-</section>
+<div class="container mx-auto py-10">
+  <ReviewsCard businessId={businessId} client:load />
+  <ReviewsCard businessId={businessId} client:load />
+  <ReviewsCard businessId={businessId} client:load />
+</div>
