@@ -2,28 +2,41 @@
 import OpenStatus from "./OpenStatus.astro";
 import Links from "./Links.astro";
 
-import MobileDetect from 'mobile-detect';
+import MobileDetect from "mobile-detect";
 
-const phoneNumber = '508-943-9600';
-const address = '86 Worcester Rd, Webster MA';
+const phoneNumber = "508-943-9600";
+const address = "86 Worcester Rd, Webster MA";
 
-const userAgent = Astro.request.headers.get('user-agent') ?? '';
+const userAgent = Astro.request.headers.get("user-agent") ?? "";
 const md = new MobileDetect(userAgent);
 const isMobile = md.mobile();
 ---
 
-<section>
-  <div transition:persist>
-    <img src="src/assets/phone.svg" alt="phone" />
-    {isMobile ? <a href={`tel:${phoneNumber}`}>{phoneNumber}</a> : phoneNumber}
+<section class="flex w-full mx-auto px-6">
+  <div class="flex-1 flex flex-nowrap">
+    <div transition:persist class="flex items-center">
+      <img src="src/assets/phone.svg" alt="phone" />
+      {
+        isMobile ? (
+          <a href={`tel:${phoneNumber}`}>{phoneNumber}</a>
+        ) : (
+          phoneNumber
+        )
+      }
+    </div>
+
+    <div transition:persist class="flex items-center ml-4">
+      <img src="src/assets/map-pin.svg" alt="location" />
+      <a
+        href="https://www.google.com/maps/place/P+T+Pet+Supply/@42.0714526,-71.8662691,17z/data=!3m1!4b1!4m6!3m5!1s0x89e41ed7234c136d:0xe30644b400274c0!8m2!3d42.0714526!4d-71.8662691!16s%2Fg%2F1tt1tq6m?entry=ttu&g_ep=EgoyMDI0MDkxNi4wIKXMDSoASAFQAw%3D%3D"
+        >{address}</a
+      >
+    </div>
   </div>
 
-  <div transition:persist>
-    <img src="src/assets/map-pin.svg" alt="location" />
-    <a href='https://www.google.com/maps/place/P+T+Pet+Supply/@42.0714526,-71.8662691,17z/data=!3m1!4b1!4m6!3m5!1s0x89e41ed7234c136d:0xe30644b400274c0!8m2!3d42.0714526!4d-71.8662691!16s%2Fg%2F1tt1tq6m?entry=ttu&g_ep=EgoyMDI0MDkxNi4wIKXMDSoASAFQAw%3D%3D'>{address}</a>
+  <OpenStatus transition:persist class="flex-1 justify-center" />
+
+  <div class="flex-1 flex justify-end">
+    <Links class="flex" />
   </div>
-
-  <OpenStatus transition:persist />
-
-  <Links />
 </section>

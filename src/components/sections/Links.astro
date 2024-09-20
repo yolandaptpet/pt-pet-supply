@@ -3,15 +3,16 @@ interface LinksProps {
   currentPage: string;
 }
 
-import Button from "../ui/Button.astro"
+import Button from "../ui/Button.astro";
 
-const currentPage = Astro.url.pathname as LinksProps['currentPage'];
-
+const currentPage = Astro.url.pathname as LinksProps["currentPage"];
 ---
 
 <Button text="Products" href="/#products" />
 <Button text="About Us" href="/#about" />
 
-{currentPage !== '/grooming' && (
-  <Button transition:slide text="Grooming Services" href="/grooming" />
-)}
+{
+  currentPage !== "/grooming" && (
+    <Button transition:slide text="Pet Grooming" href="/grooming" />
+  )
+}
