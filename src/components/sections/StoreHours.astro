@@ -16,17 +16,21 @@ export const getStoreStatus = () => {
 
   const now = new Date();
 
-  console.log(now);
-
-  const easternTime = now.toLocaleString("en-US", { weekday: "long" });
-
-  const currentHour = parseInt(easternTime.split(":")[0]);
-  const currentMinute = parseInt(easternTime.split(":")[1]);
+  // Get current day in Eastern Time
   const currentDay = now.toLocaleString("en-US", {
     timeZone: "America/New_York",
     weekday: "long",
   });
 
+  // Get current time in Eastern Time
+  const currentTime = now.toLocaleString("en-US", {
+    timeZone: "America/New_York",
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false,
+  });
+
+  const [currentHour, currentMinute] = currentTime.split(":").map(Number);
   const todayHours = storeHours[currentDay];
 
   // Check if the store is open
