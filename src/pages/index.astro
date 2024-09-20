@@ -1,5 +1,5 @@
 ---
-import Layout from "../components/layouts/Layout.astro"
+import Layout from "../components/layouts/Layout.astro";
 
 import Header from "../components/sections/Header.astro";
 import Hero from "../components/sections/Hero.astro";
@@ -8,22 +8,20 @@ import Products from "../components/sections/Products.astro";
 import Staff from "../components/sections/Staff.astro";
 import About from "../components/sections/About.astro";
 import Contact from "../components/sections/Contact.astro";
-
-import '@/styles/globals.css'
 ---
 
 <Layout title="home">
-	<Header />
-	<Hero />
-	<Testimonials />
-	<Products />
-	<About />
-	<Staff />
-	<Contact />
+  <Header />
+  <Hero />
+  <Testimonials />
+  <Products />
+  <About />
+  <Staff />
+  <Contact />
 </Layout>
 
 <style>
-	html {
+  html {
     scroll-behavior: smooth;
   }
 </style>

@@ -1,18 +1,24 @@
 ---
 import { ViewTransitions } from "astro:transitions";
+
+import "@/styles/globals.css";
 ---
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>PT Pet Supply</title>
-		<ViewTransitions fallback="animate" />
-	</head>
-	<body>
-    <slot/>
-	</body>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>PT Pet Supply</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
+    />
+    <ViewTransitions fallback="animate" />
+  </head>
+  <body>
+    <slot />
+  </body>
 </html>
