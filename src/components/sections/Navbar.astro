@@ -10,9 +10,11 @@ const address = "86 Worcester Rd, Webster";
 const userAgent = Astro.request.headers.get("user-agent") ?? "";
 const md = new MobileDetect(userAgent);
 const isMobile = md.mobile();
+
+const { class: navbarClass = "" } = Astro.props;
 ---
 
-<section class="flex w-full mx-auto px-6">
+<section class={`flex w-full mx-auto px-16 ${navbarClass}`}>
   <div class="flex-1 flex flex-nowrap h-full">
     <div transition:persist class="flex items-center">
       <img src="src/assets/phone.svg" alt="phone" class="pr-2" />

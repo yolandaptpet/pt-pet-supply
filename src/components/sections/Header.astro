@@ -3,11 +3,11 @@ interface HeaderProps {
   activeAnnouncement: boolean;
 }
 
-import Announcements from "./Announcements.astro"
-import Navbar from "./Navbar.astro"
+import Announcements from "./Announcements.astro";
+import Navbar from "./Navbar.astro";
 
 const { activeAnnouncement = true } = Astro.props as HeaderProps;
 ---
 
 <Announcements isVisible={activeAnnouncement} />
-<Navbar />
+<Navbar class={activeAnnouncement ? "pt-8" : "pt-12"} />
