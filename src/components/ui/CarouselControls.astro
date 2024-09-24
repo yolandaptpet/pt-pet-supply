@@ -1,0 +1,88 @@
+---
+// Props for controls
+interface Props {
+  totalPages: number;
+}
+---
+
+<div class="carousel-controls">
+  <button class="carousel-control-btn prev-btn" aria-label="Previous slide"
+    >❮</button
+  >
+  <button class="carousel-control-btn next-btn" aria-label="Next slide"
+    >❯</button
+  >
+</div>
+
+<style>
+  .carousel-controls {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 1rem;
+  }
+
+  .carousel-control-btn {
+    background-color: #007bff;
+    color: white;
+    padding: 0.75rem;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+
+  .carousel-control-btn:hover {
+    background-color: #0056b3;
+  }
+</style>
+
+<script>
+  let currentIndex = 0;
+  const itemsPerPage = 4;
+  let totalPages = 0;
+
+  // Check if Astro.props is available and assign totalPages
+  if (
+    typeof Astro.props !== "undefined" &&
+    Astro.props.totalPages !== undefined
+  ) {
+    totalPages = Astro.props.totalPages;
+  }
+
+  const updateCarousel = () => {
+    const start = currentIndex * itemsPerPage;
+
+    // Fetch the next staff members to display...
+  };
+
+  document.querySelector(".prev-btn")?.addEventListener("click", () => {
+    currentIndex = (currentIndex - 1 + totalPages) % totalPages;
+    updateCarousel();
+  });
+
+  document.querySelector(".next-btn")?.addEventListener("click", () => {
+    currentIndex = (currentIndex + 1) % totalPages;
+    updateCarousel();
+  });
+
+  // Auto-rotate functionality
+  let autoRotateInterval = setInterval(() => {
+    currentIndex = (currentIndex + 1) % totalPages;
+    updateCarousel();
+  }, 15000);
+
+  document
+    .querySelector(".staff-carousel")
+    ?.addEventListener("mouseenter", () => {
+      clearInterval(autoRotateInterval);
+    });
+
+  document
+    .querySelector(".staff-carousel")
+    ?.addEventListener("mouseleave", () => {
+      autoRotateInterval = setInterval(() => {
+        currentIndex = (currentIndex + 1) % totalPages;
+        updateCarousel();
+      }, 15000);
+    });
+</script>

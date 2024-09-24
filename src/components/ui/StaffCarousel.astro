@@ -1,0 +1,76 @@
+---
+// Define the interface for staff members
+interface StaffMember {
+  name: string;
+  role: string;
+  bio: string;
+  imageSrc: string;
+}
+
+import StaffCard from "./StaffCard.astro";
+import CarouselControls from "./CarouselControls.astro";
+
+const staffList: StaffMember[] = [
+  {
+    name: "Yolanda DeGaetano",
+    role: "Owner",
+    bio: "Yolanda has over 10 years of experience in marketing and specializes in customer relations.",
+    imageSrc: "",
+  },
+  {
+    name: "John Smith",
+    role: "Sales Manager",
+    bio: "John is an expert in business-to-business sales and customer retention strategies.",
+    imageSrc: "",
+  },
+  {
+    name: "Sarah Thompson",
+    role: "Lead Designer",
+    bio: "Sarah has a keen eye for detail and brings a unique design aesthetic to all our projects.",
+    imageSrc: "",
+  },
+  {
+    name: "Mike Johnson",
+    role: "Developer",
+    bio: "Mike specializes in full-stack development, with a focus on performance and scalability.",
+    imageSrc: "",
+  },
+];
+
+const itemsPerPage = 4;
+const totalPages = Math.ceil(staffList.length / itemsPerPage);
+
+// Get the first 4 staff members for initial render
+const getInitialStaff = () => staffList.slice(0, itemsPerPage);
+---
+
+<div class="staff-carousel">
+  <div class="staff-list">
+    {
+      getInitialStaff().map((staff, index) => (
+        <StaffCard key={index} {...staff} />
+      ))
+    }
+  </div>
+
+  <!-- Carousel Controls and Pagination -->
+  <!-- <CarouselControls totalPages={totalPages} client:visible /> -->
+</div>
+
+<style>
+  .staff-carousel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .staff-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    width: 100%;
+  }
+</style>
