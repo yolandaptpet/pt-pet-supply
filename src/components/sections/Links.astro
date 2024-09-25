@@ -11,15 +11,37 @@ const currentPage = Astro.url.pathname as LinksProps["currentPage"];
 ---
 
 <div class="flex space-x-4">
-  <Button text="Products" href="/#products" class="pl-6" />
-  <Button text="About Us" href="/#about" class="pl-6" />
+  {
+    currentPage == "/grooming" && (
+      <Button
+        transition:animate="slide"
+        text="Home"
+        href="/"
+        class="pl-6"
+        data-astro-prefetch
+      />
+    )
+  }
+  <Button
+    transition:animate="slide"
+    text="Products"
+    href="/#products"
+    class="pl-6"
+  />
+  <Button
+    transition:animate="slide"
+    text="About Us"
+    href="/#about"
+    class="pl-6"
+  />
   {
     currentPage !== "/grooming" && (
       <Button
-        transition:slide
+        transition:animate="slide"
         text="Pet Grooming"
         href="/grooming"
         class="pl-6"
+        data-astro-prefetch
       />
     )
   }

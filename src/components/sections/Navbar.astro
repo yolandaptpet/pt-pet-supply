@@ -14,7 +14,7 @@ const isMobile = md.mobile();
 const { class: navbarClass = "" } = Astro.props;
 ---
 
-<section class={`flex w-full mx-auto px-16 ${navbarClass}`}>
+<section class={`flex w-full mx-auto px-16 pb-2 ${navbarClass} bg-[#FFC66D]`}>
   <div class="flex-1 flex flex-nowrap h-full">
     <div transition:persist class="flex items-center">
       <img src="src/assets/phone.svg" alt="phone" class="pr-2" />
