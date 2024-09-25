@@ -1,0 +1,57 @@
+---
+const publicKey = import.meta.env
+  .GOOGLE_API_KEY as ImportGoogleEnv["GOOGLE_API_KEY"];
+const API_KEY = publicKey;
+const ADDRESS = "86 Worcester Rd, Webster, MA 01570";
+---
+
+<div id="map"></div>
+
+<script define:vars={{ API_KEY, ADDRESS }}>
+  async function initMap() {
+    const { Map } = await google.maps.importLibrary("maps");
+    const { Geocoder } = await google.maps.importLibrary("geocoding");
+    const { Marker } = await google.maps.importLibrary("marker");
+
+    const map = new Map(document.getElementById("map"), {
+      zoom: 15,
+    });
+
+    const geocoder = new Geocoder();
+    try {
+      const results = await geocoder.geocode({ address: ADDRESS });
+      if (results.results.length > 0) {
+        const location = results.results[0].geometry.location;
+        map.setCenter(location);
+        new Marker({
+          map: map,
+          position: location,
+        });
+      } else {
+        throw new Error("No results found");
+      }
+    } catch (error) {
+      console.error("Geocode was not successful:", error);
+    }
+  }
+
+  function loadGoogleMapsScript() {
+    const script = document.createElement("script");
+    script.src = `https://maps.googleapis.com/maps/api/js?key=${API_KEY}&callback=initMap&loading=async`;
+    script.async = true;
+    script.defer = true;
+    document.head.appendChild(script);
+  }
+
+  if (typeof window !== "undefined") {
+    window.initMap = initMap;
+    loadGoogleMapsScript();
+  }
+</script>
+
+<style>
+  #map {
+    width: 40%;
+    height: 400px; /* Adjust the height as needed */
+  }
+</style>

@@ -1,14 +1,32 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
+// Define the structure of a single review
+interface Review {
+  id: string;
+  author: string;
+  rating: number;
+  text: string;
+}
+
+// Define the props for ReviewsCard
+interface ReviewsCardProps {
+  businessId: string;
+}
+
+// Define the API response structure
+interface ApiResponse {
+  reviews: Review[];
+}
+
 /**
  * Returns a specified number of unique random reviews from a given array.
  *
- * @param {array} reviews - The array of reviews to select from.
+ * @param {Review[]} reviews - The array of reviews to select from.
  * @param {number} count - The maximum number of reviews to return.
- * @return {array} An array of up to `count` unique random reviews.
+ * @return {Review[]} An array of up to `count` unique random reviews.
  */
-const getRandomReviews = (reviews, count) => {
+const getRandomReviews = (reviews: Review[], count: number): Review[] => {
   const shuffledReviews = [...reviews].sort(() => 0.5 - Math.random());
   return shuffledReviews.slice(0, count); // Select up to `count` reviews
 };
@@ -19,20 +37,20 @@ const getRandomReviews = (reviews, count) => {
  * @param {string} businessId - The ID of the business for which to fetch reviews.
  * @return {JSX.Element} A JSX element containing the reviews, or a loading/error message if applicable.
  */
-const ReviewsCard = ({ businessId }) => {
-  const [reviews, setReviews] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+const ReviewsCard: React.FC<ReviewsCardProps> = ({ businessId }) => {
+  const [reviews, setReviews] = useState<Review[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchReviews = async () => {
       try {
         // Replace with your actual API endpoint
-        const response = await axios.get(`YOUR_GOOGLE_REVIEWS_API_ENDPOINT/${businessId}`);
+        const response = await axios.get<ApiResponse>(`YOUR_GOOGLE_REVIEWS_API_ENDPOINT/${businessId}`);
         
         // Filter reviews with 4 stars or higher and exclude those mentioning "groom" or "grooming"
         const filteredReviews = response.data.reviews.filter(
-          review => review.rating >= 4 && !/groom|grooming/i.test(review.text)
+          (review) => review.rating >= 4 && !/groom|grooming/i.test(review.text)
         );
         
         // Randomly select up to 3 reviews
@@ -62,7 +80,7 @@ const ReviewsCard = ({ businessId }) => {
             <div key={review.id} className="mb-4 border-b pb-4">
               <div className="flex items-center">
                 <span className="font-semibold">
-                  {review.author.split(' ')[0]} {review.author.split(' ')[1][0].toUpperCase()}.
+                  {review.author.split(' ')[0]} {review.author.split(' ')[1]?.[0].toUpperCase()}.
                 </span>
                 <span className="ml-2 text-yellow-500">{'★'.repeat(review.rating)}</span>
               </div>
