@@ -9,5 +9,72 @@ import Navbar from "./Navbar.astro";
 const { activeAnnouncement = true } = Astro.props as HeaderProps;
 ---
 
-<Announcements isVisible={activeAnnouncement} />
-<Navbar class={activeAnnouncement ? "pt-6" : "pt-10"} />
+<!-- A small invisible trigger element above the header to control sticky behavior -->
+<div id="trigger" style="height: 1px bg-[#7F0201]"></div>
+
+<header id="header">
+  <Announcements id="announcements" isVisible={activeAnnouncement} />
+  <Navbar id="navbar" class={activeAnnouncement ? "pt-6" : "pt-10"} />
+</header>
+
+<!-- Spacer to preserve space when header becomes sticky -->
+<div id="spacer"></div>
+
+<style>
+  header {
+    width: 100%;
+    transition: top 0.8s ease;
+  }
+
+  .sticky {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    background-color: #ffc66d;
+  }
+
+  #spacer {
+    height: 0;
+    transition: top 0.8s ease;
+  }
+
+  .sticky + #navbar {
+    padding-top: 60px;
+    transition: top 0.8s ease;
+  }
+</style>
+
+<script>
+  function initializeStickyHeader() {
+    const header = document.querySelector("#header") as HTMLElement;
+    const spacer = document.querySelector("#spacer") as HTMLElement;
+    const trigger = document.querySelector("#trigger");
+
+    if (!header || !spacer || !trigger) return; // Exit if elements are not found
+
+    const headerHeight = header.offsetHeight;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) {
+            header.classList.add("sticky");
+            spacer.style.height = `${headerHeight}px`; // Set spacer height
+          } else {
+            header.classList.remove("sticky");
+            spacer.style.height = "0px"; // Reset spacer height
+          }
+        });
+      },
+      { rootMargin: "0px", threshold: 0 }
+    );
+
+    observer.observe(trigger);
+  }
+
+  // Run initialization on page load and after Astro navigation
+  document.addEventListener("DOMContentLoaded", initializeStickyHeader);
+  document.addEventListener("astro:afterUpdate", initializeStickyHeader); // Reinitialize after navigating between pages
+</script>
