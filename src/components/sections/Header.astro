@@ -47,24 +47,36 @@ const { activeAnnouncement = true } = Astro.props as HeaderProps;
 </style>
 
 <script>
+  let observer: IntersectionObserver;
+
   function initializeStickyHeader() {
     const header = document.querySelector("#header") as HTMLElement;
     const spacer = document.querySelector("#spacer") as HTMLElement;
     const trigger = document.querySelector("#trigger");
 
-    if (!header || !spacer || !trigger) return; // Exit if elements are not found
+    if (!header || !spacer || !trigger) {
+      console.error("One or more required elements are missing.");
+      return; // Exit if elements are not found
+    }
 
     const headerHeight = header.offsetHeight;
 
-    const observer = new IntersectionObserver(
+    // Disconnect previous observer if it exists
+    if (observer) {
+      observer.disconnect();
+    }
+
+    observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (!entry.isIntersecting) {
             header.classList.add("sticky");
             spacer.style.height = `${headerHeight}px`; // Set spacer height
+            console.log("Header is sticky");
           } else {
             header.classList.remove("sticky");
             spacer.style.height = "0px"; // Reset spacer height
+            console.log("Header is not sticky");
           }
         });
       },
@@ -74,7 +86,6 @@ const { activeAnnouncement = true } = Astro.props as HeaderProps;
     observer.observe(trigger);
   }
 
-  // Run initialization on page load and after Astro navigation
   document.addEventListener("DOMContentLoaded", initializeStickyHeader);
   document.addEventListener("astro:afterUpdate", initializeStickyHeader); // Reinitialize after navigating between pages
 </script>
