@@ -11,49 +11,15 @@ interface Props {
 const { name, role, bio, imageSrc } = Astro.props;
 ---
 
-<div class="staff-card">
-  <img class="staff-avatar" src={imageSrc} alt={name} />
-  <div class="staff-info">
-    <h3 class="staff-name">{name}</h3>
-    <p class="staff-role">{role}</p>
-    <p class="staff-bio">{bio}</p>
+<div class="flex w-[500px] bg-[#FFC66D]">
+  <img
+    class="w-auto h-auto rounded-md"
+    src="https://placehold.co/300x300"
+    alt={name}
+  />
+  <div class="p-4 w-auto h-auto">
+    <h3 class="font-bold text-2xl mb-2">{name}</h3>
+    <p class="font-bold text-red-800 mb-2">{role}</p>
+    <p class="text-gray-800 text-sm">{bio}</p>
   </div>
 </div>
-
-<style>
-  .staff-card {
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s;
-  }
-
-  .staff-card:hover {
-    transform: translateY(-5px);
-  }
-
-  .staff-avatar {
-    width: 100%;
-    height: auto;
-  }
-
-  .staff-info {
-    padding: 1rem;
-  }
-
-  .staff-name {
-    font-size: 1.25rem;
-    margin-bottom: 0.5rem;
-  }
-
-  .staff-role {
-    color: #555;
-    margin-bottom: 0.5rem;
-  }
-
-  .staff-bio {
-    color: #777;
-    font-size: 0.875rem;
-  }
-</style>

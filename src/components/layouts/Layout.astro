@@ -1,4 +1,6 @@
 ---
+import Header from "../sections/Header.astro";
+
 import { ViewTransitions } from "astro:transitions";
 
 import "@/styles/globals.css";
@@ -26,6 +28,7 @@ import "@/styles/globals.css";
     <ViewTransitions fallback="animate" />
   </head>
   <body>
+    <Header transition:persist />
     <slot />
   </body>
 </html>

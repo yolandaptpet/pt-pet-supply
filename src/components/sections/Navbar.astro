@@ -42,3 +42,27 @@ const { class: navbarClass = "" } = Astro.props;
     <Links class="flex" />
   </div>
 </section>
+
+<!-- Client-side script for handling smallScreen -->
+<script>
+  const updateLinksForSmallScreen = () => {
+    const smallScreen = window.innerWidth < 1200;
+
+    const addressElement = document.querySelector(
+      'a[href^="https://www.google.com/maps"]'
+    ) as HTMLElement;
+
+    if (addressElement) {
+      if (smallScreen) {
+        // If small screen, keep the links as-is
+        addressElement.innerText = "Visit Us";
+      } else {
+        addressElement.innerText = "86 Worcester Rd, Webster";
+      }
+    }
+  };
+
+  // Listen for resize events to update dynamically
+  window.addEventListener("resize", updateLinksForSmallScreen);
+  window.addEventListener("DOMContentLoaded", updateLinksForSmallScreen); // Initial check on load
+</script>
