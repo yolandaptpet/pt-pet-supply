@@ -8,6 +8,6 @@ import { getStoreStatus } from "./StoreHours.astro";
 const storeStatus = getStoreStatus() as OpenStatusProps["storeStatus"];
 ---
 
-<div>
+<div class="z-30">
   <p class="font-bold">{storeStatus}</p>
 </div>
