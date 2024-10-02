@@ -7,7 +7,7 @@ interface StaffCardProps {
 
 const StaffCard: React.FC<StaffCardProps> = ({ name, role, bio, imageSrc }) => {
   return (
-    <div className=" p-4">
+    <div className="p-4">
       <img
         className="w-full h-auto object-cover mb-4 rounded"
         src={imageSrc}

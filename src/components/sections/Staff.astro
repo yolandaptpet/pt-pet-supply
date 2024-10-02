@@ -1,10 +1,44 @@
 ---
 import StaffCarousel from "../ui/StaffCarousel.tsx";
+
+interface StaffProps {
+  name: string;
+  role: string;
+  bio: string;
+  imageSrc: string;
+}
+
+const defaultStaffList: StaffProps[] = [
+  {
+    name: "Yolanda DeGaetano",
+    role: "Owner",
+    bio: "Lorem ipsum odor amet, consectetuer adipiscing elit. Facilisi purus sagittis eros quam dui commodo egestas ac. Hendrerit placerat donec tincidunt mollis fusce diam pharetra. Vitae tempus orci amet vitae a elit quam dictumst? Risus blandit potenti tortor consectetur pretium vivamus.",
+    imageSrc: "https://placehold.co/600x400",
+  },
+  {
+    name: "John Smith",
+    role: "Sales Manager",
+    bio: "Lorem ipsum odor amet, consectetuer adipiscing elit. Facilisi purus sagittis eros quam dui commodo egestas ac. Hendrerit placerat donec tincidunt mollis fusce diam pharetra. Vitae tempus orci amet vitae a elit quam dictumst? Risus blandit potenti tortor consectetur pretium vivamus.",
+    imageSrc: "https://placehold.co/600x400",
+  },
+  {
+    name: "Sarah Thompson",
+    role: "Lead Designer",
+    bio: "Lorem ipsum odor amet, consectetuer adipiscing elit. Facilisi purus sagittis eros quam dui commodo egestas ac. Hendrerit placerat donec tincidunt mollis fusce diam pharetra. Vitae tempus orci amet vitae a elit quam dictumst? Risus blandit potenti tortor consectetur pretium vivamus.",
+    imageSrc: "https://placehold.co/600x400",
+  },
+  {
+    name: "Mike Johnson",
+    role: "Developer",
+    bio: "Lorem ipsum odor amet, consectetuer adipiscing elit. Facilisi purus sagittis eros quam dui commodo egestas ac. Hendrerit placerat donec tincidunt mollis fusce diam pharetra. Vitae tempus orci amet vitae a elit quam dictumst? Risus blandit potenti tortor consectetur pretium vivamus.",
+    imageSrc: "https://placehold.co/600x400",
+  },
+];
 ---
 
-<section class="px-10 py-10 bg-[#7F0201] tracking-wider">
+<section class="py-10 bg-[#7F0201] tracking-wider">
   <h3 class="pb-3 font-bold text-white">Our Team</h3>
-  <div class="flex justify-center">
-    <StaffCarousel client:load />
+  <div class="flex justify-center pb-5">
+    <StaffCarousel staffList={defaultStaffList} client:idle />
   </div>
 </section>
