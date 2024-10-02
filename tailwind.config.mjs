@@ -54,5 +54,18 @@ export default {
     		}
     	}
     },
-	plugins: [require("tailwindcss-animate")],
+	plugins: [require("tailwindcss-animate"),
+		function ({ addUtilities }) {
+      const newUtilities = {
+        '.text-outline': {
+          textShadow: '1px 1px 2px black, 0 0 1em black',
+        },
+        '.text-outline-white': {
+          textShadow: '1px 1px 2px white, 0 0 1em white',
+        },
+      };
+
+      addUtilities(newUtilities, ['responsive', 'hover']);
+    },
+	], 
 }

@@ -3,8 +3,12 @@ import ContactForm from "../ui/ContactForm.jsx";
 import Map from "../ui/Map.astro";
 ---
 
-<section class="mx-10 py-10">
-  <ContactForm client:load />
+<section class="flex flex-col justify-center p-10 bg-[#FFC66D]">
+  <div class="flex justify-left">
+    <ContactForm client:load />
+  </div>
 
-  <Map />
+  <div class="flex justify-end">
+    <Map />
+  </div>
 </section>

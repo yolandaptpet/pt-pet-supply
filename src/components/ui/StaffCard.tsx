@@ -13,9 +13,9 @@ const StaffCard: React.FC<StaffCardProps> = ({ name, role, bio, imageSrc }) => {
         src={imageSrc}
         alt={`${name}'s photo`}
       />
-      <h4 className="text-xl font-bold">{name}</h4>
-      <h5 className="text-lg font-semibold text-[#2C2F33]">{role}</h5>
-      <p className="mt-2">{bio}</p>
+      <h4 className="pl-6 text-xl font-bold text-[#F2F2F2]">{name}</h4>
+      <h5 className="pl-6 text-lg font-semibold text-[#FFC66D]">{role}</h5>
+      <p className="px-6 pb-2 mt-2 text-[#D3D3D3]">{bio}</p>
     </div>
   );
 };

@@ -16,7 +16,7 @@ const defaultStaffList: StaffProps[] = [
     imageSrc: "https://placehold.co/600x400",
   },
   {
-    name: "John Smith",
+    name: "Carlos Martinez",
     role: "Sales Manager",
     bio: "Lorem ipsum odor amet, consectetuer adipiscing elit. Facilisi purus sagittis eros quam dui commodo egestas ac. Hendrerit placerat donec tincidunt mollis fusce diam pharetra. Vitae tempus orci amet vitae a elit quam dictumst? Risus blandit potenti tortor consectetur pretium vivamus.",
     imageSrc: "https://placehold.co/600x400",
@@ -28,16 +28,40 @@ const defaultStaffList: StaffProps[] = [
     imageSrc: "https://placehold.co/600x400",
   },
   {
-    name: "Mike Johnson",
+    name: "Alex Ramirez",
     role: "Developer",
+    bio: "Lorem ipsum odor amet, consectetuer adipiscing elit. Facilisi purus sagittis eros quam dui commodo egestas ac. Hendrerit placerat donec tincidunt mollis fusce diam pharetra. Vitae tempus orci amet vitae a elit quam dictumst? Risus blandit potenti tortor consectetur pretium vivamus.",
+    imageSrc: "https://placehold.co/600x400",
+  },
+  {
+    name: "Mia Jenkins",
+    role: "Customer Support",
+    bio: "Lorem ipsum odor amet, consectetuer adipiscing elit. Facilisi purus sagittis eros quam dui commodo egestas ac. Hendrerit placerat donec tincidunt mollis fusce diam pharetra. Vitae tempus orci amet vitae a elit quam dictumst? Risus blandit potenti tortor consectetur pretium vivamus.",
+    imageSrc: "https://placehold.co/600x400",
+  },
+  {
+    name: "Laura Patel",
+    role: "Marketing Specialist",
+    bio: "Lorem ipsum odor amet, consectetuer adipiscing elit. Facilisi purus sagittis eros quam dui commodo egestas ac. Hendrerit placerat donec tincidunt mollis fusce diam pharetra. Vitae tempus orci amet vitae a elit quam dictumst? Risus blandit potenti tortor consectetur pretium vivamus.",
+    imageSrc: "https://placehold.co/600x400",
+  },
+  {
+    name: "Ethan Brooks",
+    role: "Developer",
+    bio: "Lorem ipsum odor amet, consectetuer adipiscing elit. Facilisi purus sagittis eros quam dui commodo egestas ac. Hendrerit placerat donec tincidunt mollis fusce diam pharetra. Vitae tempus orci amet vitae a elit quam dictumst? Risus blandit potenti tortor consectetur pretium vivamus.",
+    imageSrc: "https://placehold.co/600x400",
+  },
+  {
+    name: "Olivia Carter",
+    role: "Graphic Designer",
     bio: "Lorem ipsum odor amet, consectetuer adipiscing elit. Facilisi purus sagittis eros quam dui commodo egestas ac. Hendrerit placerat donec tincidunt mollis fusce diam pharetra. Vitae tempus orci amet vitae a elit quam dictumst? Risus blandit potenti tortor consectetur pretium vivamus.",
     imageSrc: "https://placehold.co/600x400",
   },
 ];
 ---
 
-<section class="py-10 bg-[#7F0201] tracking-wider">
-  <h3 class="pb-3 font-bold text-white">Our Team</h3>
+<section id="staff" class="py-10 bg-[#D3D3D3] tracking-wider">
+  <h3 class="px-10 pb-3 font-bold">Meet Our Team</h3>
   <div class="flex justify-center pb-5">
     <StaffCarousel staffList={defaultStaffList} client:idle />
   </div>

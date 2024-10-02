@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { ArrowBigLeft, ArrowBigRight } from "lucide-react";
 import StaffCard from "./StaffCard";
 
@@ -27,7 +27,7 @@ const StaffCarousel = ({ staffList }: { staffList: StaffListProps[] }) => {
   return (
     <div className="relative max-w-4xl mx-auto">
       <ArrowBigLeft
-        className="absolute top-1/2 transform -translate-y-1/2 left-4 cursor-pointer z-10"
+        className="absolute top-1/2 transform -translate-y-1/2 left-4 cursor-pointer z-10 -ml-20"
         onClick={previousStaffMember}
       />
 
@@ -39,13 +39,13 @@ const StaffCarousel = ({ staffList }: { staffList: StaffListProps[] }) => {
           {staffList.map((staff, index) => (
             <div
               key={index}
-              className={`flex-shrink-0 w-[80%] mx-4 ${index === staffMember ? "scale-100" : "scale-90 opacity-50 -z-10"}`}
+              className={`flex-shrink-0 w-[70%] mx-4 ${index === staffMember ? "scale-100" : "scale-90 opacity-50"}`}
               style={{
-                transform: `translateX(${staffMember * 20}%)`,
+                transform: `translateX(${staffMember * 25}%)`,
                 transition: "transform 0.9s",
               }}
             >
-              <div className="min-h-[400px] flex items-center justify-center bg-[#FFC66D] rounded-3xl">
+              <div className="min-h-[400px] flex items-center justify-center bg-[#7F0201] rounded-3xl drop-shadow-xl">
                 <StaffCard {...staff} />
               </div>
             </div>
@@ -54,7 +54,7 @@ const StaffCarousel = ({ staffList }: { staffList: StaffListProps[] }) => {
       </div>
 
       <ArrowBigRight
-        className="absolute top-1/2 transform -translate-y-1/2 right-4 cursor-pointer z-10"
+        className="absolute top-1/2 transform -translate-y-1/2 right-4 cursor-pointer z-10 -mr-24"
         onClick={nextStaffMember}
       />
     </div>
