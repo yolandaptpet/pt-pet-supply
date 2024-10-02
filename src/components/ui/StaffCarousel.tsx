@@ -39,9 +39,11 @@ const StaffCarousel = ({ staffList }: { staffList: StaffListProps[] }) => {
           {staffList.map((staff, index) => (
             <div
               key={index}
-              className={`flex-shrink-0 w-[70%] mx-4 ${index === staffMember ? "scale-100" : "scale-90 opacity-50"}`}
+              className={`flex-shrink-0 w-[70%] mx-2.5 ${
+                index === staffMember ? "scale-100" : "scale-90 opacity-50"
+              } ${index === 0 ? "ml-24" : ""}`}  // Add padding-left for first child
               style={{
-                transform: `translateX(${staffMember * 25}%)`,
+                transform: `translateX(${staffMember * 40}%)`,
                 transition: "transform 0.9s",
               }}
             >
