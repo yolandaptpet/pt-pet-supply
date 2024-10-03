@@ -27,7 +27,16 @@ const StaffCarousel = ({ staffList }: { staffList: StaffListProps[] }) => {
   return (
     <div className="relative max-w-4xl mx-auto">
       <ArrowBigLeft
-        className="absolute top-1/2 transform -translate-y-1/2 left-4 cursor-pointer z-10 -ml-36"
+        className="absolute h-full w-[15%] px-8 top-1/2 transform -translate-y-1/2 left-4 cursor- z-10 -ml-48 text-white text-outline-white rounded-3xl"
+        style={{ backdropFilter: 'blur(35px)' }}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.width = "18%"; // Increase width%
+          e.currentTarget.style.transition = "all 0.2s ease-in-out";
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.width = "15%"; // Reset width to original
+          e.currentTarget.style.transition = "all 0.2s ease-in-out";
+        }}
         onClick={previousStaffMember}
       />
 
@@ -47,7 +56,8 @@ const StaffCarousel = ({ staffList }: { staffList: StaffListProps[] }) => {
                 transition: "transform 0.9s",
               }}
             >
-              <div className="min-h-[400px] flex items-center justify-center bg-[#7F0201] rounded-3xl drop-shadow-xl">
+              <div className="min-h-[400px] flex items-center justify-center rounded-3xl drop-shadow-xl"
+              style={{ backdropFilter: 'blur(35px)' }}>
                 <StaffCard {...staff} />
               </div>
             </div>
@@ -56,7 +66,16 @@ const StaffCarousel = ({ staffList }: { staffList: StaffListProps[] }) => {
       </div>
 
       <ArrowBigRight
-        className="absolute top-1/2 transform -translate-y-1/2 right-4 cursor-pointer z-10 -mr-36"
+        className="absolute h-full w-[15%] px-8 top-1/2 transform -translate-y-1/2 right-4 cursor-pointer z-10 -mr-48 text-white text-outline-white rounded-3xl"
+        style={{ backdropFilter: 'blur(35px)' }}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.width = "18%"; // Increase width%
+          e.currentTarget.style.transition = "all 0.2s ease-in-out";
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.width = "15%"; // Reset width to original
+          e.currentTarget.style.transition = "all 0.2s ease-in-out";
+        }}
         onClick={nextStaffMember}
       />
     </div>

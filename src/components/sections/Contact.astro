@@ -25,9 +25,9 @@ function convertTo12Hour(time24: string) {
 }
 ---
 
-<section class="flex flex-1 justify-center p-32 bg-[#FFC66D]">
+<section class="flex flex-1 justify-center p-32 bg-[#FFC66D] min-h-[750px]">
   <div class="flex-1 text-center my-auto">
-    <h3 class="font-bold text-2xl pb-3 tracking-widest">Store Hours</h3>
+    <h3 class="font-bold text-3xl pb-3 tracking-widest">Store Hours</h3>
     {
       Object.entries(storeHours).map(([day, hours]) => (
         <div class="flex text-xl justify-center">
@@ -36,10 +36,10 @@ function convertTo12Hour(time24: string) {
       ))
     }
 
-    <h3 class="font-bold text-2xl pt-10 tracking-widest">
+    <h3 class="font-bold text-3xl pt-10 tracking-widest">
       Have Any Questions?
     </h3>
-    <div class="flex flex-1 text-2xl pt-4 justify-center">
+    <div class="flex flex-1 text-3xl pt-8 justify-center">
       <ContactForm client:load />
     </div>
   </div>

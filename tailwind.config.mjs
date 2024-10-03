@@ -5,6 +5,9 @@ export default {
     './node_modules/@astrojs/**/*.js'],
 	theme: {
     	extend: {
+				backgroundImage: {
+					'grain': "url('data:image/svg+xml,%253Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'200'%20height%3D'200'%253E%253Cfilter%20id%3D'noise'%253E%253CfeTurbulence%20type%3D'fractalNoise'%20baseFrequency%3D'0.65'%20numOctaves%3D'3'%20stitchTiles%3D'stitch'%2F%253E%253C%2Ffilter%253E%253Crect%20width%3D'100%2525'%20height%3D'100%2525'%20filter%3D'url(%2523noise)'%2F%253E%253C%2Fsvg%253E')"
+				},
     		borderRadius: {
     			lg: 'var(--radius)',
     			md: 'calc(var(--radius) - 2px)',

@@ -45,12 +45,10 @@ const { activeAnnouncement = true } = Astro.props as HeaderProps;
         entries.forEach((entry) => {
           if (!entry.isIntersecting) {
             header.classList.add("sticky");
-            spacer.style.height = `${headerHeight}px - 10px`; // Set spacer height
-            console.log("Header is sticky");
+            spacer.style.height = `${headerHeight}`; // Set spacer height
           } else {
             header.classList.remove("sticky");
             spacer.style.height = "0px"; // Reset spacer height
-            console.log("Header is not sticky");
           }
         });
       },

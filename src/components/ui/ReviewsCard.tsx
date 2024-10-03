@@ -66,8 +66,8 @@ const ReviewsCard: React.FC<ReviewsCardProps> = ({ businessId }) => {
     fetchReviews();
   }, [businessId]);
 
-  if (loading) return <p>Loading reviews...</p>;
-  if (error) return <p>{error}</p>;
+  if (loading) return;
+  if (error) return <p className='my-auto px-5'>{error}</p>;
 
   return (
     <div className="max-w-md mx-auto bg-white shadow-md rounded-lg overflow-hidden">

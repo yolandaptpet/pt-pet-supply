@@ -2,10 +2,13 @@
 import ReviewsCard from "../ui/ReviewsCard.jsx";
 
 const businessId = "YOUR_BUSINESS_ID";
+const numberOfReviews = 3; // Set the number of reviews dynamically
 ---
 
-<div class="flex justify-center pt-10">
-  <ReviewsCard businessId={businessId} client:load />
-  <ReviewsCard businessId={businessId} client:load />
-  <ReviewsCard businessId={businessId} client:load />
+<div class="flex justify-center pt-10 min-h-[300px]">
+  {
+    [...Array(numberOfReviews)].map((_, index) => (
+      <ReviewsCard businessId={businessId} client:load />
+    ))
+  }
 </div>
