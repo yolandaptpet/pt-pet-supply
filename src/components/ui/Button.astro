@@ -3,18 +3,25 @@ interface ButtonProps {
   text: string;
   href?: string;
   type?: "button" | "submit" | "reset";
-  className?: string;
+  class?: string;
 }
 
-const { text, href, type = "button", className = "" } = Astro.props as ButtonProps;
+const {
+  text,
+  href,
+  type = "button",
+  class: className = "",
+} = Astro.props as ButtonProps;
 ---
 
-{href ? (
-  <a href={href} class={`button ${className}`}>
-    {text}
-  </a>
-) : (
-  <button type={type} class={`button ${className}`}>
-    {text}
-  </button>
-)}
+{
+  href ? (
+    <a href={href} class={`button ${className}`}>
+      {text}
+    </a>
+  ) : (
+    <button type={type} class={`button ${className}`}>
+      {text}
+    </button>
+  )
+}

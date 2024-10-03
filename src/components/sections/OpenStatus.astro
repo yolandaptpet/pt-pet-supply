@@ -4,6 +4,7 @@ interface OpenStatusProps {
 }
 
 import { getStoreHours } from "../../constants/StoreInfo.astro";
+import Button from "../ui/Button.astro";
 
 export const getStoreStatus = () => {
   let storeHours = getStoreHours();
@@ -73,8 +74,10 @@ export const getStoreStatus = () => {
 const storeStatus = getStoreStatus() as OpenStatusProps["storeStatus"];
 ---
 
-<div class="z-30">
-  <p class="font-bold text-xl text-[#FFC66D] text-outline -mt-3">
-    {storeStatus}
-  </p>
+<div class="z-10">
+  <Button
+    text={storeStatus}
+    href="/"
+    class="flex justify-center font-bold text-xl text-[#FFC66D] text-outline tracking-wide -mt-3"
+  />
 </div>

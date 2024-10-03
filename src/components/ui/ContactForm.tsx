@@ -122,7 +122,7 @@ const ContactForm = () => {
 
   return (
     <>
-      <button className="pb-3 font-bold" onClick={toggleModal}>Message Us</button>
+      <button className="font-bold tracking-wider" onClick={toggleModal}>Message Us</button>
       {isOpen && (
         <div className="modal">
           <form onSubmit={handleSubmit}>

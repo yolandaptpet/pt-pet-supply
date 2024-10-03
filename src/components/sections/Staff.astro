@@ -12,7 +12,11 @@ const defaultStaffList = getStaffList();
     alt="Wood paneling background"
     class="absolute z-[-2] inset-0 w-full h-full object-cover"
   />
-  <h3 class="px-10 pb-3 font-bold">Meet Our Team</h3>
+  <h3
+    class="px-10 pb-5 font-bold text-3xl tracking-widest text-white text-outline-white flex justify-center"
+  >
+    Meet Our Team
+  </h3>
   <div class="flex justify-center pb-5">
     <StaffCarousel staffList={defaultStaffList} client:idle />
   </div>
