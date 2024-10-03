@@ -27,7 +27,7 @@ const StaffCarousel = ({ staffList }: { staffList: StaffListProps[] }) => {
   return (
     <div className="relative max-w-4xl mx-auto">
       <ArrowBigLeft
-        className="absolute h-full w-[15%] px-8 top-1/2 transform -translate-y-1/2 left-4 cursor- z-10 -ml-48 text-white text-outline-white rounded-3xl"
+        className="absolute h-[50%] w-[15%] px-8 top-1/2 transform -translate-y-1/2 left-4 cursor- z-10 -ml-48 bg-[#7F0201] bg-opacity-60 text-white text-outline-white rounded-3xl"
         style={{ backdropFilter: 'blur(35px)' }}
         onMouseEnter={(e) => {
           e.currentTarget.style.width = "18%"; // Increase width%
@@ -66,7 +66,7 @@ const StaffCarousel = ({ staffList }: { staffList: StaffListProps[] }) => {
       </div>
 
       <ArrowBigRight
-        className="absolute h-full w-[15%] px-8 top-1/2 transform -translate-y-1/2 right-4 cursor-pointer z-10 -mr-48 text-white text-outline-white rounded-3xl"
+        className="absolute h-[50%] w-[15%] px-8 top-1/2 transform -translate-y-1/2 right-4 cursor-pointer z-10 -mr-48 bg-[#7F0201] bg-opacity-60 text-white text-outline-white rounded-3xl"
         style={{ backdropFilter: 'blur(35px)' }}
         onMouseEnter={(e) => {
           e.currentTarget.style.width = "18%"; // Increase width%
