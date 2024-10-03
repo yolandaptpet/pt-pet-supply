@@ -1,66 +1,17 @@
 ---
 import StaffCarousel from "../ui/StaffCarousel.tsx";
 
-interface StaffProps {
-  name: string;
-  role: string;
-  bio: string;
-  imageSrc: string;
-}
+import { getStaffList } from "../../constants/StoreInfo.astro";
 
-const defaultStaffList: StaffProps[] = [
-  {
-    name: "Yolanda DeGaetano",
-    role: "Owner",
-    bio: "Lorem ipsum odor amet, consectetuer adipiscing elit. Facilisi purus sagittis eros quam dui commodo egestas ac. Hendrerit placerat donec tincidunt mollis fusce diam pharetra. Vitae tempus orci amet vitae a elit quam dictumst? Risus blandit potenti tortor consectetur pretium vivamus.",
-    imageSrc: "https://placehold.co/600x400",
-  },
-  {
-    name: "Carlos Martinez",
-    role: "Sales Manager",
-    bio: "Lorem ipsum odor amet, consectetuer adipiscing elit. Facilisi purus sagittis eros quam dui commodo egestas ac. Hendrerit placerat donec tincidunt mollis fusce diam pharetra. Vitae tempus orci amet vitae a elit quam dictumst? Risus blandit potenti tortor consectetur pretium vivamus.",
-    imageSrc: "https://placehold.co/600x400",
-  },
-  {
-    name: "Sarah Thompson",
-    role: "Lead Designer",
-    bio: "Lorem ipsum odor amet, consectetuer adipiscing elit. Facilisi purus sagittis eros quam dui commodo egestas ac. Hendrerit placerat donec tincidunt mollis fusce diam pharetra. Vitae tempus orci amet vitae a elit quam dictumst? Risus blandit potenti tortor consectetur pretium vivamus.",
-    imageSrc: "https://placehold.co/600x400",
-  },
-  {
-    name: "Alex Ramirez",
-    role: "Developer",
-    bio: "Lorem ipsum odor amet, consectetuer adipiscing elit. Facilisi purus sagittis eros quam dui commodo egestas ac. Hendrerit placerat donec tincidunt mollis fusce diam pharetra. Vitae tempus orci amet vitae a elit quam dictumst? Risus blandit potenti tortor consectetur pretium vivamus.",
-    imageSrc: "https://placehold.co/600x400",
-  },
-  {
-    name: "Mia Jenkins",
-    role: "Customer Support",
-    bio: "Lorem ipsum odor amet, consectetuer adipiscing elit. Facilisi purus sagittis eros quam dui commodo egestas ac. Hendrerit placerat donec tincidunt mollis fusce diam pharetra. Vitae tempus orci amet vitae a elit quam dictumst? Risus blandit potenti tortor consectetur pretium vivamus.",
-    imageSrc: "https://placehold.co/600x400",
-  },
-  {
-    name: "Laura Patel",
-    role: "Marketing Specialist",
-    bio: "Lorem ipsum odor amet, consectetuer adipiscing elit. Facilisi purus sagittis eros quam dui commodo egestas ac. Hendrerit placerat donec tincidunt mollis fusce diam pharetra. Vitae tempus orci amet vitae a elit quam dictumst? Risus blandit potenti tortor consectetur pretium vivamus.",
-    imageSrc: "https://placehold.co/600x400",
-  },
-  {
-    name: "Ethan Brooks",
-    role: "Developer",
-    bio: "Lorem ipsum odor amet, consectetuer adipiscing elit. Facilisi purus sagittis eros quam dui commodo egestas ac. Hendrerit placerat donec tincidunt mollis fusce diam pharetra. Vitae tempus orci amet vitae a elit quam dictumst? Risus blandit potenti tortor consectetur pretium vivamus.",
-    imageSrc: "https://placehold.co/600x400",
-  },
-  {
-    name: "Olivia Carter",
-    role: "Graphic Designer",
-    bio: "Lorem ipsum odor amet, consectetuer adipiscing elit. Facilisi purus sagittis eros quam dui commodo egestas ac. Hendrerit placerat donec tincidunt mollis fusce diam pharetra. Vitae tempus orci amet vitae a elit quam dictumst? Risus blandit potenti tortor consectetur pretium vivamus.",
-    imageSrc: "https://placehold.co/600x400",
-  },
-];
+const defaultStaffList = getStaffList();
 ---
 
-<section id="staff" class="py-10 bg-[#D3D3D3] tracking-wider">
+<section id="staff" class="relative py-10 tracking-wider">
+  <img
+    src="src/assets/panel.png"
+    alt="Wood paneling background"
+    class="absolute z-[-2] inset-0 w-full h-full object-cover"
+  />
   <h3 class="px-10 pb-3 font-bold">Meet Our Team</h3>
   <div class="flex justify-center pb-5">
     <StaffCarousel staffList={defaultStaffList} client:idle />

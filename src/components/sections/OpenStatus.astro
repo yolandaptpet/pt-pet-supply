@@ -3,7 +3,72 @@ interface OpenStatusProps {
   storeStatus: string;
 }
 
-import { getStoreStatus } from "./StoreHours.astro";
+import { getStoreHours } from "../../constants/StoreInfo.astro";
+
+export const getStoreStatus = () => {
+  let storeHours = getStoreHours();
+
+  const now = new Date();
+
+  // Get current day in Eastern Time
+  const currentDay = now.toLocaleString("en-US", {
+    timeZone: "America/New_York",
+    weekday: "long",
+  });
+
+  // Get current time in Eastern Time
+  const currentTime = now.toLocaleString("en-US", {
+    timeZone: "America/New_York",
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false,
+  });
+
+  const [currentHour, currentMinute] = currentTime.split(":").map(Number);
+  const todayHours = storeHours[currentDay];
+
+  // Check if the store is open
+  if (todayHours) {
+    const [openHour, openMinute] = todayHours.open.split(":").map(Number);
+    const [closeHour, closeMinute] = todayHours.close.split(":").map(Number);
+
+    // Convert open and close times to minutes for comparison
+    const currentTimeInMinutes = currentHour * 60 + currentMinute;
+    const openTimeInMinutes = openHour * 60 + openMinute;
+    const closeTimeInMinutes = closeHour * 60 + closeMinute;
+
+    if (
+      currentTimeInMinutes >= openTimeInMinutes &&
+      currentTimeInMinutes < closeTimeInMinutes
+    ) {
+      // Store is currently open
+      const closeTimeFormatted = `${closeHour % 12 || 12}PM`;
+      return `Open until ${closeTimeFormatted}`;
+    } else {
+      // Store is closed, find the next opening time
+      let nextOpenDay = currentDay;
+      let nextOpenTime = null;
+
+      // Find the next open time
+      while (!nextOpenTime) {
+        const nextDayIndex =
+          (Object.keys(storeHours).indexOf(nextOpenDay) + 1) % 7;
+        nextOpenDay = Object.keys(storeHours)[nextDayIndex];
+
+        const nextDayHours = storeHours[nextOpenDay];
+        if (nextDayHours) {
+          nextOpenTime = nextDayHours.open;
+        }
+      }
+
+      const [nextOpenHour] = nextOpenTime.split(":").map(Number);
+      const nextOpenTimeFormatted = `${nextOpenHour % 12 || 12}AM`;
+      return `Closed until ${nextOpenTimeFormatted}`;
+    }
+  }
+
+  return null;
+};
 
 const storeStatus = getStoreStatus() as OpenStatusProps["storeStatus"];
 ---

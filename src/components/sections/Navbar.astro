@@ -1,20 +1,19 @@
 ---
 import OpenStatus from "./OpenStatus.astro";
 import Links from "./Links.astro";
+import { getStoreInfo } from "../../constants/StoreInfo.astro";
 
 import MobileDetect from "mobile-detect";
 
-const phoneNumber = "508-943-9600";
-const address = "86 Worcester Rd, Webster";
+const phoneNumber = getStoreInfo().phoneNumber;
+const address = getStoreInfo().address;
 
 const userAgent = Astro.request.headers.get("user-agent") ?? "";
 const md = new MobileDetect(userAgent);
 const isMobile = md.mobile();
-
-const { class: navbarClass = "" } = Astro.props;
 ---
 
-<section class={`flex w-full mx-auto px-16 pb-5 ${navbarClass} bg-[#FFC66D]`}>
+<section class={`flex w-full mx-auto px-16 pt-10 pb-5 bg-[#FFC66D]`}>
   <div class="flex-1 flex flex-nowrap h-full">
     <div transition:persist class="flex items-center">
       <img src="src/assets/phone.svg" alt="phone" class="pr-2" />

@@ -6,7 +6,7 @@ interface HeaderProps {
 import Announcements from "./Announcements.astro";
 import Navbar from "./Navbar.astro";
 
-const { activeAnnouncement = false } = Astro.props as HeaderProps;
+const { activeAnnouncement = true } = Astro.props as HeaderProps;
 ---
 
 <!-- A small invisible trigger element above the header to control sticky behavior -->
@@ -14,37 +14,11 @@ const { activeAnnouncement = false } = Astro.props as HeaderProps;
 
 <header id="header">
   <Announcements id="announcements" isVisible={activeAnnouncement} />
-  <Navbar id="navbar" class={activeAnnouncement ? "pt-8" : "pt-10"} />
+  <Navbar id="navbar" />
 </header>
 
 <!-- Spacer to preserve space when header becomes sticky -->
 <div id="spacer"></div>
-
-<style>
-  header {
-    width: 100%;
-    transition: top 0.8s ease;
-  }
-
-  .sticky {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 1000;
-    background-color: #ffc66d;
-  }
-
-  #spacer {
-    height: 0;
-    transition: top 0.8s ease;
-  }
-
-  .sticky + #navbar {
-    padding-top: 60px;
-    transition: top 0.8s ease;
-  }
-</style>
 
 <script>
   let observer: IntersectionObserver;
@@ -89,3 +63,29 @@ const { activeAnnouncement = false } = Astro.props as HeaderProps;
   document.addEventListener("DOMContentLoaded", initializeStickyHeader);
   document.addEventListener("astro:afterUpdate", initializeStickyHeader); // Reinitialize after navigating between pages
 </script>
+
+<style>
+  header {
+    width: 100%;
+    transition: top 0.8s ease;
+  }
+
+  .sticky {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    background-color: #ffc66d;
+  }
+
+  #spacer {
+    height: 0;
+    transition: top 0.8s ease;
+  }
+
+  .sticky + #navbar {
+    padding-top: 60px;
+    transition: top 0.8s ease;
+  }
+</style>

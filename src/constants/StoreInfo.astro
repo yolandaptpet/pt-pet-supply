@@ -1,0 +1,97 @@
+---
+interface StoreInfo {
+  name: string;
+  address: string;
+  phoneNumber: string;
+}
+
+interface StoreHours {
+  [key: string]: { open: string; close: string };
+}
+
+interface StaffProps {
+  name: string;
+  role: string;
+  bio: string;
+  imageSrc: string;
+}
+
+export const getStoreInfo = () => {
+  let storeInfo: StoreInfo = {
+    name: "PT Pet Supply",
+    address: "86 Worcester Rd, Webster",
+    phoneNumber: "508-943-9600",
+  };
+
+  return storeInfo;
+};
+
+export const getStoreHours = () => {
+  let storeHours: StoreHours = {
+    Monday: { open: "09:00", close: "18:00" },
+    Tuesday: { open: "09:00", close: "18:00" },
+    Wednesday: { open: "09:00", close: "18:00" },
+    Thursday: { open: "09:00", close: "18:00" },
+    Friday: { open: "09:00", close: "18:00" },
+    Saturday: { open: "10:00", close: "16:00" },
+    Sunday: { open: "10:00", close: "14:00" },
+  };
+
+  return storeHours;
+};
+
+export const getStaffList = () => {
+  let staffList: StaffProps[] = [
+    {
+      name: "Yolanda DeGaetano",
+      role: "Owner",
+      bio: "Lorem ipsum odor amet, consectetuer adipiscing elit. Facilisi purus sagittis eros quam dui commodo egestas ac. Hendrerit placerat donec tincidunt mollis fusce diam pharetra. Vitae tempus orci amet vitae a elit quam dictumst? Risus blandit potenti tortor consectetur pretium vivamus.",
+      imageSrc: "https://placehold.co/600x400",
+    },
+    {
+      name: "Carlos Martinez",
+      role: "Sales Manager",
+      bio: "Lorem ipsum odor amet, consectetuer adipiscing elit. Facilisi purus sagittis eros quam dui commodo egestas ac. Hendrerit placerat donec tincidunt mollis fusce diam pharetra. Vitae tempus orci amet vitae a elit quam dictumst? Risus blandit potenti tortor consectetur pretium vivamus.",
+      imageSrc: "https://placehold.co/600x400",
+    },
+    {
+      name: "Sarah Thompson",
+      role: "Lead Designer",
+      bio: "Lorem ipsum odor amet, consectetuer adipiscing elit. Facilisi purus sagittis eros quam dui commodo egestas ac. Hendrerit placerat donec tincidunt mollis fusce diam pharetra. Vitae tempus orci amet vitae a elit quam dictumst? Risus blandit potenti tortor consectetur pretium vivamus.",
+      imageSrc: "https://placehold.co/600x400",
+    },
+    {
+      name: "Alex Ramirez",
+      role: "Developer",
+      bio: "Lorem ipsum odor amet, consectetuer adipiscing elit. Facilisi purus sagittis eros quam dui commodo egestas ac. Hendrerit placerat donec tincidunt mollis fusce diam pharetra. Vitae tempus orci amet vitae a elit quam dictumst? Risus blandit potenti tortor consectetur pretium vivamus.",
+      imageSrc: "https://placehold.co/600x400",
+    },
+    {
+      name: "Mia Jenkins",
+      role: "Customer Support",
+      bio: "Lorem ipsum odor amet, consectetuer adipiscing elit. Facilisi purus sagittis eros quam dui commodo egestas ac. Hendrerit placerat donec tincidunt mollis fusce diam pharetra. Vitae tempus orci amet vitae a elit quam dictumst? Risus blandit potenti tortor consectetur pretium vivamus.",
+      imageSrc: "https://placehold.co/600x400",
+    },
+    {
+      name: "Laura Patel",
+      role: "Marketing Specialist",
+      bio: "Lorem ipsum odor amet, consectetuer adipiscing elit. Facilisi purus sagittis eros quam dui commodo egestas ac. Hendrerit placerat donec tincidunt mollis fusce diam pharetra. Vitae tempus orci amet vitae a elit quam dictumst? Risus blandit potenti tortor consectetur pretium vivamus.",
+      imageSrc: "https://placehold.co/600x400",
+    },
+    {
+      name: "Ethan Brooks",
+      role: "Developer",
+      bio: "Lorem ipsum odor amet, consectetuer adipiscing elit. Facilisi purus sagittis eros quam dui commodo egestas ac. Hendrerit placerat donec tincidunt mollis fusce diam pharetra. Vitae tempus orci amet vitae a elit quam dictumst? Risus blandit potenti tortor consectetur pretium vivamus.",
+      imageSrc: "https://placehold.co/600x400",
+    },
+    {
+      name: "Olivia Carter",
+      role: "Graphic Designer",
+      bio: "Lorem ipsum odor amet, consectetuer adipiscing elit. Facilisi purus sagittis eros quam dui commodo egestas ac. Hendrerit placerat donec tincidunt mollis fusce diam pharetra. Vitae tempus orci amet vitae a elit quam dictumst? Risus blandit potenti tortor consectetur pretium vivamus.",
+      imageSrc: "https://placehold.co/600x400",
+    },
+  ];
+
+  return staffList;
+};
+---

@@ -27,7 +27,7 @@ const StaffCarousel = ({ staffList }: { staffList: StaffListProps[] }) => {
   return (
     <div className="relative max-w-4xl mx-auto">
       <ArrowBigLeft
-        className="absolute top-1/2 transform -translate-y-1/2 left-4 cursor-pointer z-10 -ml-20"
+        className="absolute top-1/2 transform -translate-y-1/2 left-4 cursor-pointer z-10 -ml-36"
         onClick={previousStaffMember}
       />
 
@@ -40,8 +40,8 @@ const StaffCarousel = ({ staffList }: { staffList: StaffListProps[] }) => {
             <div
               key={index}
               className={`flex-shrink-0 w-[70%] mx-2.5 ${
-                index === staffMember ? "scale-100" : "scale-90 opacity-50"
-              } ${index === 0 ? "ml-24" : ""}`}  // Add padding-left for first child
+                index === staffMember ? "scale-100" : "scale-90"
+              } ${index === 0 ? "ml-28" : ""}`}
               style={{
                 transform: `translateX(${staffMember * 40}%)`,
                 transition: "transform 0.9s",
@@ -56,7 +56,7 @@ const StaffCarousel = ({ staffList }: { staffList: StaffListProps[] }) => {
       </div>
 
       <ArrowBigRight
-        className="absolute top-1/2 transform -translate-y-1/2 right-4 cursor-pointer z-10 -mr-24"
+        className="absolute top-1/2 transform -translate-y-1/2 right-4 cursor-pointer z-10 -mr-36"
         onClick={nextStaffMember}
       />
     </div>

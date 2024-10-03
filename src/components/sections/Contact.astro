@@ -1,14 +1,29 @@
 ---
 import ContactForm from "../ui/ContactForm.jsx";
+import { getStoreHours } from "../../constants/StoreInfo.astro";
+
 import Map from "../ui/Map.astro";
+
+const storeHours = getStoreHours();
 ---
 
-<section class="flex flex-col justify-center p-10 bg-[#FFC66D]">
-  <div class="flex justify-left">
+<section class="flex flex-1 justify-center p-10 bg-[#FFC66D]">
+  <div class="flex flex-1 justify-center">
     <ContactForm client:load />
   </div>
 
-  <div class="flex justify-end">
+  <div class="flex-1 text-center">
+    <h3 class="font-bold">Store Hours</h3>
+    {
+      Object.entries(storeHours).map(([day, hours]) => (
+        <div class="flex justify-center">
+          {day}: {hours.open} to {hours.close}
+        </div>
+      ))
+    }
+  </div>
+
+  <div class="flex flex-1 justify-center">
     <Map />
   </div>
 </section>
