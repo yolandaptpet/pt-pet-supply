@@ -5,6 +5,10 @@ import { getStoreInfo } from "../../constants/StoreInfo.astro";
 
 import MobileDetect from "mobile-detect";
 
+import phone from "../../assets/phone.png";
+import mapPin from "../../assets/map-pin.png";
+import openSignBackground from "../../assets/openclose.png";
+
 const phoneNumber = getStoreInfo().phoneNumber;
 const address = getStoreInfo().address;
 
@@ -18,10 +22,12 @@ const isMobile = md.mobile();
 >
   <div class="flex-1 flex flex-nowrap font-bold h-full">
     <div transition:persist class="flex items-center">
-      <img src="src/assets/phone.png" alt="phone" class="pr-2 max-h-[34px]" />
+      <img src={phone.src} alt="phone" class="pr-2 max-h-[34px]" />
       {
         isMobile ? (
-          <a href={`tel:${phoneNumber}`}>{phoneNumber}</a>
+          <a href={`tel:${phoneNumber}`} class="text-xl tracking-wide">
+            {phoneNumber}
+          </a>
         ) : (
           phoneNumber
         )
@@ -29,17 +35,17 @@ const isMobile = md.mobile();
     </div>
 
     <div transition:persist class="flex items-center ml-4">
-      <img src="src/assets/map-pin.svg" alt="location" class="pr-2" />
+      <img src={mapPin.src} alt="GPS Pin" class="pr-2 max-h-[34px]" />
       <a
         href="https://www.google.com/maps/place/P+T+Pet+Supply/@42.0714526,-71.8662691,17z/data=!3m1!4b1!4m6!3m5!1s0x89e41ed7234c136d:0xe30644b400274c0!8m2!3d42.0714526!4d-71.8662691!16s%2Fg%2F1tt1tq6m?entry=ttu&g_ep=EgoyMDI0MDkxNi4wIKXMDSoASAFQAw%3D%3D"
-        >{address}</a
+        class="text-xl tracking-wide">{address}</a
       >
     </div>
   </div>
 
   <div class="relative flex flex-1 justify-center">
     <img
-      src="src/assets/openclose.png"
+      src={openSignBackground.src}
       alt="Open/Close Sign Background"
       style="width: 195px; height: auto;"
       class="absolute -mt-8"

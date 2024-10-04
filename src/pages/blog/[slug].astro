@@ -1,0 +1,27 @@
+---
+import BlogLayout from "@/components/layouts/BlogLayout.astro";
+import { getEntry } from "astro:content";
+import type { CollectionEntry } from "astro:content"; // Import the type
+
+const { slug } = Astro.params;
+
+// Use the defined schema to ensure type safety
+const post: CollectionEntry<"blog"> | undefined = await getEntry(
+  "blog",
+  slug as string
+);
+
+// Utility function to format the date to MM-DD-YYYY without leading zero
+const formatDate = (date: Date) => {
+  const month = date.getMonth() + 1; // Months are 0-indexed
+  const day = date.getDate();
+  const year = date.getFullYear();
+  return `${month}-${day}-${year}`;
+};
+---
+
+<BlogLayout id={post?.slug}>
+  <h1>{post?.data.title}</h1>
+  <time>{post ? formatDate(post.data.publishDate) : "Date not available"}</time>
+  <article>{post?.body}</article>
+</BlogLayout>

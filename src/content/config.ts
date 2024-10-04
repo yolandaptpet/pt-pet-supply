@@ -1,15 +1,17 @@
-import { z, defineCollection } from 'astro:content';
+// src/content/config.ts
+import { defineCollection, z } from "astro:content";
 
-// Define the blog collection schema
-const blogCollection = defineCollection({
-  schema: z.object({
-    title: z.string(),
-    description: z.string(),
-    publishDate: z.date(),
-    tags: z.array(z.string()).optional(),
-  }),
+// Define the schema for a blog post
+const blogPostSchema = z.object({
+  title: z.string(),
+  description: z.string(),
+  publishDate: z.date(),
+  tags: z.array(z.string()).optional(),
 });
 
+// Define the collection for blog posts
 export const collections = {
-  blog: blogCollection,
+  blog: defineCollection({
+    schema: blogPostSchema, // Use the schema defined above
+  }),
 };

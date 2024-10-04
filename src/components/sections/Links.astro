@@ -10,14 +10,14 @@ import Button from "../ui/Button.astro";
 const currentPage = Astro.url.pathname as LinksProps["currentPage"];
 ---
 
-<div class="flex space-x-4">
+<div class="flex text-xl font-bold space-x-4">
   {
     currentPage == "/grooming" && (
       <Button
         transition:animate="slide"
         text="Home"
         href="/"
-        class="pl-6"
+        class="pl-4"
         data-astro-prefetch
       />
     )
@@ -26,13 +26,13 @@ const currentPage = Astro.url.pathname as LinksProps["currentPage"];
     transition:animate="slide"
     text="Products"
     href="/#products"
-    class="pl-6"
+    class="pl-4"
   />
   <Button
     transition:animate="slide"
     text="Our Pack"
     href="/#staff"
-    class="pl-6"
+    class="pl-4"
   />
   <Button transition:animate="slide" text="Blog" href="/#blog" class="pl-6" />
   {
@@ -41,7 +41,7 @@ const currentPage = Astro.url.pathname as LinksProps["currentPage"];
         transition:animate="slide"
         text="Pet Grooming"
         href="/grooming"
-        class="pl-6"
+        class="pl-4"
         data-astro-prefetch
       />
     )

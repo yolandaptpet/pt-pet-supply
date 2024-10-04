@@ -1,20 +1,27 @@
 ---
 import BlogLayout from "@/components/layouts/BlogLayout.astro";
-
 import { getCollection } from "astro:content";
 import type { CollectionEntry } from "astro:content";
 
 // Use the defined schema in content/config.ts to ensure type safety
 const posts: CollectionEntry<"blog">[] = await getCollection("blog");
+
+// Utility function to format the date to MM-DD-YYYY without leading zero
+const formatDate = (date: Date) => {
+  const month = date.getMonth() + 1; // Months are 0-indexed
+  const day = date.getDate();
+  const year = date.getFullYear();
+  return `${month}-${day}-${year}`;
+};
 ---
 
 <BlogLayout id="blog-home">
   <ul>
     {
       posts.map((post) => (
-        <li key={post.slug}>
+        <li>
           <a href={`/blog/${post.slug}/`}>{post.data.title}</a> -{" "}
-          <time>{post.data.publishDate}</time>
+          <time>{formatDate(post.data.publishDate)}</time>
         </li>
       ))
     }
