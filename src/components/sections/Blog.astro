@@ -1,17 +1,38 @@
 ---
+import BlogPostCard from "../ui/BlogPostCard.astro";
+import { getCollection } from "astro:content";
+import type { CollectionEntry } from "astro:content";
 
+// Fetch all blog posts and ensure type safety
+const posts: CollectionEntry<"blog">[] = await getCollection("blog");
+
+// Sort posts by publish date (most recent first)
+const sortedPosts = posts.sort((a, b) => {
+  return (
+    new Date(b.data.publishDate).getTime() -
+    new Date(a.data.publishDate).getTime()
+  );
+});
+
+// Use a Set to ensure uniqueness by slug
+const uniquePosts = Array.from(new Set(sortedPosts.map((post) => post.slug)))
+  .map((slug) => sortedPosts.find((post) => post.slug === slug))
+  .filter((post): post is CollectionEntry<"blog"> => post !== undefined); // Filter undefined values
+
+// Take the first 3 unique posts (adjust the number as needed)
+const recentPosts = uniquePosts.slice(0, 3);
 ---
 
-<section id="blog" class="mx-10 pt-24 min-h-[700px]">
+<section id="blog" class="mx-10 py-24">
   <h3 class="mx-24 pb-3 font-bold text-3xl tracking-widest">
     Recent Blog Posts
   </h3>
 
-  <div>
-    <!-- <BlogCard /> -->
+  <div class="flex justify-center py-10 min-h-[250px]">
+    {recentPosts.map((post) => <BlogPostCard post={post} key={post.slug} />)}
   </div>
 
   <div class="flex flex-1 justify-center font-bold text-2xl tracking-wider">
-    <a href="/blog/">View More</a>
+    <a href="/blog/">View More Posts</a>
   </div>
 </section>

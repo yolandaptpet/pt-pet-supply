@@ -1,7 +1,7 @@
 ---
-title: "PT Pet Supply - Test Blog Post"
+title: "Test Blog Post 2"
 description: "This is the description of the post."
-publishDate: 2024-10-01
+publishDate: 2024-10-03
 tags: ["business", "pet supplies"]
 ---
 
