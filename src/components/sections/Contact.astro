@@ -1,7 +1,6 @@
 ---
 import ContactForm from "../ui/ContactForm.jsx";
 import { getStoreHours } from "../../constants/StoreInfo.astro";
-
 import Map from "../ui/Map.astro";
 
 const storeHours = getStoreHours();
@@ -40,7 +39,12 @@ function convertTo12Hour(time24: string) {
       Have Any Questions?
     </h3>
     <div class="flex flex-1 text-3xl pt-8 justify-center">
-      <ContactForm client:load />
+      <button
+        id="openModal"
+        class="bg-[#7F0201] hover:bg-[#A52A2A] text-white font-bold py-2 px-4 rounded-xl"
+      >
+        Contact Us
+      </button>
     </div>
   </div>
 
@@ -48,3 +52,64 @@ function convertTo12Hour(time24: string) {
     <Map />
   </div>
 </section>
+
+<!-- Modal -->
+<div
+  id="contactModal"
+  class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full opacity-0 pointer-events-none transition-opacity duration-300 ease-in-out"
+>
+  <div
+    class="relative top-48 mx-auto p-5 h-[80%] w-[80%] shadow-lg rounded-xl bg-[#FFC66D] transform scale-95 transition-transform duration-300 ease-in-out"
+  >
+    <div class="relative mt-3 text-center">
+      <h3 class="pb-6 text-3xl leading-6 font-bold tracking-wider">
+        Message Us
+      </h3>
+      <div class="mt-2 px-7 py-3">
+        <ContactForm client:load />
+      </div>
+      <div class="absolute top-2 left-2 items-center px-4 py-4">
+        <button
+          id="closeModal"
+          class="w-12 h-12 bg-[#7F0201] text-white text-xl font-bold tracking-wider rounded-xl shadow-sm hover:bg-[#A52A2A] focus:outline-none focus:ring-2 focus:ring-gray-300"
+        >
+          <img
+            src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIxLjI1IiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWFycm93LWJpZy1sZWZ0Ij48cGF0aCBkPSJNMTggMTVoLTZ2NGwtNy03IDctN3Y0aDZ2NnoiLz48L3N2Zz4="
+            alt="back arrow"
+            class="m-auto"
+          />
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener("astro:page-load", () => {
+    const openModalBtn = document.getElementById("openModal");
+    const closeModalBtn = document.getElementById("closeModal");
+    const modal = document.getElementById("contactModal");
+    const modalContent = modal?.querySelector("div");
+
+    function openModal() {
+      modal?.classList.remove("opacity-0", "pointer-events-none");
+      modalContent?.classList.remove("scale-95");
+      modalContent?.classList.add("scale-100");
+    }
+
+    function closeModal() {
+      modal?.classList.add("opacity-0", "pointer-events-none");
+      modalContent?.classList.remove("scale-100");
+      modalContent?.classList.add("scale-95");
+    }
+
+    openModalBtn?.addEventListener("click", openModal);
+    closeModalBtn?.addEventListener("click", closeModal);
+
+    modal?.addEventListener("click", (e) => {
+      if (e.target === modal) {
+        closeModal();
+      }
+    });
+  });
+</script>
