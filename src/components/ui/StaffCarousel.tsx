@@ -56,7 +56,7 @@ const StaffCarousel = ({ staffList }: { staffList: StaffListProps[] }) => {
                 transition: "transform 0.9s",
               }}
             >
-              <div className="min-h-[400px] flex items-center justify-center rounded-3xl drop-shadow-xl"
+              <div className="min-h-[400px] flex items-center justify-center rounded-3xl drop-shadow-xl bg-[#7F0201] bg-opacity-50"
               style={{ backdropFilter: 'blur(35px)' }}>
                 <StaffCard {...staff} />
               </div>

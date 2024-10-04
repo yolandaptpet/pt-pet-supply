@@ -13,10 +13,12 @@ const md = new MobileDetect(userAgent);
 const isMobile = md.mobile();
 ---
 
-<section class={`flex w-full mx-auto px-16 pt-10 pb-5 bg-[#FFC66D]`}>
-  <div class="flex-1 flex flex-nowrap h-full">
+<section
+  class={`flex w-full min-h-[35px] mx-auto px-16 pt-10 pb-5 bg-[#FFC66D]`}
+>
+  <div class="flex-1 flex flex-nowrap font-bold h-full">
     <div transition:persist class="flex items-center">
-      <img src="src/assets/phone.svg" alt="phone" class="pr-2" />
+      <img src="src/assets/phone.png" alt="phone" class="pr-2 max-h-[34px]" />
       {
         isMobile ? (
           <a href={`tel:${phoneNumber}`}>{phoneNumber}</a>

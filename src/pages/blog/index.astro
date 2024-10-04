@@ -1,0 +1,22 @@
+---
+import BlogLayout from "@/components/layouts/BlogLayout.astro";
+
+import { getCollection } from "astro:content";
+import type { CollectionEntry } from "astro:content";
+
+// Use the defined schema in content/config.ts to ensure type safety
+const posts: CollectionEntry<"blog">[] = await getCollection("blog");
+---
+
+<BlogLayout id="blog-home">
+  <ul>
+    {
+      posts.map((post) => (
+        <li key={post.slug}>
+          <a href={`/blog/${post.slug}/`}>{post.data.title}</a> -{" "}
+          <time>{post.data.publishDate}</time>
+        </li>
+      ))
+    }
+  </ul>
+</BlogLayout>

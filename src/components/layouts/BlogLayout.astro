@@ -1,0 +1,62 @@
+---
+import Header from "../sections/Header.astro";
+
+import { ViewTransitions } from "astro:transitions";
+
+import "@/styles/globals.css";
+import Footer from "../sections/Footer.astro";
+
+const { title, publishDate, description } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <title>{title}</title>
+    <link
+      rel="preload"
+      href="/fonts/CenzoFlare-Regular.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
+    />
+    <ViewTransitions fallback="animate" />
+  </head>
+  <body>
+    <Header transition:persist />
+    <article>
+      <header>
+        <h1>{title}</h1>
+        <time>{publishDate}</time>
+      </header>
+      <main>
+        <article class="prose">
+          <slot />
+        </article>
+      </main>
+    </article>
+    <Footer />
+  </body>
+</html>
+
+<style>
+  html,
+  body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  body {
+    font-family: "Cenzo Flare", sans-serif;
+  }
+</style>
