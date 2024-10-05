@@ -9,7 +9,7 @@ const currentPage = Astro.url.pathname as LinksProps["currentPage"];
 ---
 
 <!-- Main container with Alpine.js logic -->
-<div x-data="{ open: false }" class="relative">
+<div x-data="{ open: false }" class="relative overflow-x-hidden">
   <div class="hidden xl:flex font-bold lg:text-xl lg:space-x-4">
     {
       currentPage == "/grooming" && (
@@ -81,7 +81,7 @@ const currentPage = Astro.url.pathname as LinksProps["currentPage"];
     x-transition:leave="transition ease-in duration-300"
     x-transition:leave-start="translate-x-0"
     x-transition:leave-end="translate-x-full"
-    class="fixed top-0 right-0 w-64 h-full bg-white shadow-lg transform z-50"
+    class="fixed top-0 right-0 w-3/4 max-w-full h-full bg-white shadow-lg transform z-50 xl:w-64 overflow-hidden"
   >
     <div class="p-4">
       <!-- Close button -->
@@ -152,7 +152,7 @@ const currentPage = Astro.url.pathname as LinksProps["currentPage"];
     x-show="open"
     x-transition.opacity
     @click="open = false"
-    class="fixed inset-0 bg-black opacity-50 z-40 hidden"
+    class="fixed inset-0 bg-black opacity-50 z-40"
   >
   </div>
 </div>
