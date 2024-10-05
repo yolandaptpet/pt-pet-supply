@@ -14,4 +14,8 @@ export default defineConfig({
       applyBaseStyles: false,
     }),
   ],
+  server: {
+    host: true,
+    port: 4321
+  }
 });

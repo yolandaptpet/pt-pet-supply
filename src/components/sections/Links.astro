@@ -1,6 +1,4 @@
 ---
-// Links.astro
-
 interface LinksProps {
   currentPage: string;
 }
@@ -10,40 +8,151 @@ import Button from "../ui/Button.astro";
 const currentPage = Astro.url.pathname as LinksProps["currentPage"];
 ---
 
-<div class="flex text-xl font-bold space-x-4">
-  {
-    currentPage == "/grooming" && (
-      <Button
-        transition:animate="slide"
-        text="Home"
-        href="/"
-        class="pl-4"
-        data-astro-prefetch
-      />
-    )
-  }
-  <Button
-    transition:animate="slide"
-    text="Products"
-    href="/#products"
-    class="pl-4"
-  />
-  <Button
-    transition:animate="slide"
-    text="Our Pack"
-    href="/#staff"
-    class="pl-4"
-  />
-  <Button transition:animate="slide" text="Blog" href="/#blog" class="pl-6" />
-  {
-    currentPage !== "/grooming" && (
-      <Button
-        transition:animate="slide"
-        text="Pet Grooming"
-        href="/grooming"
-        class="pl-4"
-        data-astro-prefetch
-      />
-    )
-  }
+<div class="flex items-center justify-between">
+  <!-- Regular buttons, visible in larger screens -->
+  <div class="hidden lg:flex font-bold lg:text-xl lg:space-x-4">
+    {
+      currentPage == "/grooming" && (
+        <Button
+          transition:animate="slide"
+          text="Home"
+          href="/"
+          class="pl-4"
+          data-astro-prefetch
+        />
+      )
+    }
+    <Button
+      transition:animate="slide"
+      text="Products"
+      href="/#products"
+      class="pl-4"
+    />
+    <Button
+      transition:animate="slide"
+      text="Our Pack"
+      href="/#staff"
+      class="pl-4"
+    />
+    <Button transition:animate="slide" text="Blog" href="/#blog" class="pl-6" />
+    {
+      currentPage !== "/grooming" && (
+        <Button
+          transition:animate="slide"
+          text="Pet Grooming"
+          href="/grooming"
+          class="pl-4"
+          data-astro-prefetch
+        />
+      )
+    }
+  </div>
+
+  <!-- Hamburger Icon for mobile screens -->
+  <div class="lg:hidden">
+    <button @click="open = true" class="p-2 sm:p-4">
+      <!-- Icon could be an SVG or lucide-react icon -->
+      <svg
+        class="w-6 h-6"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M4 6h16M4 12h16M4 18h16"></path>
+      </svg>
+    </button>
+  </div>
 </div>
+
+<!-- Sidebar controlled by Alpine.js -->
+<div x-data="{ open: false }">
+  <div
+    x-show="open"
+    x-transition:enter="transition ease-out duration-300"
+    x-transition:enter-start="translate-x-full"
+    x-transition:enter-end="translate-x-0"
+    x-transition:leave="transition ease-in duration-300"
+    x-transition:leave-start="translate-x-0"
+    x-transition:leave-end="translate-x-full"
+    class="fixed top-0 right-0 w-64 h-full bg-white shadow-lg transform z-50"
+  >
+    <div class="p-4">
+      <!-- Close button -->
+      <button @click="open = false" class="p-2">
+        <svg
+          class="w-6 h-6"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      </button>
+
+      <!-- Sidebar Buttons -->
+      <div class="mt-6 flex flex-col space-y-4">
+        {
+          currentPage == "/grooming" && (
+            <Button
+              transition:animate="slide"
+              text="Home"
+              href="/"
+              class="pl-4"
+              data-astro-prefetch
+            />
+          )
+        }
+        <Button
+          transition:animate="slide"
+          text="Products"
+          href="/#products"
+          class="pl-4"
+        />
+        <Button
+          transition:animate="slide"
+          text="Our Pack"
+          href="/#staff"
+          class="pl-4"
+        />
+        <Button
+          transition:animate="slide"
+          text="Blog"
+          href="/#blog"
+          class="pl-6"
+        />
+        {
+          currentPage !== "/grooming" && (
+            <Button
+              transition:animate="slide"
+              text="Pet Grooming"
+              href="/grooming"
+              class="pl-4"
+              data-astro-prefetch
+            />
+          )
+        }
+      </div>
+    </div>
+  </div>
+
+  <!-- Backdrop for mobile -->
+  <div
+    x-show="open"
+    x-transition.opacity
+    @click="open = false"
+    class="fixed inset-0 bg-black opacity-50 z-40"
+  >
+  </div>
+</div>
+
+<script src="//unpkg.com/alpinejs" defer></script>

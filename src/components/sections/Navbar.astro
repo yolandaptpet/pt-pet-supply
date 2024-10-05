@@ -18,14 +18,20 @@ const isMobile = md.mobile();
 ---
 
 <section
-  class={`flex w-full min-h-[35px] mx-auto px-16 pt-10 pb-5 bg-[#FFC66D]`}
+  class={`flex w-full min-h-[35px] mx-auto px-4 lg:px-16 pt-3 lg:pt-10 pb-2 lg:pb-5 bg-[#FFC66D]`}
 >
-  <div class="flex-1 flex flex-nowrap font-bold h-full">
+  <div
+    class="flex-1 pl-1 md:pl-0 space-y-2 md:space-y-0 md:flex md:flex-nowrap font-bold text-sm md:text-lg"
+  >
     <div transition:persist class="flex items-center">
-      <img src={phone.src} alt="phone" class="pr-2 max-h-[34px]" />
+      <img
+        src={phone.src}
+        alt="phone"
+        class="pr-2 h-[16px] sm:h-[20px] md:h-[26px] lg:h-[34px]"
+      />
       {
         isMobile ? (
-          <a href={`tel:${phoneNumber}`} class="text-xl tracking-wide">
+          <a href={`tel:${phoneNumber}`} class="lg:tracking-wide">
             {phoneNumber}
           </a>
         ) : (
@@ -34,11 +40,15 @@ const isMobile = md.mobile();
       }
     </div>
 
-    <div transition:persist class="flex items-center ml-4">
-      <img src={mapPin.src} alt="GPS Pin" class="pr-2 max-h-[34px]" />
+    <div transition:persist class="flex items-center md:ml-4">
+      <img
+        src={mapPin.src}
+        alt="GPS Pin"
+        class="pr-2 h-[16px] sm:h-[20px] md:h-[26px] lg:h-[34px]"
+      />
       <a
         href="https://www.google.com/maps/place/P+T+Pet+Supply/@42.0714526,-71.8662691,17z/data=!3m1!4b1!4m6!3m5!1s0x89e41ed7234c136d:0xe30644b400274c0!8m2!3d42.0714526!4d-71.8662691!16s%2Fg%2F1tt1tq6m?entry=ttu&g_ep=EgoyMDI0MDkxNi4wIKXMDSoASAFQAw%3D%3D"
-        class="text-xl tracking-wide">{address}</a
+        class="lg:text-xl lg:tracking-wide">{address}</a
       >
     </div>
   </div>
@@ -48,7 +58,7 @@ const isMobile = md.mobile();
       src={openSignBackground.src}
       alt="Open/Close Sign Background"
       style="width: 195px; height: auto;"
-      class="absolute -mt-8"
+      class="absolute -mt-0 min-[450px]:-mt-1 min-[580px]:-mt-2 min-[605px]:-mt-2.5 sm:-mt-2 lg:-mt-8"
     />
     <OpenStatus transition:persist class="absolute" />
   </div>
@@ -61,19 +71,16 @@ const isMobile = md.mobile();
 <!-- Client-side script for handling smallScreen -->
 <script>
   const updateLinksForSmallScreen = () => {
-    const smallScreen = window.innerWidth < 1200;
-
+    const smallScreen = window.innerWidth < 1200; // Move the smallScreen check inside the function
     const addressElement = document.querySelector(
       'a[href^="https://www.google.com/maps"]'
     ) as HTMLElement;
 
     if (addressElement) {
-      if (smallScreen) {
-        // If small screen, keep the links as-is
-        addressElement.innerText = "Visit Us";
-      } else {
-        addressElement.innerText = "86 Worcester Rd, Webster";
-      }
+      // Update addressElement text based on screen size
+      addressElement.innerText = smallScreen
+        ? "Visit Us"
+        : "86 Worcester Rd, Webster";
     }
   };
 
