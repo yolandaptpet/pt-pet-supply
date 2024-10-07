@@ -5,7 +5,7 @@ import type { CollectionEntry } from "astro:content";
 const { post }: { post?: CollectionEntry<"blog"> } = Astro.props;
 ---
 
-<section>
+<section class="my-auto">
   <div>
     <a href={`/blog/${post?.slug}/`}>{post?.data.title}</a> -{" "}
   </div>

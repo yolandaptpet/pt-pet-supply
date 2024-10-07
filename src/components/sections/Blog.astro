@@ -2,6 +2,7 @@
 import BlogPostCard from "../ui/BlogPostCard.astro";
 import { getCollection } from "astro:content";
 import type { CollectionEntry } from "astro:content";
+import Button from "../ui/Button.astro";
 
 // Fetch all blog posts and ensure type safety
 const posts: CollectionEntry<"blog">[] = await getCollection("blog");
@@ -23,16 +24,26 @@ const uniquePosts = Array.from(new Set(sortedPosts.map((post) => post.slug)))
 const recentPosts = uniquePosts.slice(0, 3);
 ---
 
-<section id="blog" class="mx-10 py-24">
-  <h3 class="mx-24 pb-3 font-bold text-3xl tracking-widest">
+<section id="blog" class="mx-10 py-16 lg:py-24">
+  <h3 class="lg:mx-24 pb-3 font-bold text-2xl lg:text-3xl tracking-widest">
     Recent Blog Posts
   </h3>
 
-  <div class="flex justify-center py-10 min-h-[250px]">
+  <div
+    class="flex-row lg:flex lg:mx-24 justify-center py-10 min-h-[250px]space-y-6"
+  >
     {recentPosts.map((post) => <BlogPostCard post={post} key={post.slug} />)}
   </div>
 
-  <div class="flex flex-1 justify-center font-bold text-2xl tracking-wider">
-    <a href="/blog/">View More Posts</a>
+  <div
+    class="flex flex-1 justify-center font-bold text-xl lg:text-2xl tracking-wider"
+  >
+    <Button
+      transition:animate="slide"
+      text="View More Posts"
+      href="/blog"
+      class="bg-[#7F0201] hover:bg-[#A52A2A] text-white font-bold py-2 px-4 rounded-xl"
+      data-astro-prefetch
+    />
   </div>
 </section>

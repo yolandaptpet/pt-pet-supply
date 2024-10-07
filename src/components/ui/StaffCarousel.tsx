@@ -91,14 +91,14 @@ const StaffCarousel = ({ staffList }: { staffList: StaffListProps[] }) => {
               key={index}
               className={`flex-shrink-0 w-[70%] mx-2.5 ${
                 index === staffMember ? "scale-100" : "scale-90"
-              } ${index === 0 ? "ml-56 lg:ml-28" : ""}`}
+              } ${index === 0 ? "ml-56 md:ml-28" : ""}`}
               style={{
                 transform: `translateX(${staffMember * 40}%)`,
                 transition: "transform 0.9s",
               }}
             >
               <div
-                className="w-[65%] lg:w-full min-h-[400px] flex items-center justify-center rounded-3xl drop-shadow-xl bg-[#7F0201] bg-opacity-50"
+                className="w-[65%] md:w-full min-h-[400px] flex items-center justify-center rounded-3xl drop-shadow-xl bg-[#7F0201] bg-opacity-50"
                 style={{ backdropFilter: "blur(35px)" }}
               >
                 <StaffCard {...staff} />

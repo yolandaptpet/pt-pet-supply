@@ -24,7 +24,9 @@ function convertTo12Hour(time24: string) {
 }
 ---
 
-<section class="flex flex-1 justify-center p-32 bg-[#FFC66D] min-h-[750px]">
+<section
+  class="flex-row-reverse md:flex md:flex-1 justify-center pt-20 lg:p-32 bg-[#FFC66D] min-h-[750px]"
+>
   <div class="flex-1 text-center my-auto">
     <h3 class="font-bold text-3xl pb-3 tracking-widest">Store Hours</h3>
     {
@@ -38,7 +40,7 @@ function convertTo12Hour(time24: string) {
     <h3 class="font-bold text-3xl pt-10 tracking-widest">
       Have Any Questions?
     </h3>
-    <div class="flex flex-1 text-3xl pt-8 justify-center">
+    <div class="flex flex-1 text-3xl pt-4 md:pt-8 pb-10 md-pb-0 justify-center">
       <button
         id="openModal"
         class="bg-[#7F0201] hover:bg-[#A52A2A] text-white font-bold py-2 px-4 rounded-xl"
@@ -48,7 +50,7 @@ function convertTo12Hour(time24: string) {
     </div>
   </div>
 
-  <div class="flex flex-1 justify-center">
+  <div class="flex flex-1 justify-center my-auto">
     <Map />
   </div>
 </section>

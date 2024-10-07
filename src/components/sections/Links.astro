@@ -17,7 +17,7 @@ const currentPage = Astro.url.pathname as LinksProps["currentPage"];
           transition:animate="slide"
           text="Home"
           href="/"
-          class="xl:pl-1 2xl:pl-4"
+          class="xl:pl-1 2xl:pl-3"
           data-astro-prefetch
         />
       )
@@ -26,19 +26,19 @@ const currentPage = Astro.url.pathname as LinksProps["currentPage"];
       transition:animate="slide"
       text="Products"
       href="/#products"
-      class="xl:pl-1 2xl:pl-4"
+      class="xl:pl-1 2xl:pl-3"
     />
     <Button
       transition:animate="slide"
       text="Our Pack"
       href="/#staff"
-      class="xl:pl-1 2xl:pl-4"
+      class="xl:pl-1 2xl:pl-3"
     />
     <Button
       transition:animate="slide"
       text="Blog"
       href="/#blog"
-      class="xl:pl-1 2xl:pl-4"
+      class="xl:pl-1 2xl:pl-3"
     />
     {
       currentPage !== "/grooming" && (
@@ -46,7 +46,7 @@ const currentPage = Astro.url.pathname as LinksProps["currentPage"];
           transition:animate="slide"
           text="Pet Grooming"
           href="/grooming"
-          class="xl:pl-1 2xl:pl-4"
+          class="xl:pl-1 2xl:pl-3"
           data-astro-prefetch
         />
       )
@@ -57,7 +57,7 @@ const currentPage = Astro.url.pathname as LinksProps["currentPage"];
   <div class="xl:hidden">
     <button @click="open = true" class="p-2 sm:p-4">
       <svg
-        class="w-6 h-6"
+        class="w-8 h-8"
         fill="none"
         stroke="currentColor"
         viewBox="0 0 24 24"
