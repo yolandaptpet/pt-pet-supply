@@ -11,10 +11,11 @@ interface StaffListProps {
 }
 
 const StaffCarousel = ({ staffList }: { staffList: StaffListProps[] }) => {
-  const [staffMember, setStaffMember] = useState(0);
-  const [isMobile, setIsMobile] = useState(false);
+  const [staffMember, setStaffMember] = useState<number>(0);
+  const [isMobile, setIsMobile] = useState<boolean>(false);
   const [touchStart, setTouchStart] = useState<number>(0);
   const [touchEnd, setTouchEnd] = useState<number>(0);
+  const [isPaused, setIsPaused] = useState<boolean>(false);
 
   useEffect(() => {
     const userAgent = window.navigator.userAgent;
@@ -59,10 +60,40 @@ const StaffCarousel = ({ staffList }: { staffList: StaffListProps[] }) => {
     }
   };
 
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      if (!isPaused) {
+        nextStaffMember();
+      }
+    }, 10000); // Advance every 10 seconds
+
+    return () => clearInterval(intervalId); // Clean up on unmount
+  }, [isPaused]); // Restart interval if paused state changes
+
+  const handleMouseEnter = () => {
+    setIsPaused(true);
+    setTimeout(() => setIsPaused(false), 30000); // Resume after 30 seconds
+  };
+
+  const handleMouseLeave = () => {
+    setIsPaused(false);
+  };
+
+  // Pause when an index button is clicked
+  const handleIndexButtonClick = (index: number) => {
+    setIsPaused(true);
+    goToStaffMember(index);
+    setTimeout(() => setIsPaused(false), 20000); // Resume after 20 seconds
+  };
+
   return (
-    <div className="relative max-w-4xl mx-auto" 
-         onTouchStart={handleTouchStart} 
-         onTouchEnd={handleTouchEnd}>
+    <div
+      className="relative max-w-4xl mx-auto"
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
       {/* Left Arrow */}
       {!isMobile && (
         <ArrowBigLeft
@@ -133,7 +164,7 @@ const StaffCarousel = ({ staffList }: { staffList: StaffListProps[] }) => {
             className={`w-3 h-3 rounded-full ${
               index === staffMember ? "bg-[#7F0201]" : "bg-gray-400"
             }`}
-            onClick={() => goToStaffMember(index)}
+            onClick={() => handleIndexButtonClick(index)} // Updated to use the new handler
             aria-label={`Go to staff member ${index + 1}`}
           />
         ))}

@@ -33,8 +33,8 @@ const ContactForm = () => {
     message: "",
   });
   const [errors, setErrors] = useState<Partial<Record<keyof FormData, string[]>>>({});
-  const [isOpen, setIsOpen] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false); // to track form submission status
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false); // to track form submission status
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
   // UseEffect to load initial data from localStorage and sync changes

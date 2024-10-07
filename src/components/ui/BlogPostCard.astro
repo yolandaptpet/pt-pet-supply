@@ -1,15 +1,23 @@
 ---
+import { markdownToTxt } from "markdown-to-txt";
 import type { CollectionEntry } from "astro:content";
 
 // Receive the post prop
 const { post }: { post?: CollectionEntry<"blog"> } = Astro.props;
+
+const plainTextBody = post ? markdownToTxt(post.body) : "";
+const plainTextTitle = post ? markdownToTxt(post.data.title) : "";
+
+const limitedPlainTextBody =
+  plainTextBody.split(" ").slice(0, 50).join(" ") +
+  (plainTextBody.split(" ").length > 50 ? "..." : "");
 ---
 
 <section class="my-auto">
   <div>
-    <a href={`/blog/${post?.slug}/`}>{post?.data.title}</a> -{" "}
+    <a href={`/blog/${post?.slug}/`}>{plainTextTitle}</a> -{" "}
   </div>
   <p>
-    {post?.body}
+    {limitedPlainTextBody}
   </p>
 </section>
