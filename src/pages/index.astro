@@ -2,8 +2,9 @@
 import Layout from "../components/layouts/Layout.astro";
 
 import Hero from "../components/sections/Hero.astro";
-import Testimonials from "../components/sections/Testimonials.astro";
 import About from "../components/sections/About.astro";
+import Testimonials from "../components/sections/Testimonials.astro";
+import Buffer from "../components/ui/Buffer.astro";
 import Products from "../components/sections/Products.astro";
 import Blog from "../components/sections/Blog.astro";
 import Staff from "../components/sections/Staff.astro";
@@ -14,6 +15,7 @@ import Contact from "../components/sections/Contact.astro";
   <Hero />
   <About />
   <Testimonials />
+  <Buffer />
   <Products />
   <Staff />
   <Blog />
@@ -21,6 +23,11 @@ import Contact from "../components/sections/Contact.astro";
 </Layout>
 
 <style>
+  html {
+    max-width: 2136px;
+    margin-left: auto;
+    margin-right: auto;
+  }
   html {
     scroll-behavior: smooth;
   }

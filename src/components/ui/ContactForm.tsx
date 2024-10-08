@@ -19,19 +19,14 @@ interface FormData {
   message: string;
 }
 
-/**
- * A reusable contact form component that handles user input, validation, and submission via EmailJS.
- *
- * @return {JSX.Element} The rendered contact form component
- */
-const ContactForm = () => {
-  // Initialize state for form fields
+const ContactForm: React.FC = () => {
   const [formData, setFormData] = useState<FormData>({
     name: "",
     email: "",
     subject: "",
     message: "",
   });
+
   const [errors, setErrors] = useState<Partial<Record<keyof FormData, string[]>>>({});
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false); // to track form submission status

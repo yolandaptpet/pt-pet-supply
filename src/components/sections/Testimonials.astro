@@ -7,7 +7,7 @@ const numberOfReviews = 3; // Set the number of reviews dynamically
 
 <div class="flex justify-center pt-10 min-h-[300px]">
   {
-    [...Array(numberOfReviews)].map((_, index) => (
+    [...Array(numberOfReviews)].map((_) => (
       <ReviewsCard businessId={businessId} client:load />
     ))
   }

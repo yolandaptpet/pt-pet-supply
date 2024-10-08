@@ -5,7 +5,7 @@ import Map from "../ui/Map.astro";
 
 const storeHours = getStoreHours();
 
-function convertTo12Hour(time24: string) {
+const convertTo12Hour = (time24: string) => {
   const [hours] = time24.split(":");
   let period = "AM";
   let hours12 = parseInt(hours, 10);
@@ -21,7 +21,7 @@ function convertTo12Hour(time24: string) {
   }
 
   return `${hours12}${period}`;
-}
+};
 ---
 
 <section
@@ -93,17 +93,17 @@ function convertTo12Hour(time24: string) {
     const modal = document.getElementById("contactModal");
     const modalContent = modal?.querySelector("div");
 
-    function openModal() {
+    const openModal = () => {
       modal?.classList.remove("opacity-0", "pointer-events-none");
       modalContent?.classList.remove("scale-95");
       modalContent?.classList.add("scale-100");
-    }
+    };
 
-    function closeModal() {
+    const closeModal = () => {
       modal?.classList.add("opacity-0", "pointer-events-none");
       modalContent?.classList.remove("scale-100");
       modalContent?.classList.add("scale-95");
-    }
+    };
 
     openModalBtn?.addEventListener("click", openModal);
     closeModalBtn?.addEventListener("click", closeModal);
