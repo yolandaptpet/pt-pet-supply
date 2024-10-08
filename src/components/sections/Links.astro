@@ -160,3 +160,9 @@ const currentPage = Astro.url.pathname as LinksProps["currentPage"];
 </div>
 
 <script is:inline src="//unpkg.com/alpinejs" defer></script>
+
+<style>
+  a[href^="#"] {
+    scroll-margin-top: 80px;
+  }
+</style>

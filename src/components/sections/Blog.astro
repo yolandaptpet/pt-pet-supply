@@ -29,9 +29,7 @@ const recentPosts = uniquePosts.slice(0, 3);
     Recent Blog Posts
   </h3>
 
-  <div
-    class="flex-row lg:flex lg:mx-24 justify-center py-10 min-h-[250px]space-y-6"
-  >
+  <div class="flex-row xl:flex lxl:mx-24 justify-center py-6 space-y-4">
     {recentPosts.map((post) => <BlogPostCard post={post} key={post.slug} />)}
   </div>
 
