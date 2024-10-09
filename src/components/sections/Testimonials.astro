@@ -5,7 +5,9 @@ const businessId = "YOUR_BUSINESS_ID";
 const numberOfReviews = 3; // Set the number of reviews dynamically
 ---
 
-<div class="flex justify-center pt-10 min-h-[300px]">
+<div
+  class="flex flex-col xl:flex-row xl:mx-24 justify-center items-center py-10 min-h-[300px]"
+>
   {
     [...Array(numberOfReviews)].map((_) => (
       <ReviewsCard businessId={businessId} client:load />

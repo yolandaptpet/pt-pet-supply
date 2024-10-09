@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
 // Define the structure of a single review
@@ -66,30 +66,46 @@ const ReviewsCard: React.FC<ReviewsCardProps> = ({ businessId }) => {
     fetchReviews();
   }, [businessId]);
 
-  if (loading) return;
-  if (error) return <p className='my-auto px-5'>{error}</p>;
+  if (loading) return <p className="my-auto px-5">Loading...</p>;
+  if (error) return <p className="my-auto px-5">{error}</p>;
 
   return (
-    <div className="max-w-md mx-auto bg-white shadow-md rounded-lg overflow-hidden">
-      <h2 className="text-xl font-bold text-center p-4">Customer Reviews</h2>
-      <div className="p-4">
-        {reviews.length === 0 ? (
-          <p>No reviews available.</p>
-        ) : (
-          reviews.map((review) => (
-            <div key={review.id} className="mb-4 border-b pb-4">
-              <div className="flex items-center">
-                <span className="font-semibold">
-                  {review.author.split(' ')[0]} {review.author.split(' ')[1]?.[0].toUpperCase()}.
-                </span>
-                <span className="ml-2 text-yellow-500">{'★'.repeat(review.rating)}</span>
-              </div>
-              <p className="text-gray-700">{review.text}</p>
+    <section className="flex my-auto ml-4 px-2 drop-shadow-2xl">
+      <div
+        className="relative w-[350px] h-[200px] flex pt-8 rounded-3xl bg-[#FFC66D] bg-opacity-50"
+        style={{ backdropFilter: "blur(35px)" }}
+      >
+        <div className="absolute top-5 -left-8">
+          <img
+            src="https://placehold.co/350x350/png"
+            alt="Blog tag photo"
+            className="w-[110px] h-auto rounded-2xl"
+          />
+        </div>
+        <div className="ml-20 px-2">
+          <div className="max-w-md mx-auto bg-white shadow-md rounded-lg overflow-hidden">
+            <h2 className="text-xl font-bold text-center p-4">Customer Reviews</h2>
+            <div className="p-4">
+              {reviews.length === 0 ? (
+                <p>No reviews available.</p>
+              ) : (
+                reviews.map((review) => (
+                  <div key={review.id} className="mb-4 border-b pb-4">
+                    <div className="flex items-center">
+                      <span className="font-semibold">
+                        {review.author.split(' ')[0]} {review.author.split(' ')[1]?.[0].toUpperCase()}.
+                      </span>
+                      <span className="ml-2 text-yellow-500">{'★'.repeat(review.rating)}</span>
+                    </div>
+                    <p className="text-gray-700">{review.text}</p>
+                  </div>
+                ))
+              )}
             </div>
-          ))
-        )}
+          </div>
+        </div>
       </div>
-    </div>
+    </section>
   );
 };
 
