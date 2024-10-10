@@ -16,14 +16,30 @@ const formatDate = (date: Date) => {
 ---
 
 <BlogLayout id="blog-home">
+  <div class="flex pt-3 pl-4">
+    <button
+      id="go-back"
+      class="bg-[#7F0201] hover:bg-[#A52A2A] text-white font-bold py-2 px-4 rounded-xl"
+      >Go Back</button
+    >
+  </div>
+
   <ul>
     {
       posts.map((post) => (
-        <li>
+        <div class="">
           <a href={`/blog/${post.slug}/`}>{post.data.title}</a> -{" "}
           <time>{formatDate(post.data.publishDate)}</time>
-        </li>
+          <p>{post.data.tags}</p>
+          <p>{post.data.description}</p>
+        </div>
       ))
     }
   </ul>
 </BlogLayout>
+
+<script>
+  document.getElementById("go-back")?.addEventListener("click", () => {
+    history.back();
+  });
+</script>

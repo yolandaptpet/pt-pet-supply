@@ -1,4 +1,11 @@
 ---
+interface BlogLayoutProps {
+  title: string;
+  description: string;
+  publishDate: string;
+  tags: string[];
+}
+
 import Header from "../sections/Header.astro";
 
 import { ViewTransitions } from "astro:transitions";
@@ -6,7 +13,8 @@ import { ViewTransitions } from "astro:transitions";
 import "@/styles/globals.css";
 import Footer from "../sections/Footer.astro";
 
-const { title, publishDate, description } = Astro.props;
+const { title, description, publishDate, tags } =
+  Astro.props as BlogLayoutProps;
 ---
 
 <!doctype html>
@@ -38,6 +46,7 @@ const { title, publishDate, description } = Astro.props;
       <header>
         <h1>{title}</h1>
         <time>{publishDate}</time>
+        {tags?.map((tag) => <span class="tag">{tag}</span>)}
       </header>
       <main>
         <article class="prose">
@@ -55,6 +64,7 @@ const { title, publishDate, description } = Astro.props;
     height: 100%;
     margin: 0;
     padding: 0;
+    overflow-x: hidden;
   }
   body {
     font-family: "Cenzo Flare", sans-serif;

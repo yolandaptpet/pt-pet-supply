@@ -51,7 +51,9 @@ const isMobile = md.mobile();
       />
       <a
         href="https://www.google.com/maps/place/P+T+Pet+Supply/@42.0714526,-71.8662691,17z/data=!3m1!4b1!4m6!3m5!1s0x89e41ed7234c136d:0xe30644b400274c0!8m2!3d42.0714526!4d-71.8662691!16s%2Fg%2F1tt1tq6m?entry=ttu&g_ep=EgoyMDI0MDkxNi4wIKXMDSoASAFQAw%3D%3D"
-        class="text-sm lg:text-lg xl:tracking-wide">{address}</a
+        class="text-sm lg:text-lg xl:tracking-wide"
+        target="_blank"
+        rel="noopener noreferrer">{address}</a
       >
     </div>
   </div>
@@ -93,7 +95,26 @@ const isMobile = md.mobile();
     }
   };
 
+  const initUpdate = () => {
+    if ("requestIdleCallback" in window) {
+      requestIdleCallback(updateLinksForSmallScreen);
+    } else {
+      // Fallback if requestIdleCallback is not supported
+      updateLinksForSmallScreen();
+    }
+  };
+
   // Listen for resize events to update dynamically
   window.addEventListener("resize", updateLinksForSmallScreen);
-  window.addEventListener("DOMContentLoaded", updateLinksForSmallScreen); // Initial check on load
+
+  // Run on page load and Astro navigation
+  window.addEventListener("DOMContentLoaded", initUpdate);
+  window.addEventListener("astro:page-load", initUpdate);
+
+  // Listen for visibility changes (like when navigating back to the page)
+  document.addEventListener("visibilitychange", () => {
+    if (document.visibilityState === "visible") {
+      updateLinksForSmallScreen();
+    }
+  });
 </script>

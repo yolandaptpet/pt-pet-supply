@@ -6,7 +6,7 @@ const blogPostSchema = z.object({
   title: z.string(),
   description: z.string(),
   publishDate: z.date(),
-  tags: z.array(z.string()).optional(),
+  tags: z.array(z.string()),
 });
 
 // Define the collection for blog posts
