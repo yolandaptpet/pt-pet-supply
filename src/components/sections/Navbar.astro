@@ -3,118 +3,85 @@ import OpenStatus from "./OpenStatus.astro";
 import Links from "./Links.astro";
 import { getStoreInfo } from "../../constants/StoreInfo.astro";
 
-import MobileDetect from "mobile-detect";
-
 import phone from "../../assets/phone.png";
 import mapPin from "../../assets/map-pin.png";
 import openSignBackground from "../../assets/openclose.png";
 
 const phoneNumber = getStoreInfo().phoneNumber;
 const address = getStoreInfo().address;
-
-const userAgent = Astro.request.headers.get("user-agent") ?? "";
-const md = new MobileDetect(userAgent);
-const isMobile = md.mobile();
 ---
 
 <section
-  class="flex w-full min-h-[35px] mx-auto px-4 xl:px-10 pt-3 xl:pt-6 min-[1340px]:pt-6 pb-2 xl:pb-5 bg-[#FFC66D]"
+  class="flex w-full min-h-[35px] font-bold mx-auto px-4 xl:px-10 pt-3 xl:pt-6 pb-2 xl:pb-5 bg-[#FFC66D]"
 >
   <div
-    class="flex-1 min-[980px]:max-w-base max-[1024px]:max-w-[316px] 2xl:ml-16 min-[1800px]:ml-36 min-[2100px]:ml-72 min-[2300px]:ml-96 xl:pl-0 sm:pt-2 lg:pt-0 space-y-2 lg:space-y-1 xl:space-y-0 xl:flex xl:flex-nowrap font-bold text-sm lg:text-lg"
+    class="my-auto flex-1 flex items-start xl:items-center text-sm lg:text-lg xl:pl-0 pt-1 -mr-10 2xl:ml-16"
   >
-    <div transition:persist class="flex items-center md:pl-4 xl:pl-0">
-      <img
-        src={phone.src}
-        alt="phone"
-        class="pr-2 h-[16px] sm:h-[20px] xl:h-[32px]"
-      />
-      {
-        isMobile ? (
-          <a
-            href={`tel:${phoneNumber}`}
-            class="max-[1150px]:w-[120px] max-[1280px]:w-[128px] xl:tracking-wide"
-          >
-            {phoneNumber}
-          </a>
-        ) : (
-          phoneNumber
-        )
-      }
-    </div>
+    <!-- Phone Section -->
+    <a
+      href={`tel:${phoneNumber}`}
+      class="pl-2 min-[450px]:pl-3 pr-1 sm:pr-2 sm:mt-0.5 xl:-mt-1 h-[16px] sm:h-[20px] xl:h-[32px]"
+    >
+      <img src={phone.src} alt="phone" class="h-full animate-fadeInScale" />
+    </a>
 
-    <div transition:persist class="flex items-center md:pl-4 xl:pl-0">
+    <a href={`tel:${phoneNumber}`} class="max-w-[125px] sm:text-lg">
+      <span class="xl:hidden">Call</span>
+      <span class="hidden xl:inline">{phoneNumber}</span>
+    </a>
+
+    <!-- Address Section -->
+    <a
+      href="https://www.google.com/maps/place/P+T+Pet+Supply/@42.0714526,-71.8662691,17z"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="flex items-center sm:text-lg"
+    >
       <img
         src={mapPin.src}
         alt="GPS Pin"
-        class="pr-2 min-[1280px]:pl-3 h-[16px] sm:h-[20px] xl:h-[34px]"
+        class="-mt-1 pl-2 sm:pl-3.5 pr-1 sm:pr-2 h-[16px] sm:h-[20px] xl:h-[34px] animate-fadeInScale"
       />
-      <a
-        href="https://www.google.com/maps/place/P+T+Pet+Supply/@42.0714526,-71.8662691,17z/data=!3m1!4b1!4m6!3m5!1s0x89e41ed7234c136d:0xe30644b400274c0!8m2!3d42.0714526!4d-71.8662691!16s%2Fg%2F1tt1tq6m?entry=ttu&g_ep=EgoyMDI0MDkxNi4wIKXMDSoASAFQAw%3D%3D"
-        class="text-sm lg:text-lg xl:tracking-wide"
-        target="_blank"
-        rel="noopener noreferrer">{address}</a
-      >
-    </div>
+      <span class="xl:hidden">Visit</span>
+      <span class="hidden xl:inline">{address}</span>
+    </a>
   </div>
 
-  <!-- Flex container for centering -->
-  <div class="relative flex flex-1 justify-center items-center">
+  <!-- Center Open/Close Sign -->
+  <div class="relative m-auto mx-10 flex-1 flex justify-center items-center">
     <img
       src={openSignBackground.src}
       alt="Open/Close Sign Background"
+      class="absolute top-0 left-1/2 transform -translate-x-1/2 pb-1 -mt-3 min-[460px]:-mt-3.5 min-[500px]:-mt-4 min-[575px]:-mt-5 sm:-mt-6"
       style="width: 195px; height: auto;"
-      class="absolute top-0 left-1/2 transform -translate-x-1/2 min-[385px]:mt-1 min-[420px]:mt-0 min-[500px]:-mt-1 min-[535px]:-mt-1.5 min-[580px]:-mt-2.5 sm:-mt-1 xl:-mt-5"
     />
-    <OpenStatus
-      transition:persist
-      class="absolute inset-0 flex justify-center items-center"
-    />
+    <OpenStatus class="absolute inset-0 flex justify-center items-center" />
   </div>
 
-  <div
-    class="flex-1 flex justify-end my-auto 2xl:mr-16 min-[1800px]:mr-36 min-[2100px]:mr-72 min-[2300px]:mr-96"
-  >
+  <!-- Links Section -->
+  <div class="flex-1 flex justify-end items-center -ml-10 2xl:mr-16">
     <Links class="flex" />
   </div>
 </section>
 
-<!-- Client-side script for handling smallScreen -->
-<script>
-  const updateLinksForSmallScreen = () => {
-    const mobileScreen = window.innerWidth < 768;
-    const addressElement = document.querySelector(
-      'a[href^="https://www.google.com/maps"]'
-    ) as HTMLElement;
-
-    if (addressElement) {
-      // Update addressElement text based on screen size
-      addressElement.innerText = mobileScreen
-        ? "Visit Us"
-        : "86 Worcester Rd, Webster";
+<style>
+  @keyframes bounce {
+    0%,
+    20%,
+    50%,
+    80%,
+    100% {
+      transform: translateY(0);
     }
-  };
-
-  const initUpdate = () => {
-    if ("requestIdleCallback" in window) {
-      requestIdleCallback(updateLinksForSmallScreen);
-    } else {
-      // Fallback if requestIdleCallback is not supported
-      updateLinksForSmallScreen();
+    40% {
+      transform: translateY(-10px);
     }
-  };
-
-  // Listen for resize events to update dynamically
-  window.addEventListener("resize", updateLinksForSmallScreen);
-
-  // Run on page load and Astro navigation
-  window.addEventListener("DOMContentLoaded", initUpdate);
-  window.addEventListener("astro:page-load", initUpdate);
-
-  // Listen for visibility changes (like when navigating back to the page)
-  document.addEventListener("visibilitychange", () => {
-    if (document.visibilityState === "visible") {
-      updateLinksForSmallScreen();
+    60% {
+      transform: translateY(-5px);
     }
-  });
-</script>
+  }
+
+  .animate-bounce {
+    animation: bounce 0.5s; /* Adjust the duration as needed */
+  }
+</style>

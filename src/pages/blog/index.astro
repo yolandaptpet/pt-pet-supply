@@ -11,31 +11,52 @@ const formatDate = (date: Date) => {
   const month = date.getMonth() + 1; // Months are 0-indexed
   const day = date.getDate();
   const year = date.getFullYear();
-  return `${month}-${day}-${year}`;
+  return `${month}•${day}•${year}`;
 };
 ---
 
-<BlogLayout id="blog-home">
+<BlogLayout id="blog-home" class="mx-auto">
   <div class="flex pt-3 pl-4">
     <button
       id="go-back"
-      class="bg-[#7F0201] hover:bg-[#A52A2A] text-white font-bold py-2 px-4 rounded-xl"
-      >Go Back</button
+      class="bg-[#7F0201] hover:bg-[#A52A2A] text-white font-bold py-1.5 px-3 rounded-xl"
     >
+      Go Back
+    </button>
   </div>
 
-  <ul>
+  <div class="flex flex-col justify-center px-4 pt-6 pb-16 space-y-4">
     {
       posts.map((post) => (
-        <div class="">
-          <a href={`/blog/${post.slug}/`}>{post.data.title}</a> -{" "}
-          <time>{formatDate(post.data.publishDate)}</time>
-          <p>{post.data.tags}</p>
-          <p>{post.data.description}</p>
+        <div class="max-w-[320px] rounded-3xl border">
+          <img
+            src="https://placehold.co/320x210"
+            alt="Hashtag photo"
+            class="rounded-t-3xl my-0"
+          />
+          <div class="py-2 px-4 rounded-xl">
+            <a
+              href={`/blog/${post.slug}/`}
+              class="font-bold no-underline text-lg tracking-widest"
+            >
+              {post.data.title}
+            </a>
+            <time class="text-sm tracking-wider mb-2">
+              {formatDate(post.data.publishDate)}
+            </time>
+            <div class="flex space-x-1">
+              {post.data.tags.map((tag) => (
+                <button class="bg-[#7F0201] hover:bg-[#A52A2A] text-white text-sm tracking-narrow px-2 rounded-xl">
+                  {tag}
+                </button>
+              ))}
+            </div>
+            <p class="min-h-[70px]">{post.data.description}</p>
+          </div>
         </div>
       ))
     }
-  </ul>
+  </div>
 </BlogLayout>
 
 <script>
