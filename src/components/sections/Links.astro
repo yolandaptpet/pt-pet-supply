@@ -17,7 +17,7 @@ const currentPage = Astro.url.pathname as LinksProps["currentPage"];
           transition:animate="slide"
           text="Home"
           href="/"
-          class="xl:pl-1 2xl:pl-3"
+          class="xl:pl-1 2xl:pl-3 no-underline"
           data-astro-prefetch
         />
       )
@@ -26,19 +26,19 @@ const currentPage = Astro.url.pathname as LinksProps["currentPage"];
       transition:animate="slide"
       text="Products"
       href="/#products"
-      class="xl:pl-1 2xl:pl-3"
+      class="xl:pl-1 2xl:pl-3 no-underline"
     />
     <Button
       transition:animate="slide"
       text="Our Pack"
       href="/#staff"
-      class="xl:pl-1 2xl:pl-3"
+      class="xl:pl-1 2xl:pl-3 no-underline"
     />
     <Button
       transition:animate="slide"
       text="Blog"
-      href="/#blog"
-      class="xl:pl-1 2xl:pl-3"
+      href="/blog"
+      class="xl:pl-1 2xl:pl-3 no-underline"
     />
     {
       currentPage !== "/grooming" && (
@@ -46,7 +46,7 @@ const currentPage = Astro.url.pathname as LinksProps["currentPage"];
           transition:animate="slide"
           text="Pet Grooming"
           href="/grooming"
-          class="xl:pl-1 2xl:pl-3"
+          class="xl:pl-1 2xl:pl-3 no-underline"
           data-astro-prefetch
         />
       )
@@ -118,7 +118,7 @@ const currentPage = Astro.url.pathname as LinksProps["currentPage"];
               transition:animate="slide"
               text="Home"
               href="/"
-              class="bg-[#7F0201] hover:bg-[#A52A2A] text-white font-bold w-[80%] pl-4 p-2 rounded-xl"
+              class="bg-[#7F0201] hover:bg-[#A52A2A] text-white font-bold w-[80%] pl-4 p-2 rounded-xl no-underline"
               data-astro-prefetch
             />
           )
@@ -127,19 +127,19 @@ const currentPage = Astro.url.pathname as LinksProps["currentPage"];
           transition:animate="slide"
           text="Products"
           href="/#products"
-          class="bg-[#7F0201] hover:bg-[#A52A2A] text-white font-bold w-[80%] pl-4 p-2 rounded-xl drop-shadow-2xl"
+          class="bg-[#7F0201] hover:bg-[#A52A2A] text-white font-bold w-[80%] pl-4 p-2 rounded-xl drop-shadow-2xl no-underline"
         />
         <Button
           transition:animate="slide"
           text="Our Pack"
           href="/#staff"
-          class="bg-[#7F0201] hover:bg-[#A52A2A] text-white font-bold w-[80%] pl-4 p-2 rounded-xl drop-shadow-2xl"
+          class="bg-[#7F0201] hover:bg-[#A52A2A] text-white font-bold w-[80%] pl-4 p-2 rounded-xl drop-shadow-2xl no-underline"
         />
         <Button
           transition:animate="slide"
           text="Blog"
-          href="/#blog"
-          class="bg-[#7F0201] hover:bg-[#A52A2A] text-white font-bold w-[80%] pl-4 p-2 rounded-xl drop-shadow-2xl"
+          href="/blog"
+          class="bg-[#7F0201] hover:bg-[#A52A2A] text-white font-bold w-[80%] pl-4 p-2 rounded-xl drop-shadow-2xl no-underline"
         />
         {
           currentPage !== "/grooming" && (
@@ -147,7 +147,7 @@ const currentPage = Astro.url.pathname as LinksProps["currentPage"];
               transition:animate="slide"
               text="Pet Grooming"
               href="/grooming"
-              class="bg-[#7F0201] hover:bg-[#A52A2A] text-white font-bold w-[80%] pl-4 p-2 rounded-xl drop-shadow-2xl"
+              class="bg-[#7F0201] hover:bg-[#A52A2A] text-white font-bold w-[80%] pl-4 p-2 rounded-xl drop-shadow-2xl no-underline"
               data-astro-prefetch
             />
           )

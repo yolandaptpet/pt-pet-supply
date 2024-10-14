@@ -22,7 +22,7 @@ const address = getStoreInfo().address;
       href={`tel:${phoneNumber}`}
       class="pl-2 min-[450px]:pl-3 pr-1 sm:pr-2 sm:mt-0.5 xl:-mt-1 h-[16px] sm:h-[20px] xl:h-[32px]"
     >
-      <img src={phone.src} alt="phone" class="h-full animate-fadeInScale" />
+      <img src={phone.src} alt="phone" class="h-full" />
     </a>
 
     <a href={`tel:${phoneNumber}`} class="max-w-[125px] sm:text-lg">
@@ -40,7 +40,7 @@ const address = getStoreInfo().address;
       <img
         src={mapPin.src}
         alt="GPS Pin"
-        class="-mt-1 pl-2 sm:pl-3.5 pr-1 sm:pr-2 h-[16px] sm:h-[20px] xl:h-[34px] animate-fadeInScale"
+        class="-mt-1 pl-2 sm:pl-3.5 pr-1 sm:pr-2 h-[16px] sm:h-[20px] xl:h-[34px]"
       />
       <span class="xl:hidden">Visit</span>
       <span class="hidden xl:inline">{address}</span>
@@ -63,25 +63,3 @@ const address = getStoreInfo().address;
     <Links class="flex" />
   </div>
 </section>
-
-<style>
-  @keyframes bounce {
-    0%,
-    20%,
-    50%,
-    80%,
-    100% {
-      transform: translateY(0);
-    }
-    40% {
-      transform: translateY(-10px);
-    }
-    60% {
-      transform: translateY(-5px);
-    }
-  }
-
-  .animate-bounce {
-    animation: bounce 0.5s; /* Adjust the duration as needed */
-  }
-</style>

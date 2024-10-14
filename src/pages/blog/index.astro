@@ -1,10 +1,14 @@
 ---
 import BlogLayout from "@/components/layouts/BlogLayout.astro";
+import Button from "@/components/ui/Button.astro";
 import { getCollection } from "astro:content";
 import type { CollectionEntry } from "astro:content";
 
 // Use the defined schema in content/config.ts to ensure type safety
 const posts: CollectionEntry<"blog">[] = await getCollection("blog");
+
+// Get tags for Filter
+const allTags = Array.from(new Set(posts.flatMap((post) => post.data.tags)));
 
 // Utility function to format the date to MM-DD-YYYY without leading zero
 const formatDate = (date: Date) => {
@@ -15,20 +19,31 @@ const formatDate = (date: Date) => {
 };
 ---
 
-<BlogLayout id="blog-home" class="mx-auto">
-  <div class="flex pt-3 pl-4">
-    <button
-      id="go-back"
-      class="bg-[#7F0201] hover:bg-[#A52A2A] text-white font-bold py-1.5 px-3 rounded-xl"
-    >
-      Go Back
-    </button>
+<BlogLayout id="blog" class="flex justify-center max-w-[1200px] mx-auto">
+  <div class="pt-4 pl-4 flex justify-between items-start">
+    <Button
+      href="/"
+      text="Back to Home"
+      class="bg-[#7F0201] hover:bg-[#A52A2A] text-white font-bold py-1.5 px-3 rounded-xl no-underline"
+      data-astro-prefetch
+    />
+
+    <div class="flex-col pr-4 -mr-10 overflow-hidden">
+      <h3 class="flex justify-end text-sm my-0 -mb-1.5 mr-10">Filter by:</h3>
+      {
+        allTags.map((tag) => (
+          <button class="bg-[#7F0201] hover:bg-[#A52A2A] text-white text-sm tracking-narrow px-2 rounded-xl">
+            {tag}
+          </button>
+        ))
+      }
+    </div>
   </div>
 
   <div class="flex flex-col justify-center px-4 pt-6 pb-16 space-y-4">
     {
       posts.map((post) => (
-        <div class="max-w-[320px] rounded-3xl border">
+        <div class="relative flex flex-col w-[320px] min-[450px]:w-[400px] md:w-[320px] rounded-3xl border bg-[#F9DCB1]">
           <img
             src="https://placehold.co/320x210"
             alt="Hashtag photo"
@@ -41,8 +56,8 @@ const formatDate = (date: Date) => {
             >
               {post.data.title}
             </a>
-            <time class="text-sm tracking-wider mb-2">
-              {formatDate(post.data.publishDate)}
+            <time class="absolute bottom-0 right-3 text-sm tracking-wider font-bold mb-2">
+              {formatDate(new Date(post.data.publishDate))}
             </time>
             <div class="flex space-x-1">
               {post.data.tags.map((tag) => (
@@ -51,8 +66,10 @@ const formatDate = (date: Date) => {
                 </button>
               ))}
             </div>
-            <p class="min-h-[70px]">{post.data.description}</p>
           </div>
+          <p class="min-h-[70px] mt-2 mx-2 leading-5">
+            {post.data.description}
+          </p>
         </div>
       ))
     }
@@ -60,7 +77,78 @@ const formatDate = (date: Date) => {
 </BlogLayout>
 
 <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const blogPostDivs = document.querySelectorAll<HTMLDivElement>(
+      ".py-2.px-4.rounded-xl"
+    );
+    let resizeTimeout: number | undefined;
+
+    const adjustLetterSpacing = () => {
+      blogPostDivs.forEach((div) => {
+        const titleElement = div.querySelector<HTMLAnchorElement>("a");
+        if (!titleElement) return;
+
+        const titleText = titleElement.textContent || "";
+        const titleLength = titleText.length;
+
+        // Determine the correct class based on title length
+        let newClass = "";
+        if (titleLength <= 20) {
+          newClass = "spacing-short";
+        } else if (titleLength <= 30) {
+          newClass = "spacing-medium";
+        } else if (titleLength <= 37) {
+          newClass = "spacing-long";
+        } else {
+          newClass = "spacing-extra-long";
+        }
+
+        // Only update classes if they have changed
+        if (!titleElement.classList.contains(newClass)) {
+          titleElement.classList.remove(
+            "spacing-short",
+            "spacing-medium",
+            "spacing-long",
+            "spacing-extra-long"
+          );
+          titleElement.classList.add(newClass);
+        }
+      });
+    };
+
+    // Adjust on load
+    adjustLetterSpacing();
+
+    // Debounced resize event listener
+    window.addEventListener("resize", () => {
+      // Clear the existing timeout if still running
+      if (resizeTimeout) {
+        clearTimeout(resizeTimeout);
+      }
+
+      // Set a new timeout to delay execution by 0.5 seconds
+      resizeTimeout = window.setTimeout(() => {
+        requestAnimationFrame(adjustLetterSpacing); // Adjust letter spacing after resizing
+      }, 500); // 500 milliseconds delay
+    });
+  });
+
   document.getElementById("go-back")?.addEventListener("click", () => {
     history.back();
   });
 </script>
+
+<style>
+  .spacing-short {
+    letter-spacing: 0.15em;
+  }
+  .spacing-medium {
+    letter-spacing: 0;
+  }
+  .spacing-long {
+    letter-spacing: -0.04em;
+  }
+  .spacing-extra-long {
+    letter-spacing: -0.07em;
+  }
+</style>

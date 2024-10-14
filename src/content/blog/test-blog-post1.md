@@ -1,8 +1,8 @@
 ---
-title: "Test Blog Post 1"
-description: "Description: Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus 150"
+title: "Test Blog Post - 40 Character Maximum"
+description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et ma"
 publishDate: 2024-10-04
-tags: ["business", "pet supplies"]
+tags: ["Store News", "Promo"]
 ---
 
 # This is a test blog post!

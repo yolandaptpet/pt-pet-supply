@@ -1,5 +1,6 @@
 ---
 import BlogLayout from "@/components/layouts/BlogLayout.astro";
+import Button from "@/components/ui/Button.astro";
 import { getEntry } from "astro:content";
 import type { CollectionEntry } from "astro:content";
 
@@ -22,17 +23,31 @@ const formatDate = (date: Date) => {
 ---
 
 <BlogLayout id={post?.slug}>
-  <div class="flex pt-3 pb-10 pl-4">
-    <button
-      id="go-back"
-      class="bg-[#7F0201] hover:bg-[#A52A2A] text-white font-bold py-2 px-4 rounded-xl"
-      >Go Back</button
-    >
+  <div class="pt-4 pl-4 flex justify-between items-start">
+    <Button
+      href="/blog"
+      text="Back to Blog Posts"
+      class="bg-[#7F0201] hover:bg-[#A52A2A] text-white font-bold py-1.5 px-3 rounded-xl no-underline"
+      data-astro-prefetch
+    />
   </div>
 
-  <h1>{post?.data.title}</h1>
-  <time>{post ? formatDate(post.data.publishDate) : "Date not available"}</time>
-  <h3>{post?.data.tags}</h3>
+  <div class="pt-8">
+    <h1>{post?.data.title}</h1>
+    <img src="https://placehold.co/320x210" alt="Hashtag photo" />
+  </div>
+  <time class="font-bold"
+    >{post ? formatDate(post.data.publishDate) : "Date not available"}</time
+  >
+  <div class="flex space-x-1">
+    {
+      post?.data.tags.map((tag) => (
+        <button class="bg-[#7F0201] hover:bg-[#A52A2A] text-white text-sm tracking-narrow px-2 rounded-xl">
+          {tag}
+        </button>
+      ))
+    }
+  </div>
   <article>
     {Content ? <Content /> : <p>Content not available</p>}
   </article>

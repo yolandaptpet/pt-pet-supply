@@ -4,27 +4,49 @@ import type { CollectionEntry } from "astro:content";
 
 const { post }: { post?: CollectionEntry<"blog"> } = Astro.props;
 
-const postTitle = post ? post.data.title : "";
+const formatDate = (date: Date) => {
+  const month = date.getMonth() + 1; // Months are 0-indexed
+  const day = date.getDate();
+  const year = date.getFullYear();
+  return `${month}•${day}•${year}`;
+};
+
 const postDescription = post ? post.data.description : "";
+const postTitle = post ? post.data.title : "";
+const shortenedPostDescription =
+  postDescription.split(" ").slice(0, 15).join(" ") +
+  (postDescription.split(" ").length > 15 ? "..." : "");
+const postDate = post ? formatDate(post.data.publishDate) : "";
 ---
 
-<section class="flex my-auto ml-5 px-1 drop-shadow-2xl">
+<section class="flex-col-1 my-auto ml-6 drop-shadow-2xl">
   <div
-    class="relative w-[320px] h-[210px] sm:w-[410px] sm:h-[180px] md:w-[500px] md:h-[150px] flex pt-6 pb-3 rounded-3xl bg-[#FFC66D] bg-opacity-50"
+    class="relative w-[320px] h-[210px] sm:w-[410px] sm:h-[180px] md:w-[500px] md:h-[170px] flex py-5 rounded-3xl bg-[#F9DCB1] bg-opacity-50"
     style={{ backdropFilter: "blur(35px)" }}
     onclick="window.location.href = `/blog/${post?.slug}/`"
   >
-    <div class="absolute top-5 -left-8 md:top-2">
+    <!-- Image Container -->
+    <div class="absolute top-6 -left-9 md:top-3 md:-left-5">
       <img
         src="https://placehold.co/350x350/png"
         alt="Blog tag photo"
-        class="w-[100px] md:w-[120px] h-auto rounded-2xl"
+        class="w-[100px] h-auto rounded-2xl"
       />
     </div>
-    <div class="ml-16 md:ml-20 px-4">
-      <a href={`/blog/${post?.slug}/`} class="font-bold">{postTitle}</a>
-      <p class="max-h-[100%] py-2">
-        {postDescription}
+
+    <!-- Text and Description -->
+    <div
+      class="ml-16 md:ml-20 px-4 flex-grow flex items-center justify-between"
+    >
+      <div>
+        <a href={`/blog/${post?.slug}/`} class="font-bold text-2xl"
+          >{postTitle}</a
+        >
+        <p class="py-2">{shortenedPostDescription}</p>
+      </div>
+      <!-- Date -->
+      <p class="absolute bottom-2 right-3 font-bold">
+        {postDate}
       </p>
     </div>
   </div>
