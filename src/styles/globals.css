@@ -24,3 +24,14 @@
 html {
   scroll-padding-top: 100px; /* Adjust this value based on your header height */
 }
+
+.ql-editor {
+  font-family: 'Cenzo Flare', sans-serif; /* Or the global font you're using */
+  font-size: 1rem; /* Adjust as needed */
+  line-height: 1.5; /* Adjust as needed */
+  color: inherit; /* Inherits global color settings */
+}
+
+.my-editor-wrapper .ql-container {
+  height: 400px; /* Adjust this value to your desired height */
+}

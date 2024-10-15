@@ -83,7 +83,7 @@ const currentPage = Astro.url.pathname as LinksProps["currentPage"];
     x-transition:leave-start="translate-x-0"
     x-transition:leave-end="translate-x-full"
     @click="open = false"
-    class="fixed top-0 right-0 w-2/3 md:w-1/4 max-w-full h-full bg-white shadow-lg transform z-50 xl:w-64 overflow-hidden text-xl"
+    class="fixed top-0 right-0 w-1/2 md:w-1/3 max-w-full h-full bg-white shadow-lg transform z-50 xl:w-64 overflow-hidden text-xl"
   >
     <img
       src="/src/assets/sidebar.png"
@@ -111,7 +111,7 @@ const currentPage = Astro.url.pathname as LinksProps["currentPage"];
       </button>
 
       <!-- Sidebar Buttons -->
-      <div class="mt-8 pl-4 flex flex-col text-center space-y-4">
+      <div class="mt-8 pl-4 flex flex-col items-center text-center space-y-4">
         {
           currentPage == "/grooming" && (
             <Button

@@ -10,10 +10,16 @@ const storeHours = officialStoreHours();
 ---
 
 <Layout title="admin">
-  <div class="font-bold text-md pl-4 pt-4 pb-2 text-center">
-    For clarification on any of the website's functions, consult <a
-      >this documentation</a
+  <div
+    class="font-bold text-md pl-4 pt-4 pb-2 text-center drop-shadow-xl tracking-wide"
+  >
+    <span class="text-xl">🚨</span> For clarification on any of the website's functionality,
+    <a
+      href="https://docs.samsnug.net"
+      target="_blank"
+      class="text-[#7F0201] underline">consult the documentation</a
     >
+    <span class="text-xl">🚨</span>
   </div>
 
   <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
@@ -21,7 +27,7 @@ const storeHours = officialStoreHours();
       <div class="mx-4 pt-4 pb-16">
         <h1 class="font-bold text-2xl pb-2">Announcements Banner</h1>
         <div>
-          <div class="mb-2">
+          <div class="mb-2 text-xl">
             <label class="mr-4">
               <input type="radio" name="toggle" value="off" checked /> Off
             </label>
@@ -39,15 +45,17 @@ const storeHours = officialStoreHours();
             ></textarea>
           </div>
         </div>
-        <button class="mt-2 px-4 py-2 bg-[#7F0201] text-white rounded-3xl">
+        <button
+          class="mt-2 px-4 py-2 bg-[#7F0201] hover:bg-[#A52A2A] text-white rounded-3xl"
+        >
           Save
         </button>
       </div>
 
       <div class="mx-4 pb-5">
         <h1 class="font-bold text-2xl">Update Hours of Operation</h1>
-        <div class="font-sans max-w-lg my-5">
-          <div class="mb-4">
+        <div class="max-w-lg my-5">
+          <div class="mb-4 text-lg">
             <label class="mr-4">
               <input type="radio" name="hours-toggle" value="default" checked />
               Normal Hours
@@ -58,7 +66,7 @@ const storeHours = officialStoreHours();
             </label>
           </div>
 
-          <table id="hours-table" class="w-full border-collapse">
+          <table id="hours-table" class="w-full border-collapse text-lg">
             <thead>
               <tr>
                 <th class="p-2 border border-gray-300 text-left">Day</th>
@@ -96,14 +104,15 @@ const storeHours = officialStoreHours();
               }
             </tbody>
           </table>
-          <button class="mt-2 px-4 py-2 bg-[#7F0201] text-white rounded-3xl"
+          <button
+            class="mt-2 px-4 py-2 bg-[#7F0201] hover:bg-[#A52A2A] text-white rounded-3xl"
             >Save</button
           >
         </div>
       </div>
     </div>
 
-    <DraftPost />
+    <DraftPost client:only="react" />
   </div>
 
   <div class="flex flex-col items-center pb-4 mx-auto">
