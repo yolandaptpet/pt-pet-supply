@@ -1,14 +1,14 @@
 ---
 import OpenStatus from "./OpenStatus.astro";
 import Links from "./Links.astro";
-import { getStoreInfo } from "../../constants/StoreInfo.astro";
+import { officialStoreInfo } from "../../constants/StoreInfo.astro";
 
 import phone from "../../assets/phone.png";
 import mapPin from "../../assets/map-pin.png";
 import openSignBackground from "../../assets/openclose.png";
 
-const phoneNumber = getStoreInfo().phoneNumber;
-const address = getStoreInfo().address;
+const phoneNumber = officialStoreInfo().phoneNumber;
+const address = officialStoreInfo().address;
 ---
 
 <section

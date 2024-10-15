@@ -1,9 +1,9 @@
 ---
 import ContactForm from "../ui/ContactForm.jsx";
-import { getStoreHours } from "../../constants/StoreInfo.astro";
+import { officialStoreHours } from "../../constants/StoreInfo.astro";
 import Map from "../ui/Map.astro";
 
-const storeHours = getStoreHours();
+const storeHours = officialStoreHours();
 
 const convertTo12Hour = (time24: string) => {
   const [hours] = time24.split(":");

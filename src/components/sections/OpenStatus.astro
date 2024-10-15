@@ -3,11 +3,11 @@ interface OpenStatusProps {
   storeStatus: string;
 }
 
-import { getStoreHours } from "../../constants/StoreInfo.astro";
+import { officialStoreHours } from "../../constants/StoreInfo.astro";
 import Button from "../ui/Button.astro";
 
 export const getStoreStatus = () => {
-  let storeHours = getStoreHours();
+  let storeHours = officialStoreHours();
 
   const now = new Date();
 

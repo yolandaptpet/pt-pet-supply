@@ -1,6 +1,202 @@
 ---
-import Layout from "../components/layouts/Layout.astro"
----
-<Layout title="Admin">
+import BlogPost from "@/components/ui/BlogPost.astro";
+import Layout from "../components/layouts/Layout.astro";
+import AdminStaffGrid from "../components/ui/AdminStaffGrid.tsx";
+import DraftPost from "../components/ui/DraftPost.tsx";
 
+import { officialStoreHours } from "@/constants/StoreInfo.astro";
+
+const storeHours = officialStoreHours();
+---
+
+<Layout title="admin">
+  <div class="font-bold text-md pl-4 pt-4 pb-2 text-center">
+    For clarification on any of the website's functions, consult <a
+      >this documentation</a
+    >
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+    <div class="Column1 lg:col-span-1">
+      <div class="mx-4 pt-4 pb-16">
+        <h1 class="font-bold text-2xl pb-2">Announcements Banner</h1>
+        <div>
+          <div class="mb-2">
+            <label class="mr-4">
+              <input type="radio" name="toggle" value="off" checked /> Off
+            </label>
+            <label>
+              <input type="radio" name="toggle" value="on" /> On
+            </label>
+          </div>
+
+          <div>
+            <textarea
+              id="toggledInput"
+              placeholder="Enter text here"
+              disabled
+              class="p-1 disabled:bg-gray-200 disabled:cursor-not-allowed w-[450px] h-24"
+            ></textarea>
+          </div>
+        </div>
+        <button class="mt-2 px-4 py-2 bg-[#7F0201] text-white rounded-3xl">
+          Save
+        </button>
+      </div>
+
+      <div class="mx-4 pb-5">
+        <h1 class="font-bold text-2xl">Update Hours of Operation</h1>
+        <div class="font-sans max-w-lg my-5">
+          <div class="mb-4">
+            <label class="mr-4">
+              <input type="radio" name="hours-toggle" value="default" checked />
+              Normal Hours
+            </label>
+            <label>
+              <input type="radio" name="hours-toggle" value="custom" />
+              Adjusted Hours
+            </label>
+          </div>
+
+          <table id="hours-table" class="w-full border-collapse">
+            <thead>
+              <tr>
+                <th class="p-2 border border-gray-300 text-left">Day</th>
+                <th class="p-2 border border-gray-300 text-left"
+                  >Opening Time</th
+                >
+                <th class="p-2 border border-gray-300 text-left"
+                  >Closing Time</th
+                >
+              </tr>
+            </thead>
+            <tbody>
+              {
+                Object.entries(storeHours).map(([day, hours]) => (
+                  <tr>
+                    <td class="p-2 border border-gray-300">{day}</td>
+                    <td class="p-2 border border-gray-300">
+                      <input
+                        type="time"
+                        value={hours.open}
+                        class="w-full p-1 box-border disabled:bg-gray-200 disabled:cursor-not-allowed"
+                        disabled
+                      />
+                    </td>
+                    <td class="p-2 border border-gray-300">
+                      <input
+                        type="time"
+                        value={hours.close}
+                        class="w-full p-1 box-border disabled:bg-gray-200 disabled:cursor-not-allowed"
+                        disabled
+                      />
+                    </td>
+                  </tr>
+                ))
+              }
+            </tbody>
+          </table>
+          <button class="mt-2 px-4 py-2 bg-[#7F0201] text-white rounded-3xl"
+            >Save</button
+          >
+        </div>
+      </div>
+    </div>
+
+    <DraftPost />
+  </div>
+
+  <div class="flex flex-col items-center pb-4 mx-auto">
+    <h1 class="font-bold text-2xl pb-2 mx-4">Update Staff Bios</h1>
+    <button
+      id="staff-toggle-button"
+      class="w-36 mb-4 mx-4 px-4 py-2 bg-[#7F0201] text-white rounded-3xl"
+    >
+      Show Staff List
+    </button>
+
+    <div id="staff-list-section" class="hidden w-full mx-4">
+      <AdminStaffGrid />
+    </div>
+  </div>
 </Layout>
+
+<style>
+  /* Default styling when the input is enabled */
+  #toggledInput:enabled {
+    border: 1px solid #d1d5db;
+  }
+
+  /* Focused input */
+  #toggledInput:focus {
+    border-color: #000000;
+    outline: none;
+  }
+</style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const staffListSection = document.getElementById(
+      "staff-list-section"
+    ) as HTMLElement;
+    const toggleButton = document.getElementById(
+      "staff-toggle-button"
+    ) as HTMLElement;
+
+    // Toggle staff list visibility
+    toggleButton.addEventListener("click", () => {
+      const isHidden = staffListSection.classList.contains("hidden");
+      if (isHidden) {
+        staffListSection.classList.remove("hidden");
+        toggleButton.textContent = "Hide Staff List";
+      } else {
+        staffListSection.classList.add("hidden");
+        toggleButton.textContent = "Show Staff List";
+      }
+    });
+
+    // For the announcement banner toggle functionality
+    const announcementRadios = document.querySelectorAll(
+      'input[name="toggle"]'
+    );
+    const toggledInput = document.getElementById(
+      "toggledInput"
+    ) as HTMLInputElement;
+
+    announcementRadios.forEach((radio) => {
+      radio.addEventListener("change", () => {
+        if ((radio as HTMLInputElement).value === "on") {
+          toggledInput.disabled = false;
+          toggledInput.classList.remove("disabled:border-none");
+          toggledInput.classList.add("border-gray-300"); // Apply light gray border when enabled
+        } else {
+          toggledInput.disabled = true;
+          toggledInput.classList.remove("border-gray-300"); // Remove border when disabled
+          toggledInput.classList.add("disabled:border-none");
+        }
+      });
+    });
+
+    // For hours toggle functionality
+    const radioButtons = document.querySelectorAll(
+      'input[name="hours-toggle"]'
+    );
+    const timeInputs = document.querySelectorAll('input[type="time"]');
+
+    function toggleInputs(isDisabled: boolean) {
+      timeInputs.forEach((input) => {
+        (input as HTMLInputElement).disabled = isDisabled;
+      });
+    }
+
+    radioButtons.forEach((radio) => {
+      radio.addEventListener("change", () => {
+        if ((radio as HTMLInputElement).value === "default") {
+          toggleInputs(true);
+        } else {
+          toggleInputs(false);
+        }
+      });
+    });
+  });
+</script>
