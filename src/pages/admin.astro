@@ -11,15 +11,17 @@ const storeHours = officialStoreHours();
 
 <Layout title="admin">
   <div
-    class="font-bold text-md pl-4 pt-4 pb-2 text-center drop-shadow-xl tracking-wide"
+    class="flex justify-center font-bold text-md pl-4 py-8 drop-shadow-xl tracking-wide"
   >
-    <span class="text-xl">🚨</span> For clarification on any of the website's functionality,
-    <a
-      href="https://docs.samsnug.net"
-      target="_blank"
-      class="text-[#7F0201] underline">consult the documentation</a
-    >
-    <span class="text-xl">🚨</span>
+    <div class="bg-[#F9DCB1] p-2 rounded-3xl">
+      <span class="text-xl">🚨</span> For clarification on any of the website's functionality,
+      <a
+        href="https://docs.samsnug.net"
+        target="_blank"
+        class="text-[#7F0201] underline">consult the documentation</a
+      >
+      <span class="text-xl">🚨</span>
+    </div>
   </div>
 
   <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
@@ -41,7 +43,7 @@ const storeHours = officialStoreHours();
               id="toggledInput"
               placeholder="Enter text here"
               disabled
-              class="p-1 disabled:bg-gray-200 disabled:cursor-not-allowed w-[450px] h-24"
+              class="p-1 disabled:bg-gray-200 disabled:cursor-not-allowed w-4/5 lg:w-full h-24"
             ></textarea>
           </div>
         </div>
