@@ -5,7 +5,7 @@ import { z } from 'zod';
 
 // Define the Zod schema
 const postSchema = z.object({
-  title: z.string().max(42, 'Title must be 42 characters or less.'),
+  title: z.string().max(40, 'Title must be 40 characters or less.'),
   description: z.string().max(140, 'Description must be 140 characters or less.'),
   tags: z.string().optional(), // No max length defined for tags
   body: z.string().optional() // No max length defined for body
@@ -99,8 +99,8 @@ const DraftPost: React.FC = () => {
               // Allow update if the new value is within the max length
               if (newValue.length <= 42) setTitle(newValue);
             }}
-            className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
-            placeholder="Enter blog title. Maximum of 42 characters."
+            className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#7F0201] focus:border-[#7F0201]"
+            placeholder="Enter blog title. Maximum of 40 characters."
             required
           />
           {errors.title && <p className="text-red-500 text-sm">{errors.title}</p>}
@@ -122,7 +122,7 @@ const DraftPost: React.FC = () => {
               // Allow update if the new value is within the max length
               if (newValue.length <= 140) setDescription(newValue);
             }}
-            className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+            className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#7F0201] focus:border-[#7F0201]"
             placeholder="Enter a brief description of the blog post. Maximum of 140 characters."
             required
           ></textarea>

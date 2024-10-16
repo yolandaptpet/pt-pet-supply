@@ -21,80 +21,93 @@ const formatDate = (date: Date) => {
 };
 ---
 
-<BlogLayout id="blog" class="flex justify-center mx-auto">
-  <div class="pt-4 pl-4 w-[100vw] flex justify-between items-start">
-    <button
-      class="flex items-center bg-[#7F0201] hover:bg-[#A52A2A] text-white font-bold py-1.5 px-3 rounded-xl no-underline"
-      data-astro-prefetch
-      onclick="window.location.href = '/'"
-    >
-      {
-        (
-          <img
-            src={backArrow}
-            alt="Back Arrow"
-            class="w-4 my-0"
-            style="filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(360deg) brightness(100%) contrast(100%);"
-          />
-        )
-      }
-      &nbsp; Store Page
-    </button>
+<head>
+  <title>Blog | PT Pet Supply</title>
+</head>
 
-    <div class="flex-col pr-4 -mr-10 overflow-hidden">
-      <h3 class="flex justify-end text-sm my-0 -mb-1.5 mr-10">Filter by:</h3>
-      {
-        allTags.map((tag) => (
-          <button class="bg-[#7F0201] hover:bg-[#A52A2A] text-white text-sm tracking-narrow px-2 rounded-xl">
-            {tag}
-          </button>
-        ))
-      }
-    </div>
-  </div>
+<BlogLayout id="blog">
+  <div class="w-[100vw] flex justify-center">
+    <div class="flex-col justify-center max-w-[1200px]">
+      <div class="pt-4 pl-4 flex justify-between items-start">
+        <button
+          class="flex items-center bg-[#7F0201] hover:bg-[#A52A2A] text-white font-bold py-1.5 px-3 rounded-xl no-underline"
+          data-astro-prefetch
+          onclick="window.location.href = '/'"
+        >
+          {
+            (
+              <img
+                src={backArrow}
+                alt="Back Arrow"
+                class="w-4 my-0"
+                style="filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(360deg) brightness(100%) contrast(100%);"
+              />
+            )
+          }
+          &nbsp; Store Page
+        </button>
 
-  <div class="flex justify-center w-[100vw]">
-    <div
-      class="grid min-[690px]:grid-cols-2 lg:grid-cols-3 min-[1350px]:grid-cols-4 gap-4 place-items-center sm:w-[690px] lg:w-[1020px] min-[1350px]:w-[1340px] px-4 pt-6 pb-16"
-    >
-      {
-        posts.map((post) => (
-          <div class="relative flex flex-col w-[320px] min-[450px]:w-[400px] min-[690px]:w-[320px] lg:w-[320px] rounded-3xl border bg-[#F9DCB1]">
-            <img
-              src="https://placehold.co/320x210"
-              alt="Hashtag photo"
-              class="rounded-t-3xl my-0"
-            />
-            <div class="py-2 px-4 rounded-xl">
-              <a
-                href={`/blog/${post.slug}/`}
-                class="font-bold no-underline text-lg tracking-widest"
-              >
-                {post.data.title}
-              </a>
-              <time class="absolute bottom-0 right-3 text-sm tracking-wider font-bold mb-2">
-                {formatDate(new Date(post.data.publishDate))}
-              </time>
-              <div class="flex space-x-1">
-                {post.data.tags.map((tag) => (
-                  <button class="bg-[#7F0201] hover:bg-[#A52A2A] text-white text-sm tracking-narrow px-2 rounded-xl">
-                    {tag}
-                  </button>
-                ))}
-              </div>
-            </div>
-            <p class="min-h-[70px] mt-2 mx-2 leading-5">
-              {post.data.description}
-            </p>
+        <div class="flex-col pr-4 -mr-10">
+          <h3 class="flex justify-end text-sm pb-1.5 my-0 -mb-1.5 mr-10">
+            Filter by:
+          </h3>
+          <div class="flex space-x-1 overflow-x-auto scrollbar-hide">
+            {/* Horizontal scroll container */}
+            {
+              allTags.map((tag) => (
+                <button class="bg-[#7F0201] hover:bg-[#A52A2A] text-white text-sm tracking-narrow px-2 rounded-xl">
+                  {tag}
+                </button>
+              ))
+            }
           </div>
-        ))
-      }
+        </div>
+      </div>
+
+      <div class="flex justify-center max-w-[1200px]">
+        <div
+          class="grid min-[690px]:grid-cols-2 lg:grid-cols-3 gap-4 place-items-center sm:w-[690px] lg:w-[1020px] px-4 pt-6 pb-16"
+        >
+          {
+            posts.map((post) => (
+              <div class="relative flex flex-col w-[320px] min-[450px]:w-[400px] min-[690px]:w-[320px] lg:w-[320px] rounded-3xl border bg-[#F9DCB1]">
+                <img
+                  src="https://placehold.co/320x210"
+                  alt="Hashtag photo"
+                  class="rounded-t-3xl my-0"
+                />
+                <div class="py-2 px-4 rounded-xl">
+                  <a
+                    href={`/blog/${post.slug}/`}
+                    class="font-bold no-underline text-lg tracking-tighter"
+                  >
+                    {post.data.title}
+                  </a>
+                  <time class="absolute bottom-0 right-3 text-sm tracking-wider font-bold mb-2">
+                    {formatDate(new Date(post.data.publishDate))}
+                  </time>
+                  <div class="flex space-x-1">
+                    {post.data.tags.map((tag) => (
+                      <button class="bg-[#7F0201] hover:bg-[#A52A2A] text-white text-sm tracking-narrow px-2 rounded-xl">
+                        {tag}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+                <p class="min-h-[70px] mt-2 mx-2 leading-5">
+                  {post.data.description}
+                </p>
+              </div>
+            ))
+          }
+        </div>
+      </div>
     </div>
   </div>
 </BlogLayout>
 
 <script>
-  document.addEventListener("DOMContentLoaded", () => {
+  document.addEventListener("turbo:load", () => {
     const blogPostDivs = document.querySelectorAll<HTMLDivElement>(
       ".py-2.px-4.rounded-xl"
     );
@@ -149,23 +162,31 @@ const formatDate = (date: Date) => {
       }, 500); // 500 milliseconds delay
     });
   });
-
-  document.getElementById("go-back")?.addEventListener("click", () => {
-    history.back();
-  });
 </script>
 
 <style>
   .spacing-short {
     letter-spacing: 0.15em;
   }
+
   .spacing-medium {
     letter-spacing: 0;
   }
+
   .spacing-long {
     letter-spacing: -0.04em;
   }
+
   .spacing-extra-long {
     letter-spacing: -0.07em;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    height: 8px;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar-thumb {
+    background-color: #a52a2a;
+    border-radius: 10px; /* Creates pill shape */
   }
 </style>

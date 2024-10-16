@@ -23,63 +23,72 @@ const formatDate = (date: Date) => {
 };
 ---
 
-<BlogLayout id={post?.slug}>
-  <div class="w-[100vw] flex-col-1 justify-center">
-    <div class="pt-4 pl-4 flex justify-between items-start">
-      <button
-        class="flex items-center bg-[#7F0201] hover:bg-[#A52A2A] text-white font-bold py-1.5 px-3 rounded-xl no-underline"
-        data-astro-prefetch
-        onclick="window.location.href = '/blog'"
-      >
-        {
-          (
-            <img
-              src={backArrow}
-              alt="Back Arrow"
-              class="w-4 my-0"
-              style="filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(360deg) brightness(100%) contrast(100%);"
-            />
-          )
-        }
-        &nbsp; All Posts
-      </button>
-    </div>
+<head>
+  <title>{post?.data.title}</title>
+</head>
 
-    <div class="ml-4 md:ml-12 mr-5 md:mr-16">
-      <div class="pt-8">
-        <div class="ml-4 pb-4">
-          <time class="font-bold text-lg tracking-widest">
+<BlogLayout id={post?.slug}>
+  <div class="w-[100vw] flex justify-center">
+    <div class="flex-col-1 justify-center">
+      <div class="pt-4 pl-4 flex justify-between items-start">
+        <button
+          class="flex items-center bg-[#7F0201] hover:bg-[#A52A2A] text-white font-bold py-1.5 px-3 rounded-xl no-underline"
+          data-astro-prefetch
+          onclick="window.location.href = '/blog'"
+        >
+          {
+            (
+              <img
+                src={backArrow}
+                alt="Back Arrow"
+                class="w-4 my-0"
+                style="filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(360deg) brightness(100%) contrast(100%);"
+              />
+            )
+          }
+          &nbsp; All Posts
+        </button>
+      </div>
+
+      <div class="flex flex-col justify-center mx-auto">
+        <div class="mx-auto ml-4 md:ml-12 mr-7 md:mr-16 max-w-[1200px]">
+          <div class="pt-8">
+            <div class="ml-4 pb-4">
+              <time class="font-bold text-lg tracking-widest">
+                {
+                  post ? (
+                    <div>
+                      {formatDate(post.data.publishDate)} &nbsp;
+                      <span class="text-color-[#7F0201]">|</span>&nbsp;&nbsp; PT
+                      Pet Supply
+                    </div>
+                  ) : (
+                    "Unknown Date | PT Pet Supply"
+                  )
+                }
+              </time>
+            </div>
+            <h1 class="md:tracking-wider">{post?.data.title}</h1>
+            <img
+              src="https://placehold.co/1400x500"
+              alt="Associated hashtag photo"
+              class="w-[100%] h-[100%]"
+            />
+          </div>
+          <div class="flex space-x-1 pb-16">
             {
-              post ? (
-                <div>
-                  {formatDate(post.data.publishDate)} &nbsp;
-                  <span class="text-color-[#7F0201]">|</span>&nbsp;&nbsp; PT Pet
-                  Supply
-                </div>
-              ) : (
-                "Unknown Date | PT Pet Supply"
-              )
+              post?.data.tags.map((tag) => (
+                <button class="bg-[#7F0201] hover:bg-[#A52A2A] text-white text-md md:text-xl md:tracking-widest px-2 md:px-3 md:py-1 rounded-xl">
+                  {tag}
+                </button>
+              ))
             }
-          </time>
+          </div>
+          <article class="pb-16">
+            {Content ? <Content /> : <p>Content not available</p>}
+          </article>
         </div>
-        <h1 class="md:tracking-wider">{post?.data.title}</h1>
-        <img
-          src="https://placehold.co/1400x250"
-          alt="Associated hashtag photo"
-        />
       </div>
-      <div class="flex space-x-1 pb-16">
-        {
-          post?.data.tags.map((tag) => (
-            <button class="bg-[#7F0201] hover:bg-[#A52A2A] text-white text-md md:text-xl md:tracking-widest px-2 md:px-3 md:py-1 rounded-xl">
-              {tag}
-            </button>
-          ))
-        }
-      </div>
-      <article class="pb-16">
-        {Content ? <Content /> : <p>Content not available</p>}
-      </article>
     </div>
   </div>
 </BlogLayout>
@@ -94,9 +103,3 @@ const formatDate = (date: Date) => {
     scroll-behavior: smooth;
   }
 </style>
-
-<script>
-  document.getElementById("go-back")?.addEventListener("click", () => {
-    history.back();
-  });
-</script>

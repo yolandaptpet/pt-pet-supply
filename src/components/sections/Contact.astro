@@ -34,7 +34,7 @@ const convertTo12Hour = (time24: string) => {
         <h3 class="font-bold text-3xl pb-3 tracking-widest">Store Hours</h3>
         {
           Object.entries(storeHours).map(([day, hours]) => (
-            <div class="flex text-xl justify-center">
+            <div class="flex text-lg md:text-xl justify-center tracking-wide md:tracking-wider">
               {day}: {convertTo12Hour(hours.open)} to{" "}
               {convertTo12Hour(hours.close)}
             </div>
@@ -43,10 +43,12 @@ const convertTo12Hour = (time24: string) => {
       </div>
     </div>
 
-    <h3 class="font-bold text-3xl pt-12 tracking-widest">
+    <h3 class="font-bold text-xl md:text-3xl pt-12 tracking-widest">
       Have Any Questions?
     </h3>
-    <div class="flex flex-1 text-3xl pt-4 pb-12 md-pb-0 justify-center">
+    <div
+      class="flex flex-1 text-xl md:text-2xl pt-4 pb-12 md-pb-0 justify-center"
+    >
       <button
         id="openModal"
         class="bg-[#7F0201] hover:bg-[#A52A2A] text-white font-bold py-2 px-4 rounded-xl"

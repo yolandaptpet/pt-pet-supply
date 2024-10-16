@@ -87,9 +87,6 @@ const { activeAnnouncement = true } = Astro.props as HeaderProps;
   // Run the initialization logic after DOM is fully loaded
   document.addEventListener("DOMContentLoaded", reinitializeHeader);
 
-  // Listen for history navigation (back/forward)
-  window.addEventListener("popstate", reinitializeHeader);
-
   // Listen for custom navigation events (client-side navigation)
   window.addEventListener("astro:page-load", reinitializeHeader);
 

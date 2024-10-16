@@ -21,7 +21,7 @@ const postDate = post ? formatDate(post.data.publishDate) : "";
 
 <section class="flex-col-1 my-auto ml-6 drop-shadow-2xl">
   <div
-    class="relative w-[320px] h-[210px] sm:w-[410px] sm:h-[180px] md:w-[500px] md:h-[170px] flex py-5 rounded-3xl bg-[#F9DCB1] bg-opacity-50"
+    class="relative w-[320px] h-[210px] sm:w-[410px] sm:h-[180px] md:w-[500px] 2xl:w-[600px] md:h-[170px] flex py-5 rounded-3xl bg-[#F9DCB1] bg-opacity-50"
     style={{ backdropFilter: "blur(35px)" }}
     onclick="window.location.href = `/blog/${post?.slug}/`"
   >
@@ -30,13 +30,13 @@ const postDate = post ? formatDate(post.data.publishDate) : "";
       <img
         src="https://placehold.co/350x350/png"
         alt="Blog tag photo"
-        class="w-[100px] h-auto rounded-2xl"
+        class="w-[100px] 2xl:w-[115px] h-auto rounded-2xl"
       />
     </div>
 
     <!-- Text and Description -->
     <div
-      class="ml-16 md:ml-20 px-4 flex-grow flex items-center justify-between"
+      class="ml-16 md:ml-20 2xl:ml-24 px-4 flex-grow flex items-center justify-between"
     >
       <div>
         <a href={`/blog/${post?.slug}/`} class="font-bold text-2xl"
