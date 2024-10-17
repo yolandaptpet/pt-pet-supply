@@ -26,7 +26,7 @@ const formatDate = (date: Date) => {
 <BlogLayout id={post?.slug} title={post?.data.title} class="relative">
   <div class="bg w-[100vw] pb-48 lg:pb-64 flex justify-center">
     <div class="flex-col-1 justify-center">
-      <div class="pt-4 pl-4 flex justify-between items-start">
+      <div class="pt-4 pl-4 flex justify-between items-start drop-shadow-lg">
         <button
           class="flex items-center bg-[#7F0201] hover:bg-[#A52A2A] text-white font-bold py-1.5 px-3 rounded-xl no-underline"
           data-astro-prefetch
@@ -64,14 +64,14 @@ const formatDate = (date: Date) => {
                 }
               </time>
             </div>
-            <h1 class="md:tracking-wider">{post?.data.title}</h1>
+            <h1 class="md:tracking-wider drop-shadow-md">{post?.data.title}</h1>
             <img
-              src="https://placehold.co/1400x500"
+              src="https://placehold.co/1400x300"
               alt="Associated hashtag photo"
               class="w-[100%] h-[100%]"
             />
           </div>
-          <div class="flex space-x-1 pb-16">
+          <div class="flex space-x-1 pb-10 drop-shadow-lg">
             {
               post?.data.tags.map((tag) => (
                 <button class="bg-[#7F0201] text-white text-md md:text-xl md:tracking-widest px-2 md:px-3 md:py-1 rounded-xl pointer-events-none">

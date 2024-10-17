@@ -60,7 +60,6 @@ const { activeAnnouncement = true } = Astro.props as HeaderProps;
 
       const observer = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
-          console.log(entry.isIntersecting); // Debug log
           if (!entry.isIntersecting) {
             header.classList.add("fixed", "top-0", "left-0", "z-50");
             spacer.classList.remove("hidden");
