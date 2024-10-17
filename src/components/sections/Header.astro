@@ -21,75 +21,76 @@ const { activeAnnouncement = true } = Astro.props as HeaderProps;
 <div id="spacer" class="hidden"></div>
 
 <script>
-  const getScrollbarWidth = () => {
-    const scrollDiv = document.createElement("div");
-    scrollDiv.style.width = "100px";
-    scrollDiv.style.height = "100px";
-    scrollDiv.style.overflow = "scroll";
-    scrollDiv.style.position = "absolute";
-    scrollDiv.style.top = "-9999px";
-    document.body.appendChild(scrollDiv);
+  const currentPageUrl = window.location.pathname;
 
-    const scrollbarWidth = scrollDiv.offsetWidth - scrollDiv.clientWidth;
-    document.body.removeChild(scrollDiv);
-    return scrollbarWidth;
-  };
+  if (currentPageUrl === "/" || currentPageUrl === "/grooming") {
+    const getScrollbarWidth = () => {
+      const scrollDiv = document.createElement("div");
+      scrollDiv.style.width = "100px";
+      scrollDiv.style.height = "100px";
+      scrollDiv.style.overflow = "scroll";
+      scrollDiv.style.position = "absolute";
+      scrollDiv.style.top = "-9999px";
+      document.body.appendChild(scrollDiv);
 
-  // Adjust header width based on scrollbar width
-  const adjustHeaderWidth = () => {
-    const scrollbarWidth = getScrollbarWidth();
-    const header = document.getElementById("header");
-    if (header) {
-      header.style.width = `calc(100vw - ${scrollbarWidth}px)`;
-    }
-  };
+      const scrollbarWidth = scrollDiv.offsetWidth - scrollDiv.clientWidth;
+      document.body.removeChild(scrollDiv);
+      return scrollbarWidth;
+    };
 
-  // Apply sticky behavior based on Intersection Observer and viewport width
-  const applyStickyObserver = () => {
-    const trigger = document.getElementById("trigger") as HTMLElement;
-    const header = document.getElementById("header") as HTMLElement;
-    const spacer = document.getElementById("spacer") as HTMLElement;
+    // Adjust header width based on scrollbar width
+    const adjustHeaderWidth = () => {
+      const scrollbarWidth = getScrollbarWidth();
+      const header = document.getElementById("header");
+      if (header) {
+        header.style.width = `calc(100vw - ${scrollbarWidth}px)`;
+      }
+    };
 
-    const observer = new IntersectionObserver((entries) => {
-      const viewportWidth = window.innerWidth;
+    window.onload = () => {
+      adjustHeaderWidth(); // Ensure the width is adjusted initially
+      applyStickyObserver(); // Apply the Intersection Observer logic
+    };
 
-      entries.forEach((entry) => {
-        if (viewportWidth > 2136) {
-          // Always add sticky class if viewport exceeds 2136px
-          header.classList.add("fixed", "top-0", "left-0", "z-50");
-          spacer.classList.remove("hidden");
-          spacer.style.height = `${header.offsetHeight}px`;
-        } else if (!entry.isIntersecting) {
-          // Only add sticky class if trigger is not intersecting
-          header.classList.add("fixed", "top-0", "left-0", "z-50");
-          spacer.classList.remove("hidden");
-          spacer.style.height = `${header.offsetHeight}px`;
-        } else {
-          // Remove sticky class if the trigger is intersecting
-          header.classList.remove("fixed", "top-0", "left-0");
-          spacer.classList.add("hidden");
-          spacer.style.height = "0px";
-        }
+    // Apply sticky behavior based on Intersection Observer and viewport width
+    const applyStickyObserver = () => {
+      const trigger = document.getElementById("trigger") as HTMLElement;
+      const header = document.getElementById("header") as HTMLElement;
+      const spacer = document.getElementById("spacer") as HTMLElement;
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          console.log(entry.isIntersecting); // Debug log
+          if (!entry.isIntersecting) {
+            header.classList.add("fixed", "top-0", "left-0", "z-50");
+            spacer.classList.remove("hidden");
+            spacer.style.height = `${header.offsetHeight}px`;
+          } else {
+            header.classList.remove("fixed", "top-0", "left-0");
+            spacer.classList.add("hidden");
+            spacer.style.height = "0px";
+          }
+        });
       });
-    });
 
-    if (trigger) {
-      observer.observe(trigger);
-    }
-  };
+      if (trigger) {
+        observer.observe(trigger);
+      }
+    };
 
-  // Reinitialize after each page load or navigation event
-  const reinitializeHeader = () => {
-    adjustHeaderWidth(); // Ensure the width is adjusted initially
-    applyStickyObserver(); // Apply the Intersection Observer logic
-  };
+    // Reinitialize after each page load or navigation event
+    const reinitializeHeader = () => {
+      adjustHeaderWidth(); // Ensure the width is adjusted initially
+      applyStickyObserver(); // Apply the Intersection Observer logic
+    };
 
-  // Run the initialization logic after DOM is fully loaded
-  document.addEventListener("DOMContentLoaded", reinitializeHeader);
+    // Run the initialization logic after DOM is fully loaded
+    document.addEventListener("DOMContentLoaded", reinitializeHeader);
 
-  // Listen for custom navigation events (client-side navigation)
-  window.addEventListener("astro:page-load", reinitializeHeader);
+    // Listen for custom navigation events (client-side navigation)
+    window.addEventListener("astro:page-load", reinitializeHeader);
 
-  // Ensure the scrollbar width is recalculated on window resize
-  window.addEventListener("resize", adjustHeaderWidth);
+    // Ensure the scrollbar width is recalculated on window resize
+    window.addEventListener("resize", adjustHeaderWidth);
+  }
 </script>

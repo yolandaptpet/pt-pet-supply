@@ -27,7 +27,14 @@ const formatDate = (date: Date) => {
   <title>{post?.data.title}</title>
 </head>
 
-<BlogLayout id={post?.slug}>
+<BlogLayout id={post?.slug} class="relative">
+  <!-- <div>
+    <img
+      src="/src/assets/background.jpg"
+      class="absolute inset-0 left-1/2 transform -translate-x-1/2 w-full h-full object-cover z-[-30]"
+    />
+    <div class="absolute inset-0 bg-[#FFC66D] opacity-20 z-[-20]"></div>
+  </div> -->
   <div class="w-[100vw] flex justify-center">
     <div class="flex-col-1 justify-center">
       <div class="pt-4 pl-4 flex justify-between items-start">

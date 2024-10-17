@@ -1,6 +1,5 @@
 ---
 import BlogLayout from "@/components/layouts/BlogLayout.astro";
-import Button from "@/components/ui/Button.astro";
 import { getCollection } from "astro:content";
 import type { CollectionEntry } from "astro:content";
 
@@ -9,7 +8,7 @@ const backArrow = "../../../images/arrow.svg";
 // Use the defined schema in content/config.ts to ensure type safety
 const posts: CollectionEntry<"blog">[] = await getCollection("blog");
 
-// Get tags for Filter
+// Get unique tags from all posts
 const allTags = Array.from(new Set(posts.flatMap((post) => post.data.tags)));
 
 // Utility function to format the date to MM-DD-YYYY without leading zero
@@ -21,41 +20,51 @@ const formatDate = (date: Date) => {
 };
 ---
 
-<head>
-  <title>Blog | PT Pet Supply</title>
-</head>
-
-<BlogLayout id="blog">
-  <div class="w-[100vw] flex justify-center">
-    <div class="flex-col justify-center max-w-[1200px]">
+<BlogLayout id="blog" class="relative w-screen h-screen overflow-hidden">
+  <div class="bg w-[100vw] pb-10 flex justify-center">
+    <div class="overlay"></div>
+    <div class="flex-col justify-center w-[100vw] max-w-[1200px]">
       <div class="pt-4 pl-4 flex justify-between items-start">
         <button
           class="flex items-center bg-[#7F0201] hover:bg-[#A52A2A] text-white font-bold py-1.5 px-3 rounded-xl no-underline"
           data-astro-prefetch
           onclick="window.location.href = '/'"
         >
-          {
-            (
-              <img
-                src={backArrow}
-                alt="Back Arrow"
-                class="w-4 my-0"
-                style="filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(360deg) brightness(100%) contrast(100%);"
-              />
-            )
-          }
+          <img
+            src={backArrow}
+            alt="Back Arrow"
+            class="w-4 my-0"
+            style="filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(360deg) brightness(100%) contrast(100%);"
+          />
           &nbsp; Store Page
         </button>
+      </div>
 
-        <div class="flex-col pr-4 -mr-10">
-          <h3 class="flex justify-end text-sm pb-1.5 my-0 -mb-1.5 mr-10">
-            Filter by:
-          </h3>
-          <div class="flex space-x-1 overflow-x-auto scrollbar-hide">
-            {/* Horizontal scroll container */}
+      <div
+        class="flex flex-col justify-center text-center w-3/4 md:w-2/3 pt-2 mx-auto"
+      >
+        <p>
+          Lorem ipsum odor amet, consectetuer adipiscing elit. Iaculis ex nisl
+          himenaeos euismod nostra habitant. Class mattis tortor purus odio
+          nullam bibendum posuere tortor semper. Magna eros ipsum nam accumsan
+          neque tristique.
+        </p>
+        <div class="flex-col pr-4 -mr-4">
+          <div class="flex justify-start items-start space-x-1">
+            <h3
+              class="flex justify-start text-sm tracking-widest my-0 -mb-1 ml-10"
+            >
+              Filter by:
+            </h3>
+          </div>
+          <div class="flex space-x-1 p-2 overflow-x-auto pb-1 scrollbar-hide">
+            {/* Horizontal scroll container for tags */}
             {
               allTags.map((tag) => (
-                <button class="bg-[#7F0201] hover:bg-[#A52A2A] text-white text-sm tracking-narrow px-2 rounded-xl">
+                <button
+                  class="tag-button bg-[#7F0201] hover:bg-[#A52A2A] text-white text-md tracking-narrow px-3 rounded-xl whitespace-nowrap"
+                  data-tag={tag}
+                >
                   {tag}
                 </button>
               ))
@@ -64,15 +73,19 @@ const formatDate = (date: Date) => {
         </div>
       </div>
 
-      <div class="flex justify-center max-w-[1200px]">
+      <div id="post-container" class="flex justify-center max-w-[1200px]">
         <div
-          class="grid min-[690px]:grid-cols-2 lg:grid-cols-3 gap-4 place-items-center sm:w-[690px] lg:w-[1020px] px-4 pt-6 pb-16"
+          class="grid min-[690px]:grid-cols-2 lg:grid-cols-3 gap-4 place-items-center sm:w-[690px] lg:w-[1020px] px-4 pt-6 pb-16 drop-shadow-2xl"
         >
+          {/* Post cards will be dynamically filtered */}
           {
             posts.map((post) => (
-              <div class="relative flex flex-col w-[320px] min-[450px]:w-[400px] min-[690px]:w-[320px] lg:w-[320px] rounded-3xl border bg-[#F9DCB1]">
+              <div
+                class="post-card relative flex flex-col w-[320px] min-[450px]:w-[400px] min-[690px]:w-[320px] lg:w-[320px] rounded-3xl border bg-[#F9DCB1]"
+                data-tags={post.data.tags.join(",")}
+              >
                 <img
-                  src="https://placehold.co/320x210"
+                  src="https://placehold.co/400x270"
                   alt="Hashtag photo"
                   class="rounded-t-3xl my-0"
                 />
@@ -107,78 +120,79 @@ const formatDate = (date: Date) => {
 </BlogLayout>
 
 <script>
-  document.addEventListener("turbo:load", () => {
-    const blogPostDivs = document.querySelectorAll<HTMLDivElement>(
-      ".py-2.px-4.rounded-xl"
-    );
-    let resizeTimeout: number | undefined;
+  document.addEventListener("DOMContentLoaded", () => {
+    const tagButtons =
+      document.querySelectorAll<HTMLButtonElement>(".tag-button");
+    const postCards = document.querySelectorAll<HTMLElement>(".post-card");
+    let selectedTag: string | null = null;
 
-    const adjustLetterSpacing = () => {
-      blogPostDivs.forEach((div) => {
-        const titleElement = div.querySelector<HTMLAnchorElement>("a");
-        if (!titleElement) return;
-
-        const titleText = titleElement.textContent || "";
-        const titleLength = titleText.length;
-
-        // Determine the correct class based on title length
-        let newClass = "";
-        if (titleLength <= 20) {
-          newClass = "spacing-short";
-        } else if (titleLength <= 30) {
-          newClass = "spacing-medium";
-        } else if (titleLength <= 37) {
-          newClass = "spacing-long";
-        } else {
-          newClass = "spacing-extra-long";
-        }
-
-        // Only update classes if they have changed
-        if (!titleElement.classList.contains(newClass)) {
-          titleElement.classList.remove(
-            "spacing-short",
-            "spacing-medium",
-            "spacing-long",
-            "spacing-extra-long"
-          );
-          titleElement.classList.add(newClass);
-        }
-      });
+    // Function to apply animation classes
+    const applyAnimation = (postCard: HTMLElement, isVisible: boolean) => {
+      if (isVisible) {
+        postCard.classList.remove("hidden");
+        // Add a timeout to trigger CSS transitions
+        requestAnimationFrame(() => {
+          postCard.classList.add("animate");
+        });
+      } else {
+        postCard.classList.add("hidden");
+        // Remove the animate class after the animation completes
+        postCard.addEventListener(
+          "transitionend",
+          () => {
+            postCard.classList.remove("animate");
+          },
+          { once: true }
+        );
+      }
     };
 
-    // Adjust on load
-    adjustLetterSpacing();
+    // Add click event listener for each tag button
+    tagButtons.forEach((button) => {
+      button.addEventListener("click", (event) => {
+        const target = event.target as HTMLButtonElement;
+        const clickedTag = target.getAttribute("data-tag");
 
-    // Debounced resize event listener
-    window.addEventListener("resize", () => {
-      // Clear the existing timeout if still running
-      if (resizeTimeout) {
-        clearTimeout(resizeTimeout);
-      }
+        // Check if the clicked tag is already selected
+        if (selectedTag === clickedTag) {
+          // Deselect the tag
+          target.classList.remove("active-tag");
+          selectedTag = null; // Reset selectedTag
 
-      // Set a new timeout to delay execution by 0.5 seconds
-      resizeTimeout = window.setTimeout(() => {
-        requestAnimationFrame(adjustLetterSpacing); // Adjust letter spacing after resizing
-      }, 500); // 500 milliseconds delay
+          // Show all post cards
+          postCards.forEach((postCard) => {
+            applyAnimation(postCard, true);
+          });
+        } else {
+          // Remove active class from all tag buttons
+          tagButtons.forEach((btn) => btn.classList.remove("active-tag"));
+
+          // Add active class to the clicked button
+          target.classList.add("active-tag");
+
+          // Set the selected tag to the clicked tag
+          selectedTag = clickedTag;
+
+          // Filter post cards based on the selected tag
+          postCards.forEach((postCard) => {
+            const postTags = postCard.getAttribute("data-tags")?.split(",");
+
+            // Show or hide the post card based on the selected tag
+            if (postTags?.includes(selectedTag ?? "")) {
+              applyAnimation(postCard, true);
+            } else {
+              applyAnimation(postCard, false);
+            }
+          });
+        }
+      });
     });
   });
 </script>
 
 <style>
-  .spacing-short {
-    letter-spacing: 0.15em;
-  }
-
-  .spacing-medium {
-    letter-spacing: 0;
-  }
-
-  .spacing-long {
-    letter-spacing: -0.04em;
-  }
-
-  .spacing-extra-long {
-    letter-spacing: -0.07em;
+  body {
+    scroll-behavior: smooth;
   }
 
   .scrollbar-hide::-webkit-scrollbar {
@@ -186,7 +200,28 @@ const formatDate = (date: Date) => {
   }
 
   .scrollbar-hide::-webkit-scrollbar-thumb {
-    background-color: #a52a2a;
-    border-radius: 10px; /* Creates pill shape */
+    background-color: #7f0201;
+    border-radius: 10px;
+  }
+
+  .bg {
+    background-image: url(/src/assets/blog-background.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: bottom;
+  }
+
+  .active-tag {
+    background-color: #a52a2a; /* Highlight color for the active tag */
+  }
+
+  .tag-button {
+    transition:
+      background-color 0.3s ease,
+      transform 0.3s ease;
+  }
+
+  .tag-button:hover {
+    transform: scale(1.1); /* Add hover effect for non-active buttons */
   }
 </style>

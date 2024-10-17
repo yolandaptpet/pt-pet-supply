@@ -2,7 +2,7 @@
 title: "Test Blog Post 70"
 description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et ma"
 publishDate: 2024-10-02
-tags: ["business", "pet supplies"]
+tags: ["Pet Nutrition", "Pet Health"]
 ---
 
 # This is a test blog post!
