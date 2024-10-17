@@ -23,19 +23,8 @@ const formatDate = (date: Date) => {
 };
 ---
 
-<head>
-  <title>{post?.data.title}</title>
-</head>
-
-<BlogLayout id={post?.slug} class="relative">
-  <!-- <div>
-    <img
-      src="/src/assets/background.jpg"
-      class="absolute inset-0 left-1/2 transform -translate-x-1/2 w-full h-full object-cover z-[-30]"
-    />
-    <div class="absolute inset-0 bg-[#FFC66D] opacity-20 z-[-20]"></div>
-  </div> -->
-  <div class="w-[100vw] flex justify-center">
+<BlogLayout id={post?.slug} title={post?.data.title} class="relative">
+  <div class="bg w-[100vw] pb-48 lg:pb-64 flex justify-center">
     <div class="flex-col-1 justify-center">
       <div class="pt-4 pl-4 flex justify-between items-start">
         <button
@@ -85,13 +74,13 @@ const formatDate = (date: Date) => {
           <div class="flex space-x-1 pb-16">
             {
               post?.data.tags.map((tag) => (
-                <button class="bg-[#7F0201] hover:bg-[#A52A2A] text-white text-md md:text-xl md:tracking-widest px-2 md:px-3 md:py-1 rounded-xl">
+                <button class="bg-[#7F0201] text-white text-md md:text-xl md:tracking-widest px-2 md:px-3 md:py-1 rounded-xl pointer-events-none">
                   {tag}
                 </button>
               ))
             }
           </div>
-          <article class="pb-16">
+          <article class="pb-16 text-lg">
             {Content ? <Content /> : <p>Content not available</p>}
           </article>
         </div>
@@ -106,7 +95,11 @@ const formatDate = (date: Date) => {
     margin-left: auto;
     margin-right: auto;
   }
-  body {
-    scroll-behavior: smooth;
+
+  .bg {
+    background-image: url(/src/assets/blog-post-background.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: bottom;
   }
 </style>

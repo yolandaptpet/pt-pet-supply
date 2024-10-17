@@ -44,7 +44,6 @@ const { title, description, publishDate, tags } =
     <Header transition:persist />
     <article>
       <header>
-        <h1>{title}</h1>
         <time>{publishDate}</time>
         {tags?.map((tag) => <span class="tag">{tag}</span>)}
       </header>
@@ -66,6 +65,7 @@ const { title, description, publishDate, tags } =
     padding: 0;
     overflow-x: hidden;
   }
+
   body {
     font-family: "Cenzo Flare", sans-serif;
   }

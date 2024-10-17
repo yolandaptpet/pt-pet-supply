@@ -1,5 +1,4 @@
 ---
-import { markdownToTxt } from "markdown-to-txt";
 import type { CollectionEntry } from "astro:content";
 
 const { post }: { post?: CollectionEntry<"blog"> } = Astro.props;
@@ -20,34 +19,34 @@ const postDate = post ? formatDate(post.data.publishDate) : "";
 ---
 
 <section class="flex-col-1 my-auto ml-6 drop-shadow-2xl">
-  <div
-    class="relative w-[320px] h-[210px] sm:w-[410px] sm:h-[180px] md:w-[500px] 2xl:w-[600px] md:h-[170px] flex py-5 rounded-3xl bg-[#F9DCB1] bg-opacity-50"
-    style={{ backdropFilter: "blur(35px)" }}
-    onclick="window.location.href = `/blog/${post?.slug}/`"
-  >
-    <!-- Image Container -->
-    <div class="absolute top-6 -left-9 md:top-3 md:-left-5">
-      <img
-        src="https://placehold.co/350x350/png"
-        alt="Blog tag photo"
-        class="w-[100px] 2xl:w-[115px] h-auto rounded-2xl"
-      />
-    </div>
-
-    <!-- Text and Description -->
+  <a href={`/blog/${post?.slug}/`}>
     <div
-      class="ml-16 md:ml-20 2xl:ml-24 px-4 flex-grow flex items-center justify-between"
+      class="relative w-[320px] h-[210px] sm:w-[410px] sm:h-[180px] md:w-[500px] 2xl:w-[600px] md:h-[170px] flex py-5 rounded-3xl bg-[#F9DCB1] bg-opacity-50"
+      style={{ backdropFilter: "blur(35px)" }}
+      onclick="window.location.href = `/blog/${post?.slug}/`"
     >
-      <div>
-        <a href={`/blog/${post?.slug}/`} class="font-bold text-2xl"
-          >{postTitle}</a
-        >
-        <p class="py-2">{shortenedPostDescription}</p>
+      <!-- Image Container -->
+      <div class="absolute top-6 -left-9 md:top-3 md:-left-5">
+        <img
+          src="https://placehold.co/350x350/png"
+          alt="Blog tag photo"
+          class="w-[100px] 2xl:w-[115px] h-auto rounded-2xl"
+        />
       </div>
-      <!-- Date -->
-      <p class="absolute bottom-2 right-3 font-bold">
-        {postDate}
-      </p>
+
+      <!-- Text and Description -->
+      <div
+        class="ml-16 md:ml-20 2xl:ml-24 px-4 flex-grow flex items-center justify-between"
+      >
+        <div>
+          <h1 class="font-bold text-2xl">{postTitle}</h1>
+          <h2 class="py-2">{shortenedPostDescription}</h2>
+        </div>
+        <!-- Date -->
+        <p class="absolute bottom-2 right-3 font-bold">
+          {postDate}
+        </p>
+      </div>
     </div>
-  </div>
+  </a>
 </section>

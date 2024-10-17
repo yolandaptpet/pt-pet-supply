@@ -20,8 +20,12 @@ const formatDate = (date: Date) => {
 };
 ---
 
-<BlogLayout id="blog" class="relative w-screen h-screen overflow-hidden">
-  <div class="bg w-[100vw] pb-10 flex justify-center">
+<BlogLayout
+  id="blog"
+  title="Blog | PT Pet Supply"
+  class="relative w-screen h-screen overflow-hidden"
+>
+  <div class="bg min-h-screen w-[100vw] pb-10 flex justify-center">
     <div class="overlay"></div>
     <div class="flex-col justify-center w-[100vw] max-w-[1200px]">
       <div class="pt-4 pl-4 flex justify-between items-start">
@@ -101,7 +105,7 @@ const formatDate = (date: Date) => {
                   </time>
                   <div class="flex space-x-1">
                     {post.data.tags.map((tag) => (
-                      <button class="bg-[#7F0201] hover:bg-[#A52A2A] text-white text-sm tracking-narrow px-2 rounded-xl">
+                      <button class="bg-[#7F0201] text-white text-sm tracking-narrow px-2 rounded-xl pointer-events-none">
                         {tag}
                       </button>
                     ))}
