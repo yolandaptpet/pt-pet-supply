@@ -9,7 +9,6 @@ const storeHours = officialStoreHours();
 
 import { getCollection } from "astro:content";
 
-// Assuming 'blog' is the collection for your blog posts
 const allTags = await getCollection("blog").then((collection) => {
   // Flatten all tag arrays from each entry and remove duplicates
   const tags = collection.flatMap((entry) => entry.data.tags);
@@ -17,7 +16,7 @@ const allTags = await getCollection("blog").then((collection) => {
 });
 ---
 
-<Layout title="admin">
+<Layout title="admin" class="h-screen">
   <div
     class="flex justify-center font-bold text-md pl-4 py-8 drop-shadow-xl tracking-wide"
   >

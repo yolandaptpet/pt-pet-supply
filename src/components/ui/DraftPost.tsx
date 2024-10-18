@@ -23,6 +23,10 @@ const DraftPost: React.FC<DraftPostProps> = ({ allTags }) => {
   const [tagsInput, setTagsInput] = useState<string>(''); // For custom tag input field
   const [body, setBody] = useState<string>('');
   const [errors, setErrors] = useState<{ title?: string; description?: string }>({});
+  
+  // Confirmation modal state
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [confirmationText, setConfirmationText] = useState<string>('');
 
   const tagRegex = /^[a-zA-Z0-9]+$/; // Enforce only alphanumeric tags
 
@@ -47,8 +51,16 @@ const DraftPost: React.FC<DraftPostProps> = ({ allTags }) => {
     localStorage.setItem('draftTags', JSON.stringify(selectedTags));
   }, [title, description, body, selectedTags]);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    setIsModalOpen(true); // Open the confirmation modal
+  };
+
+  const confirmSubmit = async () => {
+    if (confirmationText.toLowerCase() !== 'yes') {
+      alert("Please type 'yes' to confirm.");
+      return;
+    }
 
     const validationResult = postSchema.safeParse({
       title,
@@ -64,6 +76,7 @@ const DraftPost: React.FC<DraftPostProps> = ({ allTags }) => {
         title: formErrors.title ? formErrors.title[0] : undefined,
         description: formErrors.description ? formErrors.description[0] : undefined,
       });
+      setIsModalOpen(false); // Close the modal on error
       return;
     }
 
@@ -77,7 +90,7 @@ const DraftPost: React.FC<DraftPostProps> = ({ allTags }) => {
       const result = await response.json();
       if (!response.ok) {
         console.error('Failed to submit post:', result, 'Status:', response.status);
-      } else if (response.ok) {
+      } else {
         console.log('Post submitted successfully:', result);
         // Clear form fields after successful submission
         setTitle('');
@@ -89,19 +102,13 @@ const DraftPost: React.FC<DraftPostProps> = ({ allTags }) => {
         localStorage.removeItem('draftDescription');
         localStorage.removeItem('draftBody');
         localStorage.removeItem('draftTags');
-      } else {
-        console.error('Failed to submit post:', result);
       }
     } catch (error) {
       console.error('An error occurred while submitting the post:', error);
+    } finally {
+      setIsModalOpen(false); // Close the modal after submission
+      setConfirmationText(''); // Reset confirmation text
     }
-
-    // Reset state
-    setTitle('');
-    setDescription('');
-    setBody('');
-    setSelectedTags([]);
-    setErrors({});
   };
 
   const addCustomTag = () => {
@@ -133,7 +140,9 @@ const DraftPost: React.FC<DraftPostProps> = ({ allTags }) => {
             onChange={(e) => setTitle(e.target.value)}
             className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#7F0201] focus:border-[#7F0201]"
             placeholder="Enter blog title. Maximum of 40 characters."
+            maxLength={40}
             required
+            onInvalid={(e) => (e.target as HTMLInputElement).setCustomValidity('Please enter a title.')}
           />
           {errors.title && <p className="text-red-500 text-sm">{errors.title}</p>}
         </div>
@@ -151,7 +160,9 @@ const DraftPost: React.FC<DraftPostProps> = ({ allTags }) => {
             onChange={(e) => setDescription(e.target.value)}
             className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#7F0201] focus:border-[#7F0201]"
             placeholder="Enter a brief description of the blog post. Maximum of 140 characters."
+            maxLength={140}
             required
+            onInvalid={(e) => (e.target as HTMLInputElement).setCustomValidity('Please enter a description.')}
           />
           {errors.description && <p className="text-red-500 text-sm">{errors.description}</p>}
         </div>
@@ -235,6 +246,37 @@ const DraftPost: React.FC<DraftPostProps> = ({ allTags }) => {
           </button>
         </div>
       </form>
+
+      {/* Confirmation Modal */}
+      {isModalOpen && (
+        <div className="fixed inset-0 flex items-center justify-center z-50 bg-gray-800 bg-opacity-75">
+          <div className="bg-white rounded-lg p-6 w-1/3">
+            <h2 className="text-lg font-semibold mb-4">Confirm Submission</h2>
+            <p className="mb-4">Type "yes" to confirm submission of your post.</p>
+            <input
+              type="text"
+              value={confirmationText}
+              onChange={(e) => setConfirmationText(e.target.value)}
+              className="w-full p-2 border border-gray-300 rounded-md"
+              placeholder="Type 'yes'"
+            />
+            <div className="mt-4 flex justify-end">
+              <button
+                onClick={confirmSubmit}
+                className="px-4 py-2 bg-[#7F0201] text-white rounded-3xl mr-2"
+              >
+                Confirm
+              </button>
+              <button
+                onClick={() => setIsModalOpen(false)}
+                className="px-4 py-2 bg-gray-300 text-black rounded-3xl"
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
