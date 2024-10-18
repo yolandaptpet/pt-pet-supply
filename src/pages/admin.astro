@@ -1,5 +1,4 @@
 ---
-import BlogPost from "@/components/ui/BlogPost.astro";
 import Layout from "../components/layouts/Layout.astro";
 import AdminStaffGrid from "../components/ui/AdminStaffGrid.tsx";
 import DraftPost from "../components/ui/DraftPost.tsx";
@@ -7,6 +6,15 @@ import DraftPost from "../components/ui/DraftPost.tsx";
 import { officialStoreHours } from "@/constants/StoreInfo.astro";
 
 const storeHours = officialStoreHours();
+
+import { getCollection } from "astro:content";
+
+// Assuming 'blog' is the collection for your blog posts
+const allTags = await getCollection("blog").then((collection) => {
+  // Flatten all tag arrays from each entry and remove duplicates
+  const tags = collection.flatMap((entry) => entry.data.tags);
+  return Array.from(new Set(tags));
+});
 ---
 
 <Layout title="admin">
@@ -114,7 +122,7 @@ const storeHours = officialStoreHours();
       </div>
     </div>
 
-    <DraftPost client:only="react" />
+    <DraftPost allTags={allTags} client:only="react" />
   </div>
 
   <div class="flex flex-col items-center pb-4 mx-auto">
