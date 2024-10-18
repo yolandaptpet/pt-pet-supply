@@ -13,6 +13,7 @@ const postSchema = z.object({
   description: z.string().max(140, 'Description must be 140 characters or less.'),
   body: z.string(),
   tags: z.array(z.string()),
+  publishDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, 'Date must be in YYYY-MM-DD format'), // Ensure the date is valid
 });
 
 const DraftPost: React.FC<DraftPostProps> = ({ allTags }) => {
@@ -46,7 +47,7 @@ const DraftPost: React.FC<DraftPostProps> = ({ allTags }) => {
     localStorage.setItem('draftTags', JSON.stringify(selectedTags));
   }, [title, description, body, selectedTags]);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     const validationResult = postSchema.safeParse({
@@ -54,6 +55,7 @@ const DraftPost: React.FC<DraftPostProps> = ({ allTags }) => {
       description,
       body,
       tags: selectedTags, // Pass selected tags to the schema
+      publishDate: new Date().toISOString().split('T')[0], // Automatically set publishDate to today's date
     });
 
     if (!validationResult.success) {
@@ -65,13 +67,36 @@ const DraftPost: React.FC<DraftPostProps> = ({ allTags }) => {
       return;
     }
 
-    // Clear localStorage after submission
-    localStorage.removeItem('draftTitle');
-    localStorage.removeItem('draftDescription');
-    localStorage.removeItem('draftBody');
-    localStorage.removeItem('draftTags');
+    try {
+      const response = await fetch('/api/submit-post', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(validationResult.data), // Send the entire validated data
+      });
 
-    // Optionally, reset state
+      const result = await response.json();
+      if (!response.ok) {
+        console.error('Failed to submit post:', result, 'Status:', response.status);
+      } else if (response.ok) {
+        console.log('Post submitted successfully:', result);
+        // Clear form fields after successful submission
+        setTitle('');
+        setDescription('');
+        setBody('');
+        setSelectedTags([]);
+        setErrors({});
+        localStorage.removeItem('draftTitle');
+        localStorage.removeItem('draftDescription');
+        localStorage.removeItem('draftBody');
+        localStorage.removeItem('draftTags');
+      } else {
+        console.error('Failed to submit post:', result);
+      }
+    } catch (error) {
+      console.error('An error occurred while submitting the post:', error);
+    }
+
+    // Reset state
     setTitle('');
     setDescription('');
     setBody('');

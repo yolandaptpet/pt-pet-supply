@@ -5,7 +5,7 @@ import { defineCollection, z } from "astro:content";
 const blogPostSchema = z.object({
   title: z.string(),
   description: z.string(),
-  publishDate: z.date(),
+  publishDate: z.coerce.date(),
   tags: z.array(z.string()),
 });
 
