@@ -1,25 +1,25 @@
-import { MongoClient } from 'mongodb';
+import { MongoClient } from "mongodb";
 
-if (!import.meta.env.MONGODB_URI) {
-  throw new Error('Invalid/Missing environment variable: "MONGODB_URI"');
-}
+const uri = import.meta.env.MONGO_URI; // Ensure your connection string is stored in an environment variable
+const client = new MongoClient(uri);
 
-const uri = import.meta.env.MONGODB_URI;
-let client: MongoClient;
-let clientPromise: Promise<MongoClient>;
+let db: any;
 
-if (import.meta.env.PROD) {
-  client = new MongoClient(uri);
-  clientPromise = client.connect();
-} else {
-  let globalWithMongo = global as typeof globalThis & {
-    _mongoClientPromise?: Promise<MongoClient>;
-  };
-  if (!globalWithMongo._mongoClientPromise) {
-    client = new MongoClient(uri);
-    globalWithMongo._mongoClientPromise = client.connect();
+export async function connectToDatabase() {
+  if (!db) {
+    try {
+      await client.connect();
+      db = client.db("pt-pet-supply");
+      console.log("Connected to MongoDB");
+    } catch (error) {
+      console.error("Failed to connect to MongoDB", error);
+      throw new Error("Database connection failed");
+    }
   }
-  clientPromise = globalWithMongo._mongoClientPromise;
+  return db;
 }
 
-export default clientPromise;
+export async function closeConnection() {
+  await client.close();
+  console.log("MongoDB connection closed");
+}

@@ -1,15 +1,31 @@
 {
   "extends": "astro/tsconfigs/strict",
   "compilerOptions": {
+    "target": "ES2020", // Adjust based on your desired Node version
+    "module": "ESNext", // Use ESNext for module syntax
+    "moduleResolution": "Node",
     "jsx": "react-jsx",
     "jsxImportSource": "react",
     "baseUrl": ".",
     "paths": {
       "@/*": [
         "./src/*",
-        "./src/.tsx",
+        "./src/.tsx"
       ]
     },
-    "types": ["node"]
-  }
+    "esModuleInterop": true, // Enables emit interoperability between CommonJS and ES Modules
+    "skipLibCheck": true, // Skips type checking of declaration files for faster compilation
+    "strict": true, // Enables strict type-checking options
+    "noImplicitAny": true // Raise error on expressions and declarations with an implied 'any' type
+  },
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "src/**/*.astro",
+    "src/**/*.d.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
 }
