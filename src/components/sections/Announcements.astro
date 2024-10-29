@@ -3,9 +3,11 @@ const { isVisible } = Astro.props;
 ---
 
 {
-  isVisible && (
+  isVisible ? (
     <section class="flex bg-[#7F0201] text-sm md:text-base font-bold tracking-wider lg:tracking-widest text-white text-outline-white">
       <h2 class="mx-auto justify-between px-6 py-2">Announcements</h2>
     </section>
+  ) : (
+    <section class="h-5 bg-[#7F0201]" />
   )
 }
