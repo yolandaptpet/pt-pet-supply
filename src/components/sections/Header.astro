@@ -1,19 +1,49 @@
 ---
 interface HeaderProps {
-  activeAnnouncement: boolean;
+  content: string;
+  isActive: boolean;
 }
 
 import Announcements from "./Announcements.astro";
 import Navbar from "./Navbar.astro";
 
-const { activeAnnouncement = true } = Astro.props as HeaderProps;
+const fetchAnnouncements = async () => {
+  try {
+    const baseUrl = "http://localhost:4321"; // Fallback for dev environment
+    const response = await fetch(`${baseUrl}/api/announcements`);
+    if (!response.ok) {
+      throw new Error(`Error: ${response.statusText}`);
+    }
+    const data = await response.json();
+
+    if (data && data.length > 0) {
+      const { content, isActive } = data[0]; // Access the first announcement
+      return { content, isActive };
+    } else {
+      console.warn("No announcements found.");
+      return { content: "", isActive: false }; // Default values if no data exists
+    }
+  } catch (error) {
+    console.error("Failed to fetch announcements:", error);
+    return { content: "", isActive: false }; // Default return on error
+  }
+};
+
+// Fetch announcements and use the output as props
+const { content, isActive } = (await fetchAnnouncements()) as HeaderProps;
+const activeAnnouncement = isActive;
+const body = content;
 ---
 
 <!-- A small invisible trigger element above the header to control sticky behavior -->
 <div id="trigger" style="height: 1px; background-color: #7F0201;"></div>
 
 <header id="header" class="transition-all duration-300">
-  <Announcements id="announcements" isVisible={activeAnnouncement} />
+  <Announcements
+    id="announcements"
+    activeAnnouncement={activeAnnouncement}
+    body={body}
+  />
   <Navbar id="navbar" />
 </header>
 
