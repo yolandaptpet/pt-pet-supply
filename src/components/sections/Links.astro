@@ -1,17 +1,17 @@
 ---
-interface LinksProps {
-  currentPage: string;
-}
+// interface LinksProps {
+//   currentPage: string;
+// }
 
 import Button from "../ui/Button.astro";
 
-const currentPage = Astro.url.pathname as LinksProps["currentPage"];
+// const currentPage = Astro.url.pathname as LinksProps["currentPage"];
 ---
 
 <!-- Main container with Alpine.js logic -->
 <div x-data="{ open: false }" class="relative overflow-x-hidden">
   <div class="hidden xl:flex font-bold lg:text-xl lg:space-x-4">
-    {
+    <!-- {
       currentPage == "/grooming" && (
         <Button
           transition:animate="slide"
@@ -21,12 +21,19 @@ const currentPage = Astro.url.pathname as LinksProps["currentPage"];
           data-astro-prefetch
         />
       )
-    }
+    } -->
     <Button
       transition:animate="slide"
       text="Products"
       href="/#products"
       class="xl:pl-1 2xl:pl-3 no-underline"
+    />
+    <Button
+      transition:animate="slide"
+      text="Pet Grooming"
+      href="/#grooming"
+      class="xl:pl-1 2xl:pl-3 no-underline"
+      data-astro-prefetch
     />
     <Button
       transition:animate="slide"
@@ -40,17 +47,6 @@ const currentPage = Astro.url.pathname as LinksProps["currentPage"];
       href="/blog"
       class="xl:pl-1 2xl:pl-3 no-underline"
     />
-    {
-      currentPage !== "/grooming" && (
-        <Button
-          transition:animate="slide"
-          text="Pet Grooming"
-          href="/grooming"
-          class="xl:pl-1 2xl:pl-3 no-underline"
-          data-astro-prefetch
-        />
-      )
-    }
   </div>
 
   <!-- Hamburger Icon for mobile screens -->
@@ -112,7 +108,7 @@ const currentPage = Astro.url.pathname as LinksProps["currentPage"];
 
       <!-- Sidebar Buttons -->
       <div class="mt-8 pl-4 flex flex-col items-center text-center space-y-4">
-        {
+        <!-- {
           currentPage == "/grooming" && (
             <Button
               transition:animate="slide"
@@ -122,12 +118,19 @@ const currentPage = Astro.url.pathname as LinksProps["currentPage"];
               data-astro-prefetch
             />
           )
-        }
+        } -->
         <Button
           transition:animate="slide"
           text="Products"
           href="/#products"
           class="bg-[#7F0201] hover:bg-[#A52A2A] text-white font-bold w-[80%] pl-4 p-2 rounded-xl drop-shadow-2xl no-underline"
+        />
+        <Button
+          transition:animate="slide"
+          text="Pet Grooming"
+          href="/#grooming"
+          class="bg-[#7F0201] hover:bg-[#A52A2A] text-white font-bold w-[80%] pl-4 p-2 rounded-xl drop-shadow-2xl no-underline"
+          data-astro-prefetch
         />
         <Button
           transition:animate="slide"
@@ -141,17 +144,6 @@ const currentPage = Astro.url.pathname as LinksProps["currentPage"];
           href="/blog"
           class="bg-[#7F0201] hover:bg-[#A52A2A] text-white font-bold w-[80%] pl-4 p-2 rounded-xl drop-shadow-2xl no-underline"
         />
-        {
-          currentPage !== "/grooming" && (
-            <Button
-              transition:animate="slide"
-              text="Pet Grooming"
-              href="/grooming"
-              class="bg-[#7F0201] hover:bg-[#A52A2A] text-white font-bold w-[80%] pl-4 p-2 rounded-xl drop-shadow-2xl no-underline"
-              data-astro-prefetch
-            />
-          )
-        }
       </div>
     </div>
   </div>
