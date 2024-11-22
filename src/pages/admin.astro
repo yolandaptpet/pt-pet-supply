@@ -1,7 +1,11 @@
 ---
 import Layout from "../components/layouts/Layout.astro";
-import AdminStaffGrid from "../components/ui/AdminStaffGrid.tsx";
+import UpdateAnnouncement from "@/components/ui/UpdateAnnouncement";
+import UpdateHours from "../components/ui/UpdateHours.tsx";
 import DraftPost from "../components/ui/DraftPost.tsx";
+import AdminStaffGrid from "../components/ui/AdminStaffGrid.tsx";
+
+const backArrow = "../../../images/arrow.svg";
 
 import { officialStoreHours } from "@/constants/StoreInfo.astro";
 
@@ -17,108 +21,43 @@ const allTags = await getCollection("blog").then((collection) => {
 ---
 
 <Layout title="admin" class="h-screen">
+  <div class="pt-4 pl-4 flex justify-between items-start drop-shadow-lg">
+    <button
+      class="flex items-center bg-[#7F0201] hover:bg-[#A52A2A] text-white font-bold py-1.5 px-3 rounded-xl no-underline"
+      data-astro-prefetch
+      onclick="window.location.href = '/'"
+    >
+      <img
+        src={backArrow}
+        alt="Back Arrow"
+        class="w-4 my-0"
+        style="filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(360deg) brightness(100%) contrast(100%);"
+      />
+      &nbsp; Store Page
+    </button>
+  </div>
   <div
-    class="flex justify-center font-bold text-md pl-4 py-8 drop-shadow-xl tracking-wide"
+    class="flex justify-center font-bold text-md pl-4 pt-4 pb-8 drop-shadow-xl tracking-wide"
   >
-    <div class="bg-[#F9DCB1] p-2 rounded-3xl">
-      <span class="text-xl">🚨</span> For clarification on any of the website's functionality,
-      <a
-        href="https://docs.samsnug.net"
-        target="_blank"
-        class="text-[#7F0201] underline">consult the documentation</a
-      >
-      <span class="text-xl">🚨</span>
+    <div class="flex items-center text-center bg-[#F9DCB1] p-2 rounded-3xl">
+      <div class="text-xl">🚨</div>
+      <p class="px-2 text-sm sm:text-base">
+        For clarification on any of the website's functionality,
+        <a
+          href="https://docs.samsnug.net"
+          target="_blank"
+          class="max-md:block text-[#7F0201] underline"
+          >consult the documentation</a
+        >
+      </p>
+      <div class="text-xl">🚨</div>
     </div>
   </div>
 
   <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
-    <div class="Column1 lg:col-span-1">
-      <div class="mx-4 pt-4 pb-16">
-        <h1 class="font-bold text-2xl pb-2">Announcements Banner</h1>
-        <div>
-          <div class="mb-2 text-xl">
-            <label class="mr-4">
-              <input type="radio" name="toggle" value="off" checked /> Off
-            </label>
-            <label>
-              <input type="radio" name="toggle" value="on" /> On
-            </label>
-          </div>
-
-          <div>
-            <textarea
-              id="toggledInput"
-              placeholder="Enter text here"
-              disabled
-              class="p-1 disabled:bg-gray-200 disabled:cursor-not-allowed w-4/5 lg:w-full h-24"
-            ></textarea>
-          </div>
-        </div>
-        <button
-          class="mt-2 px-4 py-2 bg-[#7F0201] hover:bg-[#A52A2A] text-white rounded-3xl"
-        >
-          Save
-        </button>
-      </div>
-
-      <div class="mx-4 pb-5">
-        <h1 class="font-bold text-2xl">Update Hours of Operation</h1>
-        <div class="max-w-lg my-5">
-          <div class="mb-4 text-lg">
-            <label class="mr-4">
-              <input type="radio" name="hours-toggle" value="default" checked />
-              Normal Hours
-            </label>
-            <label>
-              <input type="radio" name="hours-toggle" value="custom" />
-              Adjusted Hours
-            </label>
-          </div>
-
-          <table id="hours-table" class="w-full border-collapse text-lg">
-            <thead>
-              <tr>
-                <th class="p-2 border border-gray-300 text-left">Day</th>
-                <th class="p-2 border border-gray-300 text-left"
-                  >Opening Time</th
-                >
-                <th class="p-2 border border-gray-300 text-left"
-                  >Closing Time</th
-                >
-              </tr>
-            </thead>
-            <tbody>
-              {
-                Object.entries(storeHours).map(([day, hours]) => (
-                  <tr>
-                    <td class="p-2 border border-gray-300">{day}</td>
-                    <td class="p-2 border border-gray-300">
-                      <input
-                        type="time"
-                        value={hours.open}
-                        class="w-full p-1 box-border disabled:bg-gray-200 disabled:cursor-not-allowed"
-                        disabled
-                      />
-                    </td>
-                    <td class="p-2 border border-gray-300">
-                      <input
-                        type="time"
-                        value={hours.close}
-                        class="w-full p-1 box-border disabled:bg-gray-200 disabled:cursor-not-allowed"
-                        disabled
-                      />
-                    </td>
-                  </tr>
-                ))
-              }
-            </tbody>
-          </table>
-          <button
-            class="mt-2 px-4 py-2 bg-[#7F0201] hover:bg-[#A52A2A] text-white rounded-3xl"
-            >Save</button
-          >
-        </div>
-      </div>
+    <div class="lg:col-span-1">
+      <UpdateAnnouncement />
+      <UpdateHours storeHours={storeHours} />
     </div>
 
     <DraftPost allTags={allTags} client:only="react" />

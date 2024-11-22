@@ -4,7 +4,7 @@ const { activeAnnouncement, body } = Astro.props;
 
 {
   activeAnnouncement === true ? (
-    <section class="flex bg-[#7F0201] text-sm md:text-base font-bold tracking-wider lg:tracking-widest text-white text-outline-white">
+    <section class="flex bg-[#7F0201] text-sm lg:text-base font-bold tracking-wider lg:tracking-widest text-white text-outline-white">
       <h2 class="scroll-text mx-auto justify-between px-6 py-2 whitespace-nowrap">
         {body}
       </h2>
@@ -15,7 +15,7 @@ const { activeAnnouncement, body } = Astro.props;
 }
 
 <style>
-  @media (max-width: 640px) {
+  @media (max-width: 768px) {
     .scroll-text {
       animation: scroll-right-to-left 15s linear infinite;
     }
