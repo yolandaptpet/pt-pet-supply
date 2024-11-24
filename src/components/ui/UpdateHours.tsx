@@ -83,7 +83,7 @@ const UpdateHours: React.FC<HoursProps> = ({ storeHours }) => {
             ))}
           </tbody>
         </table>
-        <button className="mt-2 px-4 py-2 bg-[#7F0201] hover:bg-[#A52A2A] text-white rounded-3xl">
+        <button className="mt-2 px-4 py-2 bg-[#7F0201] hover:bg-[#A52A2A] text-white font-bold rounded-3xl">
           Save
         </button>
       </div>

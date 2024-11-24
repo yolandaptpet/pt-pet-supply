@@ -3,6 +3,8 @@ import ContactForm from "../ui/ContactForm.jsx";
 import { officialStoreHours } from "../../constants/StoreInfo.astro";
 import Map from "../ui/Map.astro";
 
+const backArrow = "../../../images/arrow.svg";
+
 const storeHours = officialStoreHours();
 
 const convertTo12Hour = (time24: string) => {
@@ -30,7 +32,7 @@ const convertTo12Hour = (time24: string) => {
 >
   <div class="relative flex-1 text-center my-auto">
     <div class="relative mx-auto">
-      <div class="relative z-20 text-center">
+      <div class="relative text-center">
         <h3 class="font-bold text-3xl pb-3 tracking-widest">Store Hours</h3>
         {
           Object.entries(storeHours).map(([day, hours]) => (
@@ -69,24 +71,25 @@ const convertTo12Hour = (time24: string) => {
   class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full opacity-0 pointer-events-none transition-opacity duration-300 ease-in-out"
 >
   <div
-    class="relative top-48 mx-auto p-5 h-[80%] w-[80%] shadow-lg rounded-xl bg-[#FFC66D] transform scale-95 transition-transform duration-300 ease-in-out"
+    class="relative top-32 sm:top-36 md:top-48 mx-auto md:py-12 p-5 max-w-[600px] w-[90%] shadow-lg rounded-xl bg-[#FFC66D] transform scale-95 transition-transform duration-300 ease-in-out"
   >
     <div class="relative mt-3 text-center">
-      <h3 class="pb-6 text-3xl leading-6 font-bold tracking-wider">
+      <h3 class="text-3xl leading-6 font-bold tracking-wider pt-2">
         Message Us
       </h3>
-      <div class="mt-2 px-7 py-3">
+      <div class="mt-2 py-3">
         <ContactForm client:load />
       </div>
-      <div class="absolute top-2 left-2 items-center px-4 py-4">
+      <div class="absolute -top-3 md:-top-8 left-1 items-center">
         <button
           id="closeModal"
-          class="w-12 h-12 bg-[#7F0201] text-white text-xl font-bold tracking-wider rounded-xl shadow-sm hover:bg-[#A52A2A] focus:outline-none focus:ring-2 focus:ring-gray-300"
+          class="w-10 sm:w-12 h-10 sm:h-12 bg-[#7F0201] text-white text-xl font-bold tracking-wider rounded-xl shadow-sm hover:bg-[#A52A2A] focus:outline-none focus:ring-2 focus:ring-gray-300"
         >
           <img
-            src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIxLjI1IiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWFycm93LWJpZy1sZWZ0Ij48cGF0aCBkPSJNMTggMTVoLTZ2NGwtNy03IDctN3Y0aDZ2NnoiLz48L3N2Zz4="
+            src={backArrow}
             alt="back arrow"
-            class="m-auto"
+            class="w-6 sm:w-8 m-auto"
+            style="filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(360deg) brightness(100%) contrast(100%);"
           />
         </button>
       </div>

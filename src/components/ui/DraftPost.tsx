@@ -200,7 +200,7 @@ const DraftPost: React.FC<DraftPostProps> = ({ allTags }) => {
             <button
               type="button"
               onClick={addCustomTag}
-              className="px-4 py-2 bg-[#7F0201] text-white rounded-3xl"
+              className="px-4 py-2 bg-[#7F0201] text-white font-bold rounded-3xl"
             >
               Add Tag
             </button>
@@ -240,7 +240,7 @@ const DraftPost: React.FC<DraftPostProps> = ({ allTags }) => {
         <div>
           <button
             type="submit"
-            className="px-4 py-2 bg-[#7F0201] text-white hover:bg-[#A52A2A] transition rounded-3xl"
+            className="px-4 py-2 bg-[#7F0201] text-white hover:bg-[#A52A2A] transition font-bold rounded-3xl"
           >
             Submit Post
           </button>

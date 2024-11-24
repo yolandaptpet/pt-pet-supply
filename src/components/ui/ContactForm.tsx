@@ -28,7 +28,6 @@ const ContactForm: React.FC = () => {
   });
 
   const [errors, setErrors] = useState<Partial<Record<keyof FormData, string[]>>>({});
-  const [isOpen, setIsOpen] = useState<boolean>(false);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false); // to track form submission status
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
@@ -96,7 +95,6 @@ const ContactForm: React.FC = () => {
       // Reset form
       setFormData({ name: "", email: "", subject: "", message: "" });
       setErrors({});
-      setIsOpen(false); // Close the modal
 
       setSuccessMessage("Your message has been sent successfully!");
     } catch (err) {
@@ -110,70 +108,68 @@ const ContactForm: React.FC = () => {
     }
   };
 
-  // Toggle modal visibility
-  const toggleModal = () => {
-    setIsOpen((prev) => !prev);
-  };
-
   return (
     <>
-      <button className="font-bold tracking-wider" onClick={toggleModal}>Message Us</button>
-      {isOpen && (
-        <div className="modal">
-          <form onSubmit={handleSubmit}>
-            <label>
-              Name:
-              <input
-                type="text"
-                name="name"
-                value={formData.name}
-                onChange={handleChange}
-                disabled={isSubmitting}
-              />
-              {errors.name && <span>{errors.name.join(", ")}</span>}
-            </label>
-            <label>
-              Email:
-              <input
-                type="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                disabled={isSubmitting}
-              />
-              {errors.email && <span>{errors.email.join(", ")}</span>}
-            </label>
-            <label>
-              Subject:
-              <input
-                type="text"
-                name="subject"
-                value={formData.subject}
-                onChange={handleChange}
-                disabled={isSubmitting}
-              />
-              {errors.subject && <span>{errors.subject.join(", ")}</span>}
-            </label>
-            <label>
-              Message:
-              <textarea
-                name="message"
-                value={formData.message}
-                onChange={handleChange}
-                disabled={isSubmitting}
-              />
-              {errors.message && <span>{errors.message.join(", ")}</span>}
-            </label>
-            <button type="submit" disabled={isSubmitting}>
-              {isSubmitting ? "Sending..." : "Send Message"}
-            </button>
-          </form>
-          <button onClick={toggleModal} disabled={isSubmitting}>Close</button>
-          {successMessage && <p>{successMessage}</p>}
-        </div>
-      )}
+      <div className="flex items-center justify-center">
+        <form
+          onSubmit={handleSubmit}
+          className="flex flex-col items-center w-full max-w-lg px-4"
+        >
+          <label className="block font-bold">Name:</label>
+          <input
+            type="text"
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
+            disabled={isSubmitting}
+            className="w-2/3 p-1 border rounded text-center"
+          />
+          {errors.name && <span className="text-red-500">{errors.name.join(", ")}</span>}
+  
+          <label className="block font-bold pt-2">Email:</label>
+          <input
+            type="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            disabled={isSubmitting}
+            className="w-2/3 p-1 border rounded text-center"
+          />
+          {errors.email && <span className="text-red-500">{errors.email.join(", ")}</span>}
+  
+          <label className="block font-bold pt-2">Subject:</label>
+          <input
+            type="text"
+            name="subject"
+            value={formData.subject}
+            onChange={handleChange}
+            disabled={isSubmitting}
+            className="w-2/3 p-1 border rounded text-center"
+          />
+          {errors.subject && <span className="text-red-500">{errors.subject.join(", ")}</span>}
+  
+          <label className="block font-bold pt-4">Message:</label>
+          <textarea
+            name="message"
+            value={formData.message}
+            onChange={handleChange}
+            disabled={isSubmitting}
+            className="w-4/5 p-2 border rounded min-h-[20vh]"
+          />
+          {errors.message && <span className="text-red-500">{errors.message.join(", ")}</span>}
+  
+          <button
+            type="submit"
+            disabled={isSubmitting}
+            className="bg-[#7F0201] hover:bg-[#A52A2A] text-white font-bold text-xl w-40 mt-8 mb-4 py-2 px-2 rounded-xl"
+          >
+            {isSubmitting ? "Sending..." : "Send Message"}
+          </button>
+        </form>
+        {successMessage && <p className="text-green-500 mt-4">{successMessage}</p>}
+      </div>
     </>
-  );
+  );  
 };
 
 export default ContactForm;
