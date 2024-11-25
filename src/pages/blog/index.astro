@@ -68,7 +68,7 @@ const formatDate = (date: Date) => {
       <div
         class="flex flex-col justify-center text-center w-3/4 md:w-2/3 pt-2 mx-auto"
       >
-        <p class="font-bold">
+        <p class="font-bold text-[#452B1F]">
           Lorem ipsum odor amet, consectetuer adipiscing elit. Iaculis ex nisl
           himenaeos euismod nostra habitant. Class mattis tortor purus odio
           nullam bibendum posuere tortor semper. Magna eros ipsum nam accumsan
@@ -77,25 +77,28 @@ const formatDate = (date: Date) => {
         <div class="flex-col pr-4 -mr-4">
           <div class="flex justify-start items-start space-x-1">
             <h3
-              class="flex justify-start text-sm tracking-widest my-0 -mb-1 ml-10"
+              class="flex justify-start text-sm tracking-widest my-0 -mb-4 ml-10"
             >
               Filter by:
             </h3>
           </div>
-          <div
-            class="tag-container flex space-x-1 p-2 overflow-x-auto pb-1 scrollbar-hide drop-shadow-lg"
-          >
-            {/* Horizontal scroll container for tags */}
-            {
-              allTags.map((tag) => (
-                <button
-                  class="tag-button bg-[#7F0201] hover:bg-[#A52A2A] text-white text-md tracking-narrow px-3 rounded-xl whitespace-nowrap"
-                  data-tag={tag}
-                >
-                  {tag}
-                </button>
-              ))
-            }
+
+          <div class="scroll-wrapper">
+            <div
+              class="tag-container scrollbar-hide flex space-x-1 p-2 overflow-x-auto pb-1 drop-shadow-lg"
+            >
+              {/* Horizontal scroll container for tags */}
+              {
+                allTags.map((tag) => (
+                  <button
+                    class="tag-button bg-[#7F0201] hover:bg-[#A52A2A] text-white text-md tracking-narrow px-3 mb-3 rounded-xl whitespace-nowrap"
+                    data-tag={tag}
+                  >
+                    {tag}
+                  </button>
+                ))
+              }
+            </div>
           </div>
         </div>
       </div>
@@ -194,10 +197,12 @@ const formatDate = (date: Date) => {
       // Clear current posts in the container
       postContainer!.innerHTML = "";
 
-      // Append filtered posts to the grid
+      // Append filtered posts (including <a> elements)
       filteredPosts.forEach((post) => {
-        post.classList.remove("hidden");
-        postContainer?.appendChild(post);
+        const anchor = post?.closest("a");
+        if (anchor) {
+          postContainer?.appendChild(anchor);
+        }
       });
     };
 
@@ -233,12 +238,40 @@ const formatDate = (date: Date) => {
   }
 
   .scrollbar-hide::-webkit-scrollbar {
-    height: 10px;
+    height: 18px;
   }
 
   .scrollbar-hide::-webkit-scrollbar-thumb {
     background-color: #7f0201;
     border-radius: 10px;
+  }
+
+  .scroll-wrapper {
+    position: relative;
+    overflow-x: auto;
+    padding: 12px 0;
+    scroll-behavior: smooth;
+  }
+
+  .scroll-wrapper::-webkit-scrollbar {
+    height: 14px;
+  }
+
+  .scroll-wrapper::-webkit-scrollbar-track {
+    background: linear-gradient(to right, #f9e3e3, #fce6e6);
+    border-radius: 10px;
+  }
+
+  .scroll-wrapper::-webkit-scrollbar-thumb {
+    background-color: #7f0201;
+    border-radius: 10px;
+    border: 3px solid transparent;
+    background-clip: content-box;
+  }
+
+  .scroll-wrapper:hover::-webkit-scrollbar-track {
+    background: linear-gradient(to right, #fce6e6, #ffeaea);
+    box-shadow: inset 0 0 6px rgba(255, 200, 200, 0.5);
   }
 
   .bg {
@@ -252,14 +285,24 @@ const formatDate = (date: Date) => {
     background-color: #a52a2a;
   }
 
+  .tag-container {
+    scroll-snap-type: x mandatory;
+    gap: 0.25rem;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    overscroll-behavior: contain;
+  }
+
   .tag-button {
+    scroll-snap-align: center;
+    flex-shrink: 0;
     transition:
       background-color 0.3s ease,
       transform 0.3s ease;
   }
 
   .tag-button:hover {
-    transform: scale(1.1); /* Add hover effect for non-active buttons */
+    transform: scale(1.1);
   }
 
   .pagination-button {

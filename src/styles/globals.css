@@ -4,13 +4,14 @@
 
 @layer base {
   @font-face {
-    font-family: 'Cenzo Flare';
-    src: url('/fonts/CenzoFlare-Regular.woff2') format('woff2'),
-        url('/fonts/CenzoFlare-Regular.woff') format('woff'),
-        url('/fonts/CenzoFlare-Regular.ttf') format('truetype'),
-        url('/fonts/CenzoFlare-Bold.woff2') format('woff2'),
-        url('/fonts/CenzoFlare-Bold.woff') format('woff'),
-        url('/fonts/CenzoFlare-Bold.ttf') format('truetype');
+    font-family: "Cenzo Flare";
+    src:
+      url("/fonts/CenzoFlare-Regular.woff2") format("woff2"),
+      url("/fonts/CenzoFlare-Regular.woff") format("woff"),
+      url("/fonts/CenzoFlare-Regular.ttf") format("truetype"),
+      url("/fonts/CenzoFlare-Bold.woff2") format("woff2"),
+      url("/fonts/CenzoFlare-Bold.woff") format("woff"),
+      url("/fonts/CenzoFlare-Bold.ttf") format("truetype");
     font-weight: normal;
     font-style: normal;
     font-display: swap;
@@ -26,7 +27,7 @@ html {
 }
 
 .ql-editor {
-  font-family: 'Cenzo Flare', sans-serif; /* Or the global font you're using */
+  font-family: "Cenzo Flare", sans-serif; /* Or the global font you're using */
   font-size: 1rem; /* Adjust as needed */
   line-height: 1.5; /* Adjust as needed */
   color: inherit; /* Inherits global color settings */
@@ -34,4 +35,19 @@ html {
 
 .my-editor-wrapper .ql-container {
   height: 400px; /* Adjust this value to your desired height */
+}
+
+@keyframes slideInFromTop {
+  0% {
+    transform: translateY(-10px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.animate-slide-in {
+  animation: slideInFromTop 0.5s ease-out forwards;
 }

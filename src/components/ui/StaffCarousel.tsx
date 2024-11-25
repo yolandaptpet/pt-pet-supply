@@ -16,6 +16,7 @@ const StaffCarousel = ({ staffList }: { staffList: StaffListProps[] }) => {
   const [touchStart, setTouchStart] = useState<number>(0);
   const [touchEnd, setTouchEnd] = useState<number>(0);
   const [isPaused, setIsPaused] = useState<boolean>(false);
+  let timeoutId: NodeJS.Timeout;
 
   useEffect(() => {
     const userAgent = window.navigator.userAgent;
@@ -27,16 +28,19 @@ const StaffCarousel = ({ staffList }: { staffList: StaffListProps[] }) => {
     setStaffMember((prev) =>
       prev === 0 ? staffList.length - 1 : prev - 1
     );
+    startPauseTimeout();
   };
 
   const nextStaffMember = () => {
     setStaffMember((prev) =>
       prev === staffList.length - 1 ? 0 : prev + 1
     );
+    startPauseTimeout();
   };
 
   const goToStaffMember = (index: number) => {
     setStaffMember(index);
+    startPauseTimeout();
   };
 
   // Handle swipe gestures
@@ -60,6 +64,12 @@ const StaffCarousel = ({ staffList }: { staffList: StaffListProps[] }) => {
     }
   };
 
+  const startPauseTimeout = () => {
+    clearTimeout(timeoutId); // Clear any existing timeout
+    setIsPaused(true);
+    timeoutId = setTimeout(() => setIsPaused(false), 30000); // Resume after 30 seconds
+  };
+
   useEffect(() => {
     const intervalId = setInterval(() => {
       if (!isPaused) {
@@ -67,23 +77,18 @@ const StaffCarousel = ({ staffList }: { staffList: StaffListProps[] }) => {
       }
     }, 10000); // Advance every 10 seconds
 
-    return () => clearInterval(intervalId); // Clean up on unmount
+    return () => {
+      clearInterval(intervalId); // Clean up on unmount
+      clearTimeout(timeoutId); // Clean up timeouts
+    };
   }, [isPaused]); // Restart interval if paused state changes
 
-  const handleMouseEnter = () => {
-    setIsPaused(true);
-    setTimeout(() => setIsPaused(false), 30000); // Resume after 30 seconds
-  };
+  const handleMouseEnter = () => startPauseTimeout();
 
-  const handleMouseLeave = () => {
-    setIsPaused(false);
-  };
+  const handleMouseLeave = () => setIsPaused(false);
 
-  // Pause when an index button is clicked
   const handleIndexButtonClick = (index: number) => {
-    setIsPaused(true);
     goToStaffMember(index);
-    setTimeout(() => setIsPaused(false), 20000); // Resume after 20 seconds
   };
 
   return (
@@ -161,7 +166,7 @@ const StaffCarousel = ({ staffList }: { staffList: StaffListProps[] }) => {
         {staffList.map((_, index) => (
           <button
             key={index}
-            className={`w-3 h-3 rounded-full ${
+            className={`w-5 h-5 rounded-full ${
               index === staffMember ? "bg-[#7F0201]" : "bg-gray-400"
             }`}
             onClick={() => handleIndexButtonClick(index)} // Updated to use the new handler

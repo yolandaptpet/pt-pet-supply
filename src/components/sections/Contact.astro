@@ -36,7 +36,7 @@ const convertTo12Hour = (time24: string) => {
         <h3 class="font-bold text-3xl pb-3 tracking-widest">Store Hours</h3>
         {
           Object.entries(storeHours).map(([day, hours]) => (
-            <div class="flex text-lg md:text-xl justify-center tracking-wide md:tracking-wider">
+            <div class="flex text-lg md:text-xl justify-center tracking-wide md:tracking-wider text-[#452B1F]">
               {day}: {convertTo12Hour(hours.open)} to{" "}
               {convertTo12Hour(hours.close)}
             </div>
@@ -48,6 +48,9 @@ const convertTo12Hour = (time24: string) => {
     <h3 class="font-bold text-xl md:text-3xl pt-12 tracking-widest">
       Have Any Questions?
     </h3>
+    <h4 class="text-xl md:text-2xl pt-1.5 text-[#452B1F]">
+      Find out how we can help you!
+    </h4>
     <div
       class="flex flex-1 text-xl md:text-2xl pt-4 pb-12 md-pb-0 justify-center"
     >
@@ -88,7 +91,7 @@ const convertTo12Hour = (time24: string) => {
           <img
             src={backArrow}
             alt="back arrow"
-            class="w-6 sm:w-8 m-auto"
+            class="w-6 sm:w-7 m-auto"
             style="filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(360deg) brightness(100%) contrast(100%);"
           />
         </button>
