@@ -3,7 +3,7 @@ import Layout from "../components/layouts/Layout.astro";
 import UpdateAnnouncement from "@/components/ui/UpdateAnnouncement";
 import UpdateHours from "../components/ui/UpdateHours.tsx";
 import DraftPost from "../components/ui/DraftPost.tsx";
-import AdminStaffGrid from "../components/ui/AdminStaffGrid.tsx";
+// import AdminStaffGrid from "../components/ui/AdminStaffGrid.tsx";
 
 const backArrow = "../../../images/arrow.svg";
 
@@ -56,7 +56,7 @@ const allTags = await getCollection("blog").then((collection) => {
 
   <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
     <div class="lg:col-span-1">
-      <UpdateAnnouncement />
+      <UpdateAnnouncement client:load />
       <UpdateHours storeHours={storeHours} />
     </div>
 
@@ -73,7 +73,7 @@ const allTags = await getCollection("blog").then((collection) => {
     </button>
 
     <div id="staff-list-section" class="hidden w-full mx-4">
-      <AdminStaffGrid />
+      <!-- <AdminStaffGrid /> -->
     </div>
   </div>
 </Layout>
@@ -112,27 +112,27 @@ const allTags = await getCollection("blog").then((collection) => {
       }
     });
 
-    // For the announcement banner toggle functionality
-    const announcementRadios = document.querySelectorAll(
-      'input[name="toggle"]'
-    );
-    const toggledInput = document.getElementById(
-      "toggledInput"
-    ) as HTMLInputElement;
+    // // For the announcement banner toggle functionality
+    // const announcementRadios = document.querySelectorAll(
+    //   'input[name="toggle"]'
+    // );
+    // const toggledInput = document.getElementById(
+    //   "toggledInput"
+    // ) as HTMLInputElement;
 
-    announcementRadios.forEach((radio) => {
-      radio.addEventListener("change", () => {
-        if ((radio as HTMLInputElement).value === "on") {
-          toggledInput.disabled = false;
-          toggledInput.classList.remove("disabled:border-none");
-          toggledInput.classList.add("border-gray-300"); // Apply light gray border when enabled
-        } else {
-          toggledInput.disabled = true;
-          toggledInput.classList.remove("border-gray-300"); // Remove border when disabled
-          toggledInput.classList.add("disabled:border-none");
-        }
-      });
-    });
+    // announcementRadios.forEach((radio) => {
+    //   radio.addEventListener("change", () => {
+    //     if ((radio as HTMLInputElement).value === "on") {
+    //       toggledInput.disabled = false;
+    //       toggledInput.classList.remove("disabled:border-none");
+    //       toggledInput.classList.add("border-gray-300"); // Apply light gray border when enabled
+    //     } else {
+    //       toggledInput.disabled = true;
+    //       toggledInput.classList.remove("border-gray-300"); // Remove border when disabled
+    //       toggledInput.classList.add("disabled:border-none");
+    //     }
+    //   });
+    // });
 
     // For hours toggle functionality
     const radioButtons = document.querySelectorAll(

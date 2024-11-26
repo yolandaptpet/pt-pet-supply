@@ -7,7 +7,6 @@ export async function GET() {
     const db = client.db("pt-pet-supply");
     const collection = db.collection("announcements");
 
-    // Fetch all announcements
     const announcements = await collection.find().toArray();
 
     if (!announcements.length) {
@@ -22,68 +21,61 @@ export async function GET() {
       headers: { "Content-Type": "application/json" },
     });
   } catch (error) {
-    console.error("Failed to fetch announcements:", error); // Log error for debugging
+    console.error("Failed to fetch announcements:", error);
     return new Response(JSON.stringify({ error: "Failed to fetch announcements" }), {
       status: 500,
       headers: { "Content-Type": "application/json" },
     });
   } finally {
-    await client.close(); // Ensure the client is properly closed
+    await client.close();
   }
 }
 
-export async function PUT(req: Request) {
+export async function PUT({ request }: { request: Request }) {
   const client = new MongoClient(import.meta.env.MONGO_URI);
-  const { id, content, isActive } = await req.json(); // Assuming the request body is JSON
-
-  if (!id || typeof content !== "string" || typeof isActive !== "boolean") {
-    return new Response(
-      JSON.stringify({ error: "Invalid input data" }),
-      {
-        status: 400,
-        headers: { "Content-Type": "application/json" },
-      }
-    );
-  }
 
   try {
+    // Parse and validate JSON body
+    const { id, content, status } = await request.json();
+
+    console.log("Parsed body:", { id, content, status });
+
+    if (!id || typeof content !== "string" || typeof status !== "string") {
+      return new Response(
+        JSON.stringify({ error: "Invalid input data" }),
+        { status: 400, headers: { "Content-Type": "application/json" } }
+      );
+    }
+
+    // Connect to the database
     await client.connect();
     const db = client.db("pt-pet-supply");
     const collection = db.collection("announcements");
 
-    // Update the announcement banner
+    // Update announcement
     const result = await collection.updateOne(
       { _id: ObjectId.createFromHexString(id) },
-      { $set: { content, isActive } }
+      { $set: { content, status } }
     );
 
     if (result.modifiedCount === 0) {
       return new Response(
         JSON.stringify({ error: "Announcement not found or not updated" }),
-        {
-          status: 404,
-          headers: { "Content-Type": "application/json" },
-        }
+        { status: 404, headers: { "Content-Type": "application/json" } }
       );
     }
 
     return new Response(
       JSON.stringify({ message: "Announcement updated successfully" }),
-      {
-        status: 200,
-        headers: { "Content-Type": "application/json" },
-      }
+      { status: 200, headers: { "Content-Type": "application/json" } }
     );
   } catch (error) {
-    console.error("Failed to update announcement:", error); // Log error for debugging
+    console.error("Failed to update announcement:", error);
     return new Response(
       JSON.stringify({ error: "Failed to update announcement" }),
-      {
-        status: 500,
-        headers: { "Content-Type": "application/json" },
-      }
+      { status: 500, headers: { "Content-Type": "application/json" } }
     );
   } finally {
-    await client.close(); // Ensure the client is properly closed
+    await client.close();
   }
 }
