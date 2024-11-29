@@ -101,7 +101,7 @@ const UpdateAnnouncement = () => {
   };
 
   if (loading) {
-    return <p className="ml-4 pb-10 text-bold text-xl">Loading announcements editor...</p>;
+    return <p className="ml-4 pb-10 text-2xl">Loading announcements editor...</p>;
   }
 
   return (
