@@ -1,4 +1,3 @@
----
 interface StoreInfo {
   name: string;
   address: string;
@@ -27,18 +26,38 @@ export const officialStoreInfo = () => {
   return storeInfo;
 };
 
-export const officialStoreHours = () => {
-  let storeHours: StoreHours = {
-    Monday: { open: "09:00", close: "18:00" },
-    Tuesday: { open: "09:00", close: "18:00" },
-    Wednesday: { open: "09:00", close: "18:00" },
-    Thursday: { open: "09:00", close: "18:00" },
-    Friday: { open: "09:00", close: "18:00" },
-    Saturday: { open: "10:00", close: "16:00" },
-    Sunday: { open: "10:00", close: "14:00" },
-  };
+export const officialStoreHours = async (): Promise<StoreHours | null> => {
+  try {
+    const status = "http://localhost:4321";
+    const response = await fetch(`${status}/api/store-info`);
+    const data = await response.json();
 
-  return storeHours;
+    if (!response.ok || !data || !data[0]) {
+      console.error("Failed to fetch valid store information.");
+      return null;
+    }
+
+    const storeInfo = data[0].info;
+
+    const activeHours: string = storeInfo.storeHours.activeHours;
+
+    const storeHours: StoreHours =
+      activeHours === "normal"
+        ? storeInfo.storeHours.normal
+        : activeHours === "adjusted"
+        ? storeInfo.storeHours.adjusted
+        : null;
+
+    if (!storeHours) {
+      console.error("Invalid activeHours value or missing store hours.");
+      return null;
+    }
+
+    return storeHours;
+  } catch (error) {
+    console.error("Error fetching store hours:", error);
+    return null;
+  }
 };
 
 export const officialStaffList = () => {
@@ -103,4 +122,3 @@ export const officialStaffList = () => {
 
   return staffList;
 };
----

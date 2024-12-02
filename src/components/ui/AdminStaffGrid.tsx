@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
-import { officialStaffList } from '@/constants/StoreInfo.astro';
+import { officialStaffList } from '../../constants/storeInfo.ts';
 
 const StaffGrid = () => {
   const [staffList, setStaffList] = useState(officialStaffList);

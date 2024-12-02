@@ -7,14 +7,13 @@ import AdminStaffGrid from "../components/ui/AdminStaffGrid.tsx";
 
 const backArrow = "../../../images/arrow.svg";
 
-import { officialStoreHours } from "@/constants/StoreInfo.astro";
+import { officialStoreHours } from "@/constants/storeInfo.ts";
 
-const storeHours = officialStoreHours();
+const storeHours = await officialStoreHours();
 
 import { getCollection } from "astro:content";
 
 const allTags = await getCollection("blog").then((collection) => {
-  // Flatten all tag arrays from each entry and remove duplicates
   const tags = collection.flatMap((entry) => entry.data.tags);
   return Array.from(new Set(tags));
 });
@@ -57,7 +56,7 @@ const allTags = await getCollection("blog").then((collection) => {
   <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
     <div class="lg:col-span-1">
       <UpdateAnnouncement client:load />
-      <UpdateHours storeHours={storeHours} />
+      <UpdateHours storeHours={storeHours ?? {}} />
     </div>
 
     <DraftPost allTags={allTags} client:only="react" />

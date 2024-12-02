@@ -7,17 +7,17 @@ interface StoreHours {
   };
 }
 
-interface HoursProps {
+interface UpdateHoursProps {
   storeHours: StoreHours;
 }
 
-const UpdateHours: React.FC<HoursProps> = ({ storeHours }) => {
-  const [selectedHours, setSelectedHours] = useState<'default' | 'custom'>(
-    'default'
+const UpdateHours: React.FC<UpdateHoursProps> = ({ storeHours }) => {
+  const [selectedHours, setSelectedHours] = useState<'normal' | 'adjusted'>(
+    'normal'
   );
 
   const handleToggleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSelectedHours(event.target.value as 'default' | 'custom');
+    setSelectedHours(event.target.value as 'normal' | 'adjusted');
   };
 
   return (
@@ -29,8 +29,8 @@ const UpdateHours: React.FC<HoursProps> = ({ storeHours }) => {
             <input
               type="radio"
               name="hours-toggle"
-              value="default"
-              checked={selectedHours === 'default'}
+              value="normal"
+              checked={selectedHours === 'normal'}
               onChange={handleToggleChange}
             />
             Normal Hours
@@ -39,8 +39,8 @@ const UpdateHours: React.FC<HoursProps> = ({ storeHours }) => {
             <input
               type="radio"
               name="hours-toggle"
-              value="custom"
-              checked={selectedHours === 'custom'}
+              value="adjusted"
+              checked={selectedHours === 'adjusted'}
               onChange={handleToggleChange}
             />
             Adjusted Hours
@@ -68,7 +68,7 @@ const UpdateHours: React.FC<HoursProps> = ({ storeHours }) => {
                     type="time"
                     value={hours.open}
                     className="w-full p-1 box-border disabled:bg-gray-200 disabled:cursor-not-allowed"
-                    disabled={selectedHours === 'default'}
+                    disabled={selectedHours === 'normal'}
                   />
                 </td>
                 <td className="p-2 border border-gray-300">
@@ -76,7 +76,7 @@ const UpdateHours: React.FC<HoursProps> = ({ storeHours }) => {
                     type="time"
                     value={hours.close}
                     className="w-full p-1 box-border disabled:bg-gray-200 disabled:cursor-not-allowed"
-                    disabled={selectedHours === 'default'}
+                    disabled={selectedHours === 'normal'}
                   />
                 </td>
               </tr>

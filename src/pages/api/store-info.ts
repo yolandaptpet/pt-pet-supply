@@ -28,6 +28,6 @@ export async function GET() {
       headers: { "Content-Type": "application/json" },
     });
   } finally {
-    await client.close(); // Ensure the client is properly closed
+    await client.close();
   }
 }

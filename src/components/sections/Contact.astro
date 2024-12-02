@@ -1,11 +1,18 @@
 ---
+interface StoreHours {
+  [day: string]: {
+    open: string;
+    close: string;
+  };
+}
+
 import ContactForm from "../ui/ContactForm.jsx";
-import { officialStoreHours } from "../../constants/StoreInfo.astro";
+import { officialStoreHours } from "../../constants/storeInfo.js";
 import Map from "../ui/Map.astro";
 
 const backArrow = "../../../images/arrow.svg";
 
-const storeHours = officialStoreHours();
+const storeHours: StoreHours | null = await officialStoreHours();
 
 const convertTo12Hour = (time24: string) => {
   const [hours] = time24.split(":");
@@ -24,6 +31,10 @@ const convertTo12Hour = (time24: string) => {
 
   return `${hours12}${period}`;
 };
+
+const capitalizeFirstLetter = (string: string) => {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+};
 ---
 
 <section
@@ -35,12 +46,13 @@ const convertTo12Hour = (time24: string) => {
       <div class="relative text-center">
         <h3 class="font-bold text-3xl pb-3 tracking-widest">Store Hours</h3>
         {
-          Object.entries(storeHours).map(([day, hours]) => (
-            <div class="flex text-lg md:text-xl justify-center tracking-wide md:tracking-wider text-[#452B1F]">
-              {day}: {convertTo12Hour(hours.open)} to{" "}
-              {convertTo12Hour(hours.close)}
-            </div>
-          ))
+          storeHours &&
+            Object.entries(storeHours).map(([day, hours]) => (
+              <div class="flex text-lg md:text-xl justify-center tracking-wide md:tracking-wider text-[#452B1F]">
+                {capitalizeFirstLetter(day)}: {convertTo12Hour(hours.open)} to{" "}
+                {convertTo12Hour(hours.close)}
+              </div>
+            ))
         }
       </div>
     </div>
