@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 interface StoreHours {
   [day: string]: {
@@ -11,14 +11,44 @@ interface UpdateHoursProps {
   storeHours: StoreHours;
 }
 
+
 const UpdateHours: React.FC<UpdateHoursProps> = ({ storeHours }) => {
   const [selectedHours, setSelectedHours] = useState<'normal' | 'adjusted'>(
     'normal'
   );
+  const [loading, setLoading] = useState(true);
+  
+  useEffect (() => {
+    const fetchActiveHours = async () => {
+      try {
+        const response = await fetch("/api/store-info");
+        if (response.ok) {
+          const data = await response.json();
+          const databaseHours = data[0].info.storeHours;
+          
+          if (databaseHours) {
+            setSelectedHours(databaseHours.activeHours === 'normal' ? 'normal' : 'adjusted');
+          }
+        } else {
+          console.error("Failed to fetch active hours");
+        }
+      } catch (error) {
+        console.error("Error fetching active hours:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchActiveHours();
+  }, []);
 
   const handleToggleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedHours(event.target.value as 'normal' | 'adjusted');
   };
+
+  if (loading) {
+    return <p className="ml-4 pb-10 text-2xl">Loading store hours editor...</p>;
+  }
 
   return (
     <div className="mx-4 pb-5">

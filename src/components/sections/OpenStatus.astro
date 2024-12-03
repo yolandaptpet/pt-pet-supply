@@ -4,7 +4,6 @@ import Button from "../ui/Button.astro";
 
 export const getStoreStatus = async () => {
   const storeHours = await officialStoreHours();
-  console.log(storeHours);
 
   if (!storeHours) {
     return "Store Hours Unavailable";

@@ -6,35 +6,14 @@ interface StoreHours {
   };
 }
 
-import ContactForm from "../ui/ContactForm.jsx";
+import StoreHours from "../ui/StoreHours";
+import ContactForm from "../ui/ContactForm";
 import { officialStoreHours } from "../../constants/storeInfo.js";
 import Map from "../ui/Map.astro";
 
 const backArrow = "../../../images/arrow.svg";
 
 const storeHours: StoreHours | null = await officialStoreHours();
-
-const convertTo12Hour = (time24: string) => {
-  const [hours] = time24.split(":");
-  let period = "AM";
-  let hours12 = parseInt(hours, 10);
-
-  if (hours12 >= 12) {
-    period = "PM";
-    if (hours12 > 12) {
-      hours12 -= 12;
-    }
-  }
-  if (hours12 === 0) {
-    hours12 = 12;
-  }
-
-  return `${hours12}${period}`;
-};
-
-const capitalizeFirstLetter = (string: string) => {
-  return string.charAt(0).toUpperCase() + string.slice(1);
-};
 ---
 
 <section
@@ -43,18 +22,7 @@ const capitalizeFirstLetter = (string: string) => {
 >
   <div class="relative flex-1 text-center my-auto">
     <div class="relative mx-auto">
-      <div class="relative text-center">
-        <h3 class="font-bold text-3xl pb-3 tracking-widest">Store Hours</h3>
-        {
-          storeHours &&
-            Object.entries(storeHours).map(([day, hours]) => (
-              <div class="flex text-lg md:text-xl justify-center tracking-wide md:tracking-wider text-[#452B1F]">
-                {capitalizeFirstLetter(day)}: {convertTo12Hour(hours.open)} to{" "}
-                {convertTo12Hour(hours.close)}
-              </div>
-            ))
-        }
-      </div>
+      <StoreHours client:visible storeHours={storeHours} />
     </div>
 
     <h3 class="font-bold text-xl md:text-3xl pt-12 tracking-widest">
