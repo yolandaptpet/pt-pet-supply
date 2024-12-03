@@ -3,7 +3,7 @@ import StaffCarousel from "../ui/StaffCarousel.tsx";
 
 import { officialStaffList } from "../../constants/storeInfo.ts";
 
-const defaultStaffList = officialStaffList();
+const staffList = await officialStaffList();
 ---
 
 <section
@@ -22,6 +22,6 @@ const defaultStaffList = officialStaffList();
     Meet Our Pack
   </h3>
   <div class="flex justify-center py-3 md:py-5">
-    <StaffCarousel staffList={defaultStaffList} client:visible />
+    <StaffCarousel staffList={staffList} client:visible />
   </div>
 </section>

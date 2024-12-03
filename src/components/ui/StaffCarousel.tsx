@@ -4,8 +4,9 @@ import MobileDetect from "mobile-detect";
 import StaffCard from "./StaffCard";
 
 interface StaffListProps {
-  name: string;
-  role: string;
+  staff_id: string;
+  fullName: string;
+  role: string[];
   bio: string;
   imageSrc: string;
 }
@@ -65,7 +66,7 @@ const StaffCarousel = ({ staffList }: { staffList: StaffListProps[] }) => {
   };
 
   const startPauseTimeout = () => {
-    clearTimeout(timeoutId); // Clear any existing timeout
+    clearTimeout(timeoutId);
     setIsPaused(true);
     timeoutId = setTimeout(() => setIsPaused(false), 30000); // Resume after 30 seconds
   };
@@ -78,8 +79,8 @@ const StaffCarousel = ({ staffList }: { staffList: StaffListProps[] }) => {
     }, 10000); // Advance every 10 seconds
 
     return () => {
-      clearInterval(intervalId); // Clean up on unmount
-      clearTimeout(timeoutId); // Clean up timeouts
+      clearInterval(intervalId);
+      clearTimeout(timeoutId);
     };
   }, [isPaused]); // Restart interval if paused state changes
 
