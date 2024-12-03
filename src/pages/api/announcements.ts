@@ -35,10 +35,7 @@ export async function PUT({ request }: { request: Request }) {
   const client = new MongoClient(import.meta.env.MONGO_URI);
 
   try {
-    // Parse and validate JSON body
     const { id, content, status } = await request.json();
-
-    console.log("Parsed body:", { id, content, status });
 
     if (!id || typeof content !== "string" || typeof status !== "string") {
       return new Response(
@@ -47,12 +44,10 @@ export async function PUT({ request }: { request: Request }) {
       );
     }
 
-    // Connect to the database
     await client.connect();
     const db = client.db("pt-pet-supply");
     const collection = db.collection("announcements");
 
-    // Update announcement
     const result = await collection.updateOne(
       { _id: ObjectId.createFromHexString(id) },
       { $set: { content, status } }

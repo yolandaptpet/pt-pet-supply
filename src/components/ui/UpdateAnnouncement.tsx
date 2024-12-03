@@ -9,6 +9,7 @@ const UpdateAnnouncement = () => {
   const [modalMessage, setModalMessage] = useState("");
   const [isConfirmation, setIsConfirmation] = useState(false);
   const [confirmInput, setConfirmInput] = useState("");
+  const [charCount, setCharCount] = useState(0);
 
   useEffect(() => {
     const fetchAnnouncement = async () => {
@@ -40,6 +41,7 @@ const UpdateAnnouncement = () => {
     setStatus(newStatus);
     if (newStatus === "inactive") {
       setContent("");
+      setCharCount(0);
     }
   };
 
@@ -137,11 +139,17 @@ const UpdateAnnouncement = () => {
             placeholder="Enter text here; Minimum of 60 characters, Maximum of 105."
             disabled={status === "inactive"}
             value={content}
-            onChange={(e) => setContent(e.target.value)}
+            onChange={(e) => {
+              setContent(e.target.value);
+              setCharCount(e.target.value.length);
+            }}
             minLength={60}
             maxLength={105}
             className="p-1 w-4/5 lg:w-full h-24 border rounded-md"
           />
+            <div className="text-sm">
+              Characters: {charCount}/105
+            </div>
         </div>
       </div>
       <button
@@ -154,7 +162,7 @@ const UpdateAnnouncement = () => {
       {/* Modal */}
       {isModalOpen && (
         <div className="fixed inset-0 flex items-center justify-center z-50 bg-gray-800 bg-opacity-75">
-          <div className="bg-white rounded-lg p-6 w-1/3">
+          <div className="bg-white rounded-lg p-6 w-2/3 md:w-1/3">
             <h2 className="text-lg font-semibold mb-4">
               {isConfirmation ? "Confirm Submission" : "Message"}
             </h2>
