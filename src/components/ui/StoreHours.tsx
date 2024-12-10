@@ -29,10 +29,14 @@ const StoreHours: React.FC<StoreHoursProps> = ({ storeHours }) => {
 
   return (
     <div>
-      <h3 className="font-bold text-3xl pb-3 tracking-widest">Store Hours</h3>
+        <img
+          src="/src/assets/store-hours.webp"
+          alt="Products logo"
+          className="h-[215px] w-auto mx-auto -my-9"
+        />
       {storeHours &&
         Object.entries(storeHours).map(([day, hours]) => (
-          <div key={day} className="flex text-lg md:text-xl justify-center tracking-wide md:tracking-wider text-[#452B1F]">
+          <div key={day} className="flex text-lg font-bold md:text-xl justify-center tracking-wide md:tracking-wider text-[#452B1F]">
             {capitalizeFirstLetter(day)}: {convertTo12Hour(hours.open)} to {convertTo12Hour(hours.close)}
           </div>
         ))}

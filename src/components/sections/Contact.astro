@@ -57,16 +57,18 @@ const storeHours: StoreHours | null = await officialStoreHours();
     class="relative top-32 sm:top-36 md:top-48 mx-auto md:py-12 p-5 max-w-[600px] w-[90%] shadow-lg rounded-xl bg-[#FFC66D] transform scale-95 transition-transform duration-300 ease-in-out"
   >
     <div class="relative mt-3 text-center">
-      <h3 class="text-3xl leading-6 font-bold tracking-wider pt-2">
-        Message Us
-      </h3>
+      <img
+        src="/src/assets/message-us.webp"
+        alt="Products logo"
+        class="h-[215px] w-auto mx-auto -mt-6 -mb-14"
+      />
       <div class="mt-2 py-3">
         <ContactForm client:load />
       </div>
-      <div class="absolute -top-3 md:-top-8 left-1 items-center">
+      <div class="absolute -top-3 md:-top-7 left-1 items-center">
         <button
           id="closeModal"
-          class="w-10 sm:w-12 h-10 sm:h-12 bg-[#7F0201] text-white text-xl font-bold tracking-wider rounded-xl shadow-sm hover:bg-[#A52A2A] focus:outline-none focus:ring-2 focus:ring-gray-300"
+          class="w-10 sm:w-12 h-10 sm:h-12 mt-6 bg-[#7F0201] text-white text-xl font-bold tracking-wider rounded-xl shadow-sm hover:bg-[#A52A2A] focus:outline-none focus:ring-2 focus:ring-gray-300"
         >
           <img
             src={backArrow}

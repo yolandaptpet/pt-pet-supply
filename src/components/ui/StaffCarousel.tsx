@@ -3,15 +3,9 @@ import { ArrowBigLeft, ArrowBigRight } from "lucide-react";
 import MobileDetect from "mobile-detect";
 import StaffCard from "./StaffCard";
 
-interface StaffListProps {
-  staff_id: string;
-  fullName: string;
-  role: string[];
-  bio: string;
-  imageSrc: string;
-}
+import type { StaffProps } from '../../constants/storeInfo';
 
-const StaffCarousel = ({ staffList }: { staffList: StaffListProps[] }) => {
+const StaffCarousel = ({ staffList }: { staffList: StaffProps[] }) => {
   const [staffMember, setStaffMember] = useState<number>(0);
   const [isMobile, setIsMobile] = useState<boolean>(false);
   const [touchStart, setTouchStart] = useState<number>(0);
@@ -135,7 +129,7 @@ const StaffCarousel = ({ staffList }: { staffList: StaffListProps[] }) => {
               }}
             >
               <div
-                className="w-[65%] md:w-full min-h-[400px] flex items-center justify-center rounded-3xl drop-shadow-xl bg-[#7F0201] bg-opacity-50"
+                className="md:w-full min-h-[400px] flex items-center justify-center rounded-3xl drop-shadow-xl bg-[#7F0201] bg-opacity-50"
                 style={{ backdropFilter: "blur(35px)" }}
               >
                 <StaffCard {...staff} />

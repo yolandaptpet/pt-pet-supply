@@ -8,7 +8,7 @@ interface StoreHours {
   [key: string]: { open: string; close: string };
 }
 
-interface StaffProps {
+export interface StaffProps {
   staff_id: string;
   fullName: string;
   role: string[];

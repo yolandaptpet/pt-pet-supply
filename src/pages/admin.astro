@@ -7,9 +7,14 @@ import AdminStaffGrid from "../components/ui/AdminStaffGrid.tsx";
 
 const backArrow = "../../../images/arrow.svg";
 
-import { officialStoreHours } from "@/constants/storeInfo.ts";
+import {
+  officialStaffList,
+  officialStoreHours,
+} from "@/constants/storeInfo.ts";
+import type { StaffProps } from "@/constants/storeInfo.ts";
 
 const storeHours = await officialStoreHours();
+const staffMembers = (await officialStaffList()) as StaffProps[];
 
 import { getCollection } from "astro:content";
 
@@ -72,7 +77,7 @@ const allTags = await getCollection("blog").then((collection) => {
     </button>
 
     <div id="staff-list-section" class="hidden w-full mx-4">
-      <AdminStaffGrid />
+      <AdminStaffGrid client:load staffMembers={staffMembers} />
     </div>
   </div>
 </Layout>
