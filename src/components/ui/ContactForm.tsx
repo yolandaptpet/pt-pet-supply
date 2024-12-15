@@ -40,24 +40,20 @@ const ContactForm: React.FC = () => {
   const [images, setImages] = useState<File[]>([]);
   const [showTooltip, setShowTooltip] = useState(false);
 
-  // Handle input changes
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  // Handle image upload
   const handleImageUpload = (e: ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(e.target.files || []);
     setImages((prevImages) => [...prevImages, ...files]); // Append new files to the state
   };
 
-  // Handle image deletion
   const handleImageDelete = (index: number) => {
     setImages((prevImages) => prevImages.filter((_, i) => i !== index)); // Remove image by index
   };
 
-  // Compress and prepare images for email
   const compressImages = async (files: File[]) => {
     const options = { maxSizeMB: 3, maxWidthOrHeight: 800 };
     const compressedImages = await Promise.all(
@@ -75,7 +71,6 @@ const ContactForm: React.FC = () => {
     return base64Images;
   };
 
-  // Handle form submission
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
@@ -84,7 +79,6 @@ const ContactForm: React.FC = () => {
       setIsSubmitting(true);
       setSuccessMessage(null);
 
-      // Compress uploaded images
       const base64Images = await compressImages(images);
 
       const emailData = {
@@ -92,7 +86,6 @@ const ContactForm: React.FC = () => {
         images: base64Images, // Include images as base64 strings
       };
 
-      // Replace with your EmailJS credentials
       const serviceID = "your_service_id";
       const templateID = "your_template_id";
       const userID = "your_user_id";

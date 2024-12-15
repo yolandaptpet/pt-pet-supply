@@ -1,5 +1,6 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
+import auth from 'auth-astro';
 
 import alpinejs from '@astrojs/alpinejs';
 import react from '@astrojs/react';
@@ -16,6 +17,7 @@ export default defineConfig({
     tailwind({
       applyBaseStyles: false,
     }),
+    auth(),
   ],
   server: {
     host: true,

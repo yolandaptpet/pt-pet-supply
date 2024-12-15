@@ -160,7 +160,6 @@ const AdminStaffGrid = ({ staffMembers }: AdminStaffGridProps) => {
                 <button
                   className="bg-[#7F0201] hover:bg-[#A52A2A] text-white font-bold rounded-3xl ml-2 px-3 py-1"
                   onClick={() => {
-                    deleteStaff(index);
                     updateStaff(index);
                   }}
                 >

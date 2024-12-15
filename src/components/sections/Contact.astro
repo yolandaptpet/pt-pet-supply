@@ -22,7 +22,7 @@ const storeHours: StoreHours | null = await officialStoreHours();
 >
   <div class="relative flex-1 text-center my-auto">
     <div class="relative mx-auto">
-      <StoreHours client:visible storeHours={storeHours} />
+      <StoreHours client:idle storeHours={storeHours} />
     </div>
 
     <h3 class="font-bold text-xl md:text-3xl pt-12 tracking-widest">
