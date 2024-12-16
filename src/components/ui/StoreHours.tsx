@@ -32,7 +32,7 @@ const StoreHours: React.FC<StoreHoursProps> = ({ storeHours }) => {
         <img
           src="/src/assets/store-hours.webp"
           alt="Products logo"
-          className="h-[150px] md:h-[180px] lg:h-[235px] w-auto mx-auto mb-6"
+          className="h-[150px] md:h-[180px] lg:h-[235px] w-auto mx-auto mb-4"
         />
       {storeHours &&
         Object.entries(storeHours).map(([day, hours]) => (
