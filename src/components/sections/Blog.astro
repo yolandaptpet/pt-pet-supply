@@ -24,28 +24,46 @@ const uniquePosts = Array.from(new Set(sortedPosts.map((post) => post.slug)))
 const recentPosts = uniquePosts.slice(0, 3);
 ---
 
-<section class="mx-10 pt-8 lg: pb-12 lg:pb-16 drop-shadow-2xl">
-  <img
-    src="/src/assets/recent-blog-posts.webp"
-    alt="Products logo"
-    class="h-[215px] w-auto mx-auto -mb-6"
-  />
-
-  <div
-    class="grid grid-cols-1 place-items-center gap-4 xl:flex-row xl:mx-24 justify-center items-center pb-10"
-  >
-    {recentPosts.map((post) => <BlogPostCard post={post} key={post.slug} />)}
+<section class="flex-col mx-10 px-4 pt-8 pb-8 lg:pb-16 drop-shadow-2xl">
+  <div class="left col-1">
+    <img
+      src="/src/assets/brass-sidebar.webp"
+      alt="Brass sidebar"
+      class="hidden min-[900px]:block absolute bottom-36 left-0 min-[900px]:-ml-4 lg:ml-0 min-[1150px]:ml-8 xl:ml-20 2xl:ml-32 min-[1700px]:ml-64 min-[1900px]:ml-80 h-[600px] lg:h-[750px] drop-shadow-2xl w-auto object-contain transform -scale-x-100"
+    />
   </div>
 
-  <div
-    class="flex flex-1 justify-center font-bold text-xl lg:text-2xl tracking-wider"
-  >
-    <Button
-      transition:animate="slide"
-      text="View More Posts"
-      href="/blog"
-      class="bg-[#7F0201] hover:bg-[#A52A2A] text-white font-bold py-2 px-4 mb-8 rounded-xl"
-      data-astro-prefetch
+  <div class="center col-1">
+    <img
+      src="/src/assets/recent-blog-posts.webp"
+      alt="Products logo"
+      class="h-[150px] md:h-[180px] lg:h-[235px] w-auto mx-auto mb-6"
+    />
+
+    <div
+      class="grid grid-cols-1 place-items-center gap-4 xl:flex-row xl:mx-24 justify-center items-center pb-10"
+    >
+      {recentPosts.map((post) => <BlogPostCard post={post} key={post.slug} />)}
+    </div>
+
+    <div
+      class="flex flex-1 justify-center font-bold text-xl lg:text-2xl tracking-wider"
+    >
+      <Button
+        transition:animate="slide"
+        text="View More Posts"
+        href="/blog"
+        class="bg-[#7F0201] hover:bg-[#A52A2A] text-white font-bold py-2 px-4 mb-8 rounded-xl"
+        data-astro-prefetch
+      />
+    </div>
+  </div>
+
+  <div class="right col-1">
+    <img
+      src="/src/assets/brass-sidebar.webp"
+      alt="Brass sidebar"
+      class="hidden min-[900px]:block absolute bottom-36 right-0 min-[900px]:-mr-4 lg:mr-0 min-[1150px]:mr-8 xl:mr-20 2xl:mr-32 min-[1700px]:mr-64 min-[1900px]:mr-80 h-[600px] lg:h-[750px] drop-shadow-2xl w-auto object-contain"
     />
   </div>
 </section>
