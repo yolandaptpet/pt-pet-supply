@@ -6,6 +6,12 @@ interface StoreHours {
   };
 }
 
+interface ContactProps {
+  apiKey: string;
+}
+
+const { apiKey } = Astro.props as ContactProps;
+
 import StoreHours from "../ui/StoreHours";
 import ContactForm from "../ui/ContactForm";
 import { officialStoreHours } from "../../constants/storeInfo.js";
@@ -36,7 +42,7 @@ const storeHours: StoreHours | null = await officialStoreHours();
     >
       <button
         id="openModal"
-        class="bg-[#7F0201] hover:bg-[#A52A2A] text-white font-bold py-2 px-4 rounded-xl"
+        class="bg-[#7F0201] hover:bg-[#A52A2A] text-white font-bold py-2 px-4 rounded-xl drop-shadow-2xl"
       >
         Message Us
       </button>
@@ -44,7 +50,7 @@ const storeHours: StoreHours | null = await officialStoreHours();
   </div>
 
   <div class="flex flex-1 justify-center my-auto">
-    <Map />
+    <Map apiKey={apiKey} />
   </div>
 </section>
 
@@ -67,13 +73,13 @@ const storeHours: StoreHours | null = await officialStoreHours();
         alt="Brass divider"
         class="h-[50px] md:h-[70px] w-auto mx-auto transform -scale-x-100"
       />
-      <div class="mt-2 py-3">
+      <div class="py-3">
         <ContactForm client:load />
       </div>
-      <div class="absolute -top-3 md:-top-7 left-1 items-center">
+      <div class="absolute -top-7 left-1 md:left-6 items-center">
         <button
           id="closeModal"
-          class="w-10 sm:w-12 h-10 sm:h-12 mt-6 bg-[#7F0201] text-white text-xl font-bold tracking-wider rounded-xl shadow-sm hover:bg-[#A52A2A] focus:outline-none focus:ring-2 focus:ring-gray-300"
+          class="w-10 sm:w-12 h-10 sm:h-12 mt-6 bg-[#7F0201] text-white text-xl font-bold tracking-wider rounded-xl drop-shadow-2xl hover:bg-[#A52A2A] focus:outline-none focus:ring-2 focus:ring-gray-300"
         >
           <img
             src={backArrow}

@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 
-// Define the structure of a single review
 interface Review {
   id: string;
   author: string;
@@ -9,27 +7,12 @@ interface Review {
   text: string;
 }
 
-// Define the props for ReviewsCard
 interface ReviewsCardProps {
   businessId: string;
+  apiKey: string;
 }
 
-// Define the API response structure
-interface ApiResponse {
-  reviews: Review[];
-}
-
-/**
- * Returns a specified number of unique random reviews from a given array.
- *
- * @param {Review[]} reviews - The array of reviews to select from.
- * @param {number} count - The maximum number of reviews to return.
- * @return {Review[]} An array of up to `count` unique random reviews.
- */
-const getRandomReviews = (reviews: Review[], count: number): Review[] => {
-  const shuffledReviews = [...reviews].sort(() => 0.5 - Math.random());
-  return shuffledReviews.slice(0, count); // Select up to `count` reviews
-};
+declare const google: any;
 
 /**
  * Fetches and displays customer reviews.
@@ -37,53 +20,73 @@ const getRandomReviews = (reviews: Review[], count: number): Review[] => {
  * @param {string} businessId - The ID of the business for which to fetch reviews.
  * @return {JSX.Element} A JSX element containing the reviews, or a loading/error message if applicable.
  */
-const ReviewsCard: React.FC<ReviewsCardProps> = ({ businessId }) => {
+const ReviewsCard: React.FC<ReviewsCardProps> = ({ businessId, apiKey }) => {
   const [reviews, setReviews] = useState<Review[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const fetchReviews = async () => {
+      const fetchReviews = async () => {
+      if (typeof window === 'undefined' || !window.google) {
+        setError('Google Maps API not loaded');
+        setLoading(false);
+        return;
+      }
+  
       try {
-        // Replace with your actual API endpoint
-        const response = await axios.get<ApiResponse>(`YOUR_GOOGLE_REVIEWS_API_ENDPOINT/${businessId}`);
-        
-        // Filter reviews with 4 stars or higher and exclude those mentioning "groom" or "grooming"
-        const filteredReviews = response.data.reviews.filter(
-          (review) => review.rating >= 4 && !/groom|grooming/i.test(review.text)
+        const service = new google.maps.places.PlacesService(document.createElement('div'));
+        service.getDetails(
+          {
+            placeId: businessId,
+            fields: ['reviews'],
+          },
+          (place: google.maps.places.PlaceResult | null, status: google.maps.places.PlacesServiceStatus) => {
+            if (status === google.maps.places.PlacesServiceStatus.OK && place?.reviews) {
+              const filteredReviews = place.reviews
+                .filter((review) => (review.rating ?? 0) >= 4)
+                .map((review: google.maps.places.PlaceReview) => ({
+                  id: review.time.toString(),
+                  author: review.author_name,
+                  rating: review.rating ?? 0,
+                  text: review.text ?? '',
+                }));
+
+              setReviews(filteredReviews);
+            } else {
+              setError('No reviews available');
+            }
+            setLoading(false);
+          }
         );
-        
-        // Randomly select up to 3 reviews
-        const randomReviews = getRandomReviews(filteredReviews, 3);
-        setReviews(randomReviews);
       } catch (err) {
-        setError('Error fetching reviews');
-      } finally {
+        setError('Failed to fetch reviews');
         setLoading(false);
       }
     };
-
+  
     fetchReviews();
-  }, [businessId]);
+  }, [businessId, apiKey]);
+  
+  
 
   if (loading) return <p className="my-auto px-5">Loading...</p>;
   if (error) return <p className="my-auto px-5">{error}</p>;
 
   return (
-    <section className="flex my-auto ml-4 px-2 drop-shadow-2xl">
+    <section className="flex my-auto ml-5 p-3 drop-shadow-2xl">
       <div
-        className="relative w-[350px] h-[200px] flex pt-8 rounded-3xl bg-[#FFC66D] bg-opacity-50"
+        className="relative w-[300px] h-[130px] flex rounded-3xl bg-[#F9DCB1] bg-opacity-50"
         style={{ backdropFilter: "blur(35px)" }}
       >
-        <div className="absolute top-5 -left-8">
+        <div className="absolute top-5 -left-7">
           <img
             src="https://placehold.co/350x350/png"
             alt="Blog tag photo"
-            className="w-[110px] h-auto rounded-2xl"
+            className="w-[70px] h-auto rounded-2xl"
           />
         </div>
-        <div className="ml-20 px-2">
-          <div className="max-w-md mx-auto bg-white shadow-md rounded-lg overflow-hidden">
+        <div className="ml-12">
+          <div className="max-w-md mx-auto overflow-hidden">
             <h2 className="text-xl font-bold text-center p-4">Customer Reviews</h2>
             <div className="p-4">
               {reviews.length === 0 ? (

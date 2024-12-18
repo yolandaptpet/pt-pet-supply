@@ -5,6 +5,9 @@ import { ViewTransitions } from "astro:transitions";
 
 import "@/styles/globals.css";
 import Footer from "../sections/Footer.astro";
+import GoogleMapsLoader from "../ui/GoogleMapsLoader.astro";
+
+const apiKey = import.meta.env.PUBLIC_GOOGLE_API_KEY as string;
 ---
 
 <!doctype html>
@@ -27,6 +30,7 @@ import Footer from "../sections/Footer.astro";
       href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
     />
     <ViewTransitions fallback="animate" />
+    <GoogleMapsLoader apiKey={apiKey} />
   </head>
   <body>
     <Header transition:persist />

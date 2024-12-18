@@ -1,7 +1,4 @@
 ---
-const publicKey = import.meta.env
-  .GOOGLE_API_KEY as ImportGoogleEnv["GOOGLE_API_KEY"];
-const API_KEY = publicKey;
 const ADDRESS = "86 Worcester Rd, Webster, MA 01570";
 ---
 
@@ -11,23 +8,31 @@ const ADDRESS = "86 Worcester Rd, Webster, MA 01570";
 >
 </div>
 
-<script define:vars={{ API_KEY, ADDRESS }}>
+<script define:vars={{ ADDRESS }}>
   async function initMap() {
+    console.log("initMap function executed");
     const { Map } = await google.maps.importLibrary("maps");
+    console.log("Google Maps library imported");
     const { Geocoder } = await google.maps.importLibrary("geocoding");
-    const { Marker } = await google.maps.importLibrary("marker");
+    console.log("Geocoding library imported");
+    const { AdvancedMarkerElement } = await google.maps.importLibrary("marker");
+    console.log("AdvancedMarkerElement library imported");
 
     const map = new Map(document.getElementById("map"), {
-      zoom: 15,
+      zoom: 17,
+      center: { lat: 0, lng: 0 },
+      mapId: "DEMO_MAP_ID",
     });
 
     const geocoder = new Geocoder();
     try {
       const results = await geocoder.geocode({ address: ADDRESS });
+      console.log("Geocoding Results:", results);
+
       if (results.results.length > 0) {
         const location = results.results[0].geometry.location;
         map.setCenter(location);
-        new Marker({
+        new AdvancedMarkerElement({
           map: map,
           position: location,
         });
@@ -39,16 +44,7 @@ const ADDRESS = "86 Worcester Rd, Webster, MA 01570";
     }
   }
 
-  function loadGoogleMapsScript() {
-    const script = document.createElement("script");
-    script.src = `https://maps.googleapis.com/maps/api/js?key=${API_KEY}&callback=initMap&loading=async`;
-    script.async = true;
-    script.defer = true;
-    document.head.appendChild(script);
-  }
-
   if (typeof window !== "undefined") {
     window.initMap = initMap;
-    loadGoogleMapsScript();
   }
 </script>

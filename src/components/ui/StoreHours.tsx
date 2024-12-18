@@ -36,7 +36,7 @@ const StoreHours: React.FC<StoreHoursProps> = ({ storeHours }) => {
         />
       {storeHours &&
         Object.entries(storeHours).map(([day, hours]) => (
-          <div key={day} className="flex text-lg font-bold md:text-xl justify-center tracking-wide md:tracking-wider text-[#452B1F]">
+          <div key={day} className="flex text-lg font-bold md:text-xl justify-center tracking-wider md:tracking-widest text-[#452B1F]">
             {capitalizeFirstLetter(day)}: {convertTo12Hour(hours.open)} to {convertTo12Hour(hours.close)}
           </div>
         ))}

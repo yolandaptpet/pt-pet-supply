@@ -1,8 +1,14 @@
 ---
+interface TestimonialsProps {
+  apiKey: string;
+}
+
 import ReviewsCard from "../ui/ReviewsCard.jsx";
 
-const businessId = "YOUR_BUSINESS_ID";
-const numberOfReviews = 3; // Set the number of reviews dynamically
+const businessId = "ChIJbRNMI9ce5IkRwHQCQEtkMA4";
+const numberOfReviews = 3;
+
+const { apiKey } = Astro.props as TestimonialsProps;
 ---
 
 <div
@@ -10,7 +16,11 @@ const numberOfReviews = 3; // Set the number of reviews dynamically
 >
   {
     [...Array(numberOfReviews)].map((_) => (
-      <ReviewsCard businessId={businessId} client:load />
+      <ReviewsCard
+        businessId={businessId}
+        apiKey={apiKey}
+        client:only="react"
+      />
     ))
   }
 </div>
