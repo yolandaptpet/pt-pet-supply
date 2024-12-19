@@ -11,7 +11,39 @@ const { apiKey } = Astro.props as TestimonialsProps;
 ---
 
 <div
-  class="flex flex-col xl:flex-row xl:mx-24 justify-center items-center py-10 min-h-[300px]"
+  class="flex flex-col xl:flex-row xl:mx-24 justify-center items-center pt-10 pb-3 min-h-[300px]"
 >
   <Reviews businessId={businessId} apiKey={apiKey} client:only="react" />
+</div>
+
+<div class="flex flex-col items-center pb-16">
+  <h3 class="text-xl font-bold tracking-widest">Find More Reviews on:</h3>
+  <div class="flex items-center space-x-2">
+    <a
+      href="https://www.facebook.com/ptpetsupply/reviews"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="inline-flex items-center justify-center px-3 py-1.5 mt-4 bg-[#7F0201] text-white text-xl font-bold tracking-wider rounded-xl drop-shadow-2xl hover:bg-[#A52A2A] focus:outline-none focus:ring-2 focus:ring-gray-300"
+    >
+      <img
+        src="src/assets/facebook-logo.png"
+        alt="Facebook Logo"
+        class="w-5 h-5 mr-2"
+      />
+      Facebook
+    </a>
+    <a
+      href="https://www.google.com/search?q=pt+pet+supply&rlz=1C1CHBF_enUS987US987&oq=pt+pet+supply&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIYCAEQLhgnGK8BGMcBGMkDGIAEGIoFGI4FMgYIAhAjGCcyCAgDEAAYFhgeMggIBBAAGBYYHjIGCAUQRRg8MgYIBhBFGDwyBggHEEUYPNIBCDQ1NjhqMGo0qAIAsAIB&sourceid=chrome&ie=UTF-8#lrd=0x89e41ed7234c136d:0xe30644b400274c0,1,,,,"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="inline-flex items-center justify-center px-3 py-1.5 mt-4 bg-[#7F0201] text-white text-xl font-bold tracking-wider rounded-xl drop-shadow-2xl hover:bg-[#A52A2A] focus:outline-none focus:ring-2 focus:ring-gray-300"
+    >
+      <img
+        src="src/assets/google-logo.png"
+        alt="Google Logo"
+        class="w-5 h-5 mr-2"
+      />
+      Google
+    </a>
+  </div>
 </div>
