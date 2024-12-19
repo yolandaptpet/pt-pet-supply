@@ -12,16 +12,13 @@ const formatDate = (date: Date) => {
 
 const postDescription = post ? post.data.description : "";
 const postTitle = post ? post.data.title : "";
-const shortenedPostDescription =
-  postDescription.split(" ").slice(0, 15).join(" ") +
-  (postDescription.split(" ").length > 15 ? "..." : "");
 const postDate = post ? formatDate(post.data.publishDate) : "";
 ---
 
 <section class="flex-col-1 my-auto ml-6 drop-shadow-2xl">
   <a href={`/blog/${post?.slug}/`}>
     <div
-      class="relative w-[300px] h-[200px] sm:w-[410px] sm:h-[180px] md:w-[500px] 2xl:w-[600px] md:h-[170px] flex py-5 rounded-3xl bg-[#F9DCB1] bg-opacity-50"
+      class="relative w-[300px] h-[200px] sm:w-[410px] sm:h-[180px] md:w-[500px] 2xl:w-[600px] md:h-[170px] flex py-5 rounded-3xl bg-gradient-to-br from-[#f9dcb157] to-[#ffc76d81] drop-shadow-2xl"
       style={{ backdropFilter: "blur(35px)" }}
       onclick="window.location.href = `/blog/${post?.slug}/`"
     >
@@ -35,12 +32,10 @@ const postDate = post ? formatDate(post.data.publishDate) : "";
       </div>
 
       <!-- Text and Description -->
-      <div
-        class="ml-14 md:ml-20 2xl:ml-24 px-4 flex-grow flex items-center justify-between"
-      >
+      <div class="ml-14 md:ml-20 2xl:ml-24 px-4">
         <div>
-          <h1 class="font-bold text-2xl">{postTitle}</h1>
-          <h2 class="py-1 text-[#452B1F]">{shortenedPostDescription}</h2>
+          <h1 class="font-bold text-xl">{postTitle}</h1>
+          <h2 class="py-1 text-[#452B1F] line-clamp-4">{postDescription}</h2>
         </div>
         <!-- Date -->
         <p class="absolute bottom-1 right-4 font-bold text-[#7F0201]">

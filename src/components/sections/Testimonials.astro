@@ -3,10 +3,9 @@ interface TestimonialsProps {
   apiKey: string;
 }
 
-import ReviewsCard from "../ui/ReviewsCard.jsx";
+import Reviews from "../ui/Reviews";
 
 const businessId = "ChIJbRNMI9ce5IkRwHQCQEtkMA4";
-const numberOfReviews = 3;
 
 const { apiKey } = Astro.props as TestimonialsProps;
 ---
@@ -14,13 +13,5 @@ const { apiKey } = Astro.props as TestimonialsProps;
 <div
   class="flex flex-col xl:flex-row xl:mx-24 justify-center items-center py-10 min-h-[300px]"
 >
-  {
-    [...Array(numberOfReviews)].map((_) => (
-      <ReviewsCard
-        businessId={businessId}
-        apiKey={apiKey}
-        client:only="react"
-      />
-    ))
-  }
+  <Reviews businessId={businessId} apiKey={apiKey} client:only="react" />
 </div>

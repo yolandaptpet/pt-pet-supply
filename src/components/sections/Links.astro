@@ -1,27 +1,10 @@
 ---
-// interface LinksProps {
-//   currentPage: string;
-// }
-
 import Button from "../ui/Button.astro";
-
-// const currentPage = Astro.url.pathname as LinksProps["currentPage"];
 ---
 
 <!-- Main container with Alpine.js logic -->
 <div x-data="{ open: false }" class="relative overflow-x-hidden">
   <div class="hidden xl:flex font-bold lg:text-xl lg:space-x-4">
-    <!-- {
-      currentPage == "/grooming" && (
-        <Button
-          transition:animate="slide"
-          text="Home"
-          href="/"
-          class="xl:pl-1 2xl:pl-3 no-underline"
-          data-astro-prefetch
-        />
-      )
-    } -->
     <Button
       transition:animate="slide"
       text="Products"
@@ -108,17 +91,6 @@ import Button from "../ui/Button.astro";
 
       <!-- Sidebar Buttons -->
       <div class="mt-8 pl-4 flex flex-col items-center text-center space-y-4">
-        <!-- {
-          currentPage == "/grooming" && (
-            <Button
-              transition:animate="slide"
-              text="Home"
-              href="/"
-              class="bg-[#7F0201] hover:bg-[#A52A2A] text-white font-bold w-[80%] pl-4 p-2 rounded-xl no-underline"
-              data-astro-prefetch
-            />
-          )
-        } -->
         <Button
           transition:animate="slide"
           text="Products"

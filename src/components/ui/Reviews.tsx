@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 
-interface Review {
+export interface Review {
   id: string;
   author: string;
   rating: number;
   text: string;
 }
 
-interface ReviewsCardProps {
+interface ReviewsProps {
   businessId: string;
   apiKey: string;
 }
@@ -20,7 +20,7 @@ declare const google: any;
  * @param {string} businessId - The ID of the business for which to fetch reviews.
  * @return {JSX.Element} A JSX element containing the reviews, or a loading/error message if applicable.
  */
-const ReviewsCard: React.FC<ReviewsCardProps> = ({ businessId, apiKey }) => {
+const Reviews: React.FC<ReviewsProps> = ({ businessId, apiKey }) => {
   const [reviews, setReviews] = useState<Review[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -49,9 +49,11 @@ const ReviewsCard: React.FC<ReviewsCardProps> = ({ businessId, apiKey }) => {
                   author: review.author_name,
                   rating: review.rating ?? 0,
                   text: review.text ?? '',
-                }));
+                })).slice(0, 3);
 
               setReviews(filteredReviews);
+              console.log(filteredReviews);
+              console.log(reviews);
             } else {
               setError('No reviews available');
             }
@@ -67,49 +69,39 @@ const ReviewsCard: React.FC<ReviewsCardProps> = ({ businessId, apiKey }) => {
     fetchReviews();
   }, [businessId, apiKey]);
   
-  
-
   if (loading) return <p className="my-auto px-5">Loading...</p>;
   if (error) return <p className="my-auto px-5">{error}</p>;
 
   return (
-    <section className="flex my-auto ml-5 p-3 drop-shadow-2xl">
-      <div
-        className="relative w-[300px] h-[130px] flex rounded-3xl bg-[#F9DCB1] bg-opacity-50"
-        style={{ backdropFilter: "blur(35px)" }}
-      >
-        <div className="absolute top-5 -left-7">
-          <img
-            src="https://placehold.co/350x350/png"
-            alt="Blog tag photo"
-            className="w-[70px] h-auto rounded-2xl"
-          />
-        </div>
-        <div className="ml-12">
-          <div className="max-w-md mx-auto overflow-hidden">
-            <h2 className="text-xl font-bold text-center p-4">Customer Reviews</h2>
-            <div className="p-4">
-              {reviews.length === 0 ? (
-                <p>No reviews available.</p>
-              ) : (
-                reviews.map((review) => (
-                  <div key={review.id} className="mb-4 border-b pb-4">
-                    <div className="flex items-center">
-                      <span className="font-semibold">
-                        {review.author.split(' ')[0]} {review.author.split(' ')[1]?.[0].toUpperCase()}.
-                      </span>
-                      <span className="ml-2 text-yellow-500">{'★'.repeat(review.rating)}</span>
-                    </div>
-                    <p className="text-gray-700">{review.text}</p>
-                  </div>
-                ))
-              )}
+    <section className="space-y-4 md:space-y-0 md:space-x-6 md:flex my-auto mb-16 drop-shadow-2xl">
+      {reviews.map((review) => (
+        <div
+          className="relative w-[300px] min-[500px]:w-[340px] md:w-[220px] lg:w-[290px] xl:w-[320px] h-[150px] flex-grow flex items-center justify-between rounded-3xl bg-gradient-to-br from-[#f9dcb157] to-[#ffc76d81] drop-shadow-2xl my-auto"
+          style={{ backdropFilter: "blur(35px)" }}
+          key={review.id}
+        >
+          <div className="absolute top-5 -left-2">
+            <img
+              src="src/assets/review-icon.svg"
+              alt="Review author photo"
+              className="w-[55px] h-auto rounded-2xl p-1.5 bg-gradient-to-tl from-[#7F0201] from-10% via-[#A52A2A] via-30% to-[#FFC66D] to-90% "
+            />
+            <img src="src/assets/expand-icon.svg" alt="Expand button" className='absolute -bottom-16 left-4 w-[65%] h-auto transform -scale-x-100' />
+          </div>
+          <div key={review.id} className="ml-12 -mt-1 px-4">
+            <div className="flex items-center">
+              <span className="font-semibold tracking-tighter">
+                {review.author.split(" ")[0]} &nbsp;
+                {review.author.split(" ")[1]?.[0].toUpperCase()}.
+              </span>
+              <span className="ml-2 text-yellow-500">{"★".repeat(review.rating)}</span>
             </div>
+            <p className="text-[#452B1F] max-h-16 mt-1.5 tracking-tighter line-clamp-3">{review.text}</p>
           </div>
         </div>
-      </div>
+      ))}
     </section>
   );
 };
 
-export default ReviewsCard;
+export default Reviews;

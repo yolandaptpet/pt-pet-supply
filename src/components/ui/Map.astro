@@ -4,7 +4,7 @@ const ADDRESS = "86 Worcester Rd, Webster, MA 01570";
 
 <div
   id="map"
-  class="w-4/5 min-[600px]:w-[60%] md:w-[70%] h-[250px] md:h-[500px]"
+  class="w-[300px] min-[600px]:w-[400px] md:w-[300px] lg:w-[400px] h-[250px] md:h-[500px]"
 >
 </div>
 
@@ -46,5 +46,10 @@ const ADDRESS = "86 Worcester Rd, Webster, MA 01570";
 
   if (typeof window !== "undefined") {
     window.initMap = initMap;
+  }
+
+  if (!window.google) {
+    console.error("Google Maps script not loaded");
+    return;
   }
 </script>

@@ -60,7 +60,7 @@ const storeHours: StoreHours | null = await officialStoreHours();
   class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full opacity-0 pointer-events-none transition-opacity duration-300 ease-in-out"
 >
   <div
-    class="relative top-32 sm:top-36 md:top-48 mx-auto md:py-12 p-5 max-w-[600px] w-[90%] shadow-lg rounded-xl bg-[#FFC66D] transform scale-95 transition-transform duration-300 ease-in-out"
+    class="relative top-32 sm:top-36 md:top-48 mx-auto md:py-6 p-5 max-w-[600px] w-[90%] shadow-lg rounded-xl bg-[#FFC66D] transform scale-95 transition-transform duration-300 ease-in-out"
   >
     <div class="relative mt-3 text-center">
       <img
@@ -71,7 +71,7 @@ const storeHours: StoreHours | null = await officialStoreHours();
       <img
         src="/src/assets/brass-divider.webp"
         alt="Brass divider"
-        class="h-[50px] md:h-[70px] w-auto mx-auto transform -scale-x-100"
+        class="h-[50px] md:h-[70px] w-auto mx-auto transform -scale-x-100 drop-shadow-2xl"
       />
       <div class="py-3">
         <ContactForm client:load />
@@ -85,7 +85,7 @@ const storeHours: StoreHours | null = await officialStoreHours();
             src={backArrow}
             alt="back arrow"
             class="w-6 sm:w-7 m-auto"
-            style="filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(360deg) brightness(100%) contrast(100%);"
+            style="filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(360deg) brightness(100%) contrast(100%); drop-shadow-2xl"
           />
         </button>
       </div>

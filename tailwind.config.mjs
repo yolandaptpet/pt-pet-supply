@@ -5,6 +5,11 @@ export default {
     './node_modules/@astrojs/**/*.js'],
 	theme: {
     	extend: {
+				spacing: {
+					'100': '25rem',
+					'120': '30rem',
+					'144': '36rem',
+				},
 				keyframes: {
 					fadeInScale: {
 						'0%': { opacity: 0, transform: 'scale(0.9)' },
@@ -69,7 +74,7 @@ export default {
 				}
     	}
     },
-	plugins: [require('@tailwindcss/typography'), require("tailwindcss-animate"),
+	plugins: [require('@tailwindcss/typography'), require("tailwindcss-animate"), require('@tailwindcss/line-clamp'),
 		function ({ addUtilities }) {
       const newUtilities = {
         '.text-outline': {

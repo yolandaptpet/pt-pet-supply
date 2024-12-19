@@ -185,7 +185,7 @@ const ContactForm: React.FC = () => {
           </div>
         </div>
         
-        <div className="w-4/5 mx-auto flex flex-col items-center">
+        <div className="w-4/5 mx-auto flex flex-col items-center drop-shadow-2xl">
           <input
             id="file-upload"
             type="file"
@@ -224,7 +224,7 @@ const ContactForm: React.FC = () => {
         <button
           type="submit"
           disabled={isSubmitting}
-          className="bg-[#7F0201] hover:bg-[#A52A2A] text-white font-bold text-xl w-48 my-2 py-2.5 px-2 rounded-xl"
+          className="bg-[#7F0201] hover:bg-[#A52A2A] text-white font-bold text-xl w-48 my-2 py-2.5 px-2 rounded-xl drop-shadow-2xl"
         >
           {isSubmitting ? "Sending..." : "Send Message"}
         </button>
