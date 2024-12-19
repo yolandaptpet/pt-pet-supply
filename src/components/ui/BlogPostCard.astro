@@ -18,11 +18,10 @@ const postDate = post ? formatDate(post.data.publishDate) : "";
 <section class="flex-col-1 my-auto ml-6 drop-shadow-2xl">
   <a href={`/blog/${post?.slug}/`}>
     <div
-      class="relative w-[300px] h-[200px] sm:w-[410px] sm:h-[180px] md:w-[500px] 2xl:w-[600px] md:h-[170px] flex py-5 rounded-3xl bg-gradient-to-br from-[#f9dcb157] to-[#ffc76d81] drop-shadow-2xl"
+      class="relative w-[300px] min-h-[130px] sm:w-[410px] sm:h-[180px] md:w-[500px] 2xl:w-[600px] md:h-[170px] flex py-5 rounded-3xl bg-gradient-to-br from-[#f9dcb157] to-[#ffc76d81] drop-shadow-2xl"
       style={{ backdropFilter: "blur(35px)" }}
       onclick="window.location.href = `/blog/${post?.slug}/`"
     >
-      <!-- Image Container -->
       <div class="absolute top-6 -left-9 md:top-3 md:-left-5">
         <img
           src="https://placehold.co/350x350/png"
@@ -31,13 +30,13 @@ const postDate = post ? formatDate(post.data.publishDate) : "";
         />
       </div>
 
-      <!-- Text and Description -->
       <div class="ml-14 md:ml-20 2xl:ml-24 px-4">
         <div>
           <h1 class="font-bold text-xl">{postTitle}</h1>
-          <h2 class="py-1 text-[#452B1F] line-clamp-4">{postDescription}</h2>
+          <h2 class="py-1 text-[#452B1F] flex-grow line-clamp-4 mb-2">
+            {postDescription}
+          </h2>
         </div>
-        <!-- Date -->
         <p class="absolute bottom-1 right-4 font-bold text-[#7F0201]">
           {postDate}
         </p>

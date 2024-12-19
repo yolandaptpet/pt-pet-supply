@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
+import { useDebounce } from 'use-debounce';
 
-export interface Review {
+interface Review {
   id: string;
   author: string;
   rating: number;
@@ -20,7 +21,7 @@ interface ReviewModalProps {
 declare const google: any;
 
 const Modal = ({ review, onClose }: ReviewModalProps) => (
-  <div className="fixed inset-0 bg-gray-500 bg-opacity-50 flex justify-center items-center" transition:name="modal-overlay">
+  <div className="fixed inset-0 bg-gray-500 bg-opacity-50 flex justify-center items-center">
     <div
       key={review.id}
       className="relative z-20 w-[320px] min-[500px]:w-[420px] md:w-[510px] lg:w-[510px] h-auto py-10 flex items-center justify-between rounded-3xl bg-gradient-to-br from-[#f9dcb157] to-[#ffc76d81] drop-shadow-2xl my-auto cursor-pointer"
@@ -54,6 +55,8 @@ const Reviews: React.FC<ReviewsProps> = ({ businessId, apiKey }) => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [selectedReview, setSelectedReview] = useState<Review | null>(null);
+
+  const [debouncedBusinessId] = useDebounce(businessId, 500);
 
   useEffect(() => {
       const fetchReviews = async () => {
@@ -97,20 +100,23 @@ const Reviews: React.FC<ReviewsProps> = ({ businessId, apiKey }) => {
     };
   
     fetchReviews();
-  }, [businessId, apiKey]);
+  }, [businessId, apiKey, debouncedBusinessId]);
+
+  const modalRef = useRef<HTMLElement | null>(null);
 
   const handleModalOpen = (review: Review) => {
-    if (document.startViewTransition) {
+    if (document.startViewTransition && modalRef.current) {
       document.startViewTransition(() => {
         setSelectedReview(review);
+        modalRef.current?.classList.add("start-animation-class");
       });
     } else {
       setSelectedReview(review);
     }
   };
-
+  
   const handleModalClose = () => {
-    if (document.startViewTransition) {
+    if (document.startViewTransition && modalRef.current) {
       document.startViewTransition(() => {
         setSelectedReview(null);
       });

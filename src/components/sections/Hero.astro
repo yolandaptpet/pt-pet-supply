@@ -1,3 +1,8 @@
+---
+import Socials from "../ui/Socials.astro";
+import ExternalLinks from "../sections/ExternalLinks.astro";
+---
+
 <section
   id="hero"
   class="relative mx-auto flex flex-col items-center min-h-[400px] h-80 md:h-96"
@@ -10,7 +15,7 @@
   <img
     src="src/assets/logo.webp"
     alt="PT Pet Supply logo"
-    class="absolute top-0 object-contain h-[280px] md:h-[300px] xl:h-[340px] 2xl:h-[440px] w-auto p-3 drop-shadow-2xl"
+    class="absolute top-0 object-contain h-[280px] md:h-[300px] xl:h-[340px] 2xl:h-[440px] w-auto p-3 drop-shadow-2xl z-10"
   />
   <div class="absolute top-60 md:top-64 xl:top-72">
     <a
@@ -20,20 +25,23 @@
       <img
         src="src/assets/address-sign.webp"
         alt="Address sign"
-        class="object-contain h-[75px] md:h-[80px] xl:h-[85px] xl:mt-2 2xl:h-[105px] 2xl:mt-24 w-auto p-3 drop-shadow-2xl"
+        class="object-contain h-[75px] md:h-[80px] xl:h-[85px] xl:mt-2 2xl:h-[105px] 2xl:mt-24 w-auto pt-2 px-3 drop-shadow-2xl -z-20"
       />
     </a>
+
+    <Socials bgColor="#7F0201" hoverColor="#A52A2A" />
+    <ExternalLinks />
   </div>
 
   <img
     src="/src/assets/mainecoon.png"
     alt="Maine Coon"
-    class="absolute bottom-0 min-[1350px]:-bottom-12 2xl:-bottom-40 left-0 -ml-16 sm:-ml-10 md:-ml-28 lg:ml-20 xl:ml-30 min-[1800px]:ml-48 min-[350px]:h-[330px] min-[475px]:h-[370px] md:h-[480px] xl:h-[600px] drop-shadow-2xl w-auto max-h-[700px] object-contain -mb-48 md:-mb-80"
+    class="absolute -bottom-8 min-[1350px]:-bottom-12 2xl:-bottom-40 left-0 -ml-16 sm:-ml-10 md:-ml-28 lg:ml-20 xl:ml-30 min-[1800px]:ml-48 min-[350px]:h-[330px] min-[475px]:h-[370px] md:h-[480px] xl:h-[600px] drop-shadow-2xl w-auto max-h-[700px] object-contain -mb-48 md:-mb-80"
   />
   <img
     src="/src/assets/husky.png"
     alt="Siberian Husky"
-    class="absolute bottom-0 min-[1350px]:-bottom-12 2xl:-bottom-40 right-0 -mr-20 sm:-mr-14 md:-mr-32 lg:mr-14 xl:mr-30 min-[1800px]:mr-48 min-[350px]:h-[330px] min-[475px]:h-[370px] md:h-[480px] xl:h-[600px] drop-shadow-2xl w-auto max-h-[700px] object-contain -mb-48 md:-mb-80"
+    class="absolute -bottom-8 min-[1350px]:-bottom-12 2xl:-bottom-40 right-0 -mr-20 sm:-mr-14 md:-mr-32 lg:mr-14 xl:mr-30 min-[1800px]:mr-48 min-[350px]:h-[330px] min-[475px]:h-[370px] md:h-[480px] xl:h-[600px] drop-shadow-2xl w-auto max-h-[700px] object-contain -mb-48 md:-mb-80"
   />
 
   <img

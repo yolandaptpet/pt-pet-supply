@@ -1,0 +1,40 @@
+---
+const { bgColor, hoverColor } = Astro.props;
+---
+
+<div class="flex items-center justify-center space-x-1 pt-1">
+  {
+    ["facebook", "x", "instagram", "email"].map((platform, index) => (
+      <a
+        href={`https://www.${platform === "x" ? "x.com/pt_pet" : platform === "email" ? "mailto:yolanda@ptpet.net" : platform + ".com/ptpetsupply"}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        class={`inline-flex items-center justify-center p-1 bg-[#${bgColor}] text-white text-xl font-bold tracking-wider rounded-xl drop-shadow-2xl hover:bg-[${hoverColor}] focus:outline-none focus:ring-2 focus:ring-gray-300 opacity-0`}
+        style={`view-transition-name: social-icon-${index}; animation: fade-in 0.9s ${index * 0.4}s forwards;`}
+      >
+        <img
+          src={`src/assets/${platform}-logo.png`}
+          alt={`${platform.charAt(0).toUpperCase() + platform.slice(1)} Logo`}
+          class="w-6 h-6 rounded-full"
+        />
+      </a>
+    ))
+  }
+</div>
+
+<style>
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+</style>
+
+<script>
+  if (document.startViewTransition) {
+    document.startViewTransition(() => {});
+  }
+</script>

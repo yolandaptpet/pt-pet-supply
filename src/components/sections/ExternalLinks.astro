@@ -1,0 +1,65 @@
+---
+const handleHover = () => {
+  document.startViewTransition(() => {
+    // Logic to update or animate elements can go here
+    // For instance, you could change styles or add/remove classes
+    const additionalField = document.querySelector(
+      ".additional-field"
+    ) as HTMLElement;
+    additionalField!.style.display = "block";
+  });
+};
+
+const handleLeave = () => {
+  document.startViewTransition(() => {
+    const additionalField = document.querySelector(
+      ".additional-field"
+    ) as HTMLElement;
+    additionalField!.style.display = "none";
+  });
+};
+---
+
+<section class="flex justify-center mt-6">
+  <a
+    href="https://secure.astroloyalty.com/members.php?ld=xZzugnkcBMFfSCrQA%2F4%3D"
+    target="_blank"
+    rel="noopener noreferrer"
+    class="inline-flex items-center justify-center px-3 py-1.5 bg-[#7F0201] text-white text-xl font-bold tracking-wider rounded-xl drop-shadow-2xl hover:bg-[#A52A2A] focus:outline-none focus:ring-2 focus:ring-gray-300"
+  >
+    <button
+      class="button"
+      onMouseEnter={handleHover}
+      onMouseLeave={handleLeave}
+    >
+      Astro Loyalty
+    </button>
+  </a>
+
+  <div class="additional-field">
+    This is additional context for the button's function.
+  </div>
+</section>
+
+<style>
+  .button {
+    position: relative;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+  }
+
+  .button:hover {
+    transform: scale(1.05);
+  }
+
+  .additional-field {
+    display: none;
+    margin-top: 10px;
+  }
+
+  .button:hover + .additional-field {
+    display: block;
+  }
+</style>
