@@ -12,7 +12,36 @@ interface ReviewsProps {
   apiKey: string;
 }
 
+interface ReviewModalProps {
+  review: Review;
+  onClose: () => void;
+}
+
 declare const google: any;
+
+const Modal = ({ review, onClose }: ReviewModalProps) => (
+  <div className="fixed inset-0 bg-gray-500 bg-opacity-50 flex justify-center items-center" transition:name="modal-overlay">
+    <div
+      key={review.id}
+      className="relative z-20 w-[320px] min-[500px]:w-[420px] md:w-[510px] lg:w-[510px] h-auto py-10 flex items-center justify-between rounded-3xl bg-gradient-to-br from-[#f9dcb157] to-[#ffc76d81] drop-shadow-2xl my-auto cursor-pointer"
+      style={{ backdropFilter: "35px" }}
+      transition:name={`modal-${review.id}`}
+      transition:animate="slide"
+    >
+      <div className="mx-6 px-4">
+        <div className="flex items-center">
+          <span className="font-semibold tracking-tighter">
+            {review.author.split(" ")[0]} &nbsp;
+            {review.author.split(" ")[1]?.[0].toUpperCase()}.
+          </span>
+          <span className="ml-2 text-yellow-500">{"★".repeat(review.rating)}</span>
+        </div>
+        <p className="text-[#452B1F] mt-1.5 flex-grow">{review.text}</p>
+        <button onClick={onClose} className="absolute top-4 right-4 bg-[#7F0201] hover:bg-[#A52A2A] text-white font-bold py-1.5 px-3 mb-8 rounded-xl">Close</button>
+      </div>
+    </div>
+  </div>
+);
 
 /**
  * Fetches and displays customer reviews.
@@ -24,6 +53,7 @@ const Reviews: React.FC<ReviewsProps> = ({ businessId, apiKey }) => {
   const [reviews, setReviews] = useState<Review[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const [selectedReview, setSelectedReview] = useState<Review | null>(null);
 
   useEffect(() => {
       const fetchReviews = async () => {
@@ -68,39 +98,62 @@ const Reviews: React.FC<ReviewsProps> = ({ businessId, apiKey }) => {
   
     fetchReviews();
   }, [businessId, apiKey]);
+
+  const handleModalOpen = (review: Review) => {
+    if (document.startViewTransition) {
+      document.startViewTransition(() => {
+        setSelectedReview(review);
+      });
+    } else {
+      setSelectedReview(review);
+    }
+  };
+
+  const handleModalClose = () => {
+    if (document.startViewTransition) {
+      document.startViewTransition(() => {
+        setSelectedReview(null);
+      });
+    } else {
+      setSelectedReview(null);
+    }
+  };
   
   if (loading) return <p className="my-auto px-5">Loading...</p>;
   if (error) return <p className="my-auto px-5">{error}</p>;
 
   return (
-    <section className="space-y-4 md:space-y-0 md:space-x-6 md:flex my-auto mb-16 drop-shadow-2xl">
-      {reviews.map((review) => (
-        <div
-          className="relative w-[300px] min-[500px]:w-[340px] md:w-[220px] lg:w-[290px] xl:w-[320px] h-[150px] flex-grow flex items-center justify-between rounded-3xl bg-gradient-to-br from-[#f9dcb157] to-[#ffc76d81] drop-shadow-2xl my-auto"
-          style={{ backdropFilter: "blur(35px)" }}
-          key={review.id}
-        >
-          <div className="absolute top-5 -left-2">
-            <img
-              src="src/assets/review-icon.svg"
-              alt="Review author photo"
-              className="w-[55px] h-auto rounded-2xl p-1.5 bg-gradient-to-tl from-[#7F0201] from-10% via-[#A52A2A] via-30% to-[#FFC66D] to-90% "
-            />
-            <img src="src/assets/expand-icon.svg" alt="Expand button" className='absolute -bottom-16 left-4 w-[65%] h-auto transform -scale-x-100' />
-          </div>
-          <div key={review.id} className="ml-12 -mt-1 px-4">
-            <div className="flex items-center">
-              <span className="font-semibold tracking-tighter">
-                {review.author.split(" ")[0]} &nbsp;
-                {review.author.split(" ")[1]?.[0].toUpperCase()}.
-              </span>
-              <span className="ml-2 text-yellow-500">{"★".repeat(review.rating)}</span>
+    <>
+      {selectedReview && <Modal review={selectedReview} onClose={handleModalClose} />}
+      <section className="space-y-4 lg:space-y-0 lg:space-x-6 lg:flex my-auto mb-16 drop-shadow-2xl">
+        {reviews.map((review) => (
+          <div
+            key={review.id}
+            onClick={() => handleModalOpen(review)}
+            className="relative -z-10 w-[300px] min-[500px]:w-[348px] md:w-[445px] lg:w-[285px] xl:w-[320px] h-[150px] flex-grow flex items-center justify-between rounded-3xl bg-gradient-to-br from-[#f9dcb157] to-[#ffc76d81] drop-shadow-2xl my-auto cursor-pointer"
+            transition:name={`review-card-${review.id}`}
+          >
+            <div className="absolute top-5 -left-2">
+              <img
+                src="src/assets/review-icon.svg"
+                alt="Review author photo"
+                className="w-[55px] h-auto rounded-2xl p-1.5 bg-gradient-to-tl from-[#7F0201] from-10% via-[#A52A2A] via-30% to-[#FFC66D] to-90%"
+              />
             </div>
-            <p className="text-[#452B1F] max-h-16 mt-1.5 tracking-tighter line-clamp-3">{review.text}</p>
+            <div className="ml-12 -mt-1 px-4">
+              <div className="flex items-center">
+                <span className="font-semibold tracking-tighter">
+                  {review.author.split(" ")[0]} &nbsp;
+                  {review.author.split(" ")[1]?.[0].toUpperCase()}.
+                </span>
+                <span className="ml-2 text-yellow-500">{"★".repeat(review.rating)}</span>
+              </div>
+              <p className="text-[#452B1F] max-h-16 mt-1.5 tracking-tighter line-clamp-3">{review.text}</p>
+            </div>
           </div>
-        </div>
-      ))}
-    </section>
+        ))}
+      </section>
+    </>
   );
 };
 
