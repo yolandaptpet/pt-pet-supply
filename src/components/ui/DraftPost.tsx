@@ -4,7 +4,7 @@ import 'react-quill/dist/quill.snow.css';
 import { z } from 'zod';
 
 type DraftPostProps = {
-  allTags: string[]; // Accept the list of all tags as props
+  allTags: string[];
 };
 
 // Define the Zod schema
@@ -19,18 +19,16 @@ const postSchema = z.object({
 const DraftPost: React.FC<DraftPostProps> = ({ allTags }) => {
   const [title, setTitle] = useState<string>('');
   const [description, setDescription] = useState<string>('');
-  const [selectedTags, setSelectedTags] = useState<string[]>([]); // For selected tags
-  const [tagsInput, setTagsInput] = useState<string>(''); // For custom tag input field
+  const [selectedTags, setSelectedTags] = useState<string[]>([]);
+  const [tagsInput, setTagsInput] = useState<string>('');
   const [body, setBody] = useState<string>('');
   const [errors, setErrors] = useState<{ title?: string; description?: string }>({});
   
-  // Confirmation modal state
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [confirmationText, setConfirmationText] = useState<string>('');
 
-  const tagRegex = /^[a-zA-Z0-9]+$/; // Enforce only alphanumeric tags
+  const tagRegex = /^[a-zA-Z0-9]+$/;
 
-  // Load saved values from localStorage when the component mounts
   useEffect(() => {
     const savedTitle = localStorage.getItem('draftTitle');
     const savedDescription = localStorage.getItem('draftDescription');
@@ -43,7 +41,6 @@ const DraftPost: React.FC<DraftPostProps> = ({ allTags }) => {
     if (savedTags) setSelectedTags(JSON.parse(savedTags));
   }, []);
 
-  // Update localStorage whenever the user types in any field
   useEffect(() => {
     localStorage.setItem('draftTitle', title);
     localStorage.setItem('draftDescription', description);
@@ -53,7 +50,7 @@ const DraftPost: React.FC<DraftPostProps> = ({ allTags }) => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setIsModalOpen(true); // Open the confirmation modal
+    setIsModalOpen(true);
   };
 
   const confirmSubmit = async () => {
@@ -66,8 +63,8 @@ const DraftPost: React.FC<DraftPostProps> = ({ allTags }) => {
       title,
       description,
       body,
-      tags: selectedTags, // Pass selected tags to the schema
-      publishDate: new Date().toISOString().split('T')[0], // Automatically set publishDate to today's date
+      tags: selectedTags,
+      publishDate: new Date().toISOString().split('T')[0],
     });
 
     if (!validationResult.success) {
@@ -76,7 +73,7 @@ const DraftPost: React.FC<DraftPostProps> = ({ allTags }) => {
         title: formErrors.title ? formErrors.title[0] : undefined,
         description: formErrors.description ? formErrors.description[0] : undefined,
       });
-      setIsModalOpen(false); // Close the modal on error
+      setIsModalOpen(false);
       return;
     }
 
@@ -84,15 +81,13 @@ const DraftPost: React.FC<DraftPostProps> = ({ allTags }) => {
       const response = await fetch('/api/submit-post', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(validationResult.data), // Send the entire validated data
+        body: JSON.stringify(validationResult.data),
       });
 
       const result = await response.json();
       if (!response.ok) {
         console.error('Failed to submit post:', result, 'Status:', response.status);
       } else {
-        console.log('Post submitted successfully:', result);
-        // Clear form fields after successful submission
         setTitle('');
         setDescription('');
         setBody('');
@@ -106,15 +101,15 @@ const DraftPost: React.FC<DraftPostProps> = ({ allTags }) => {
     } catch (error) {
       console.error('An error occurred while submitting the post:', error);
     } finally {
-      setIsModalOpen(false); // Close the modal after submission
-      setConfirmationText(''); // Reset confirmation text
+      setIsModalOpen(false);
+      setConfirmationText('');
     }
   };
 
   const addCustomTag = () => {
     if (tagsInput.trim() && tagRegex.test(tagsInput) && !selectedTags.includes(tagsInput)) {
       setSelectedTags((prevTags) => [...prevTags, tagsInput.trim()]);
-      setTagsInput(''); // Clear the input after adding
+      setTagsInput('');
     }
   };
 

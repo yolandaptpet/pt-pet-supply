@@ -8,7 +8,7 @@ const ADDRESS = "86 Worcester Rd, Webster, MA 01570";
 >
 </div>
 
-<script define:vars={{ ADDRESS }}>
+<script is:inline define:vars={{ ADDRESS }}>
   async function initMap() {
     console.log("initMap function executed");
     const { Map } = await google.maps.importLibrary("maps");
@@ -48,8 +48,14 @@ const ADDRESS = "86 Worcester Rd, Webster, MA 01570";
     window.initMap = initMap;
   }
 
-  if (!window.google) {
-    console.error("Google Maps script not loaded");
+  document.addEventListener("astro:page-load", () => {
+    if (window.initMap) {
+      window.initMap();
+    }
+  });
+
+  if (!window.google || !window.google.maps) {
+    console.error("Google Maps library not loaded");
     return;
   }
 </script>

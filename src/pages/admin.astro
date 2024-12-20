@@ -3,18 +3,18 @@ import Layout from "../components/layouts/Layout.astro";
 import UpdateAnnouncement from "@/components/ui/UpdateAnnouncement";
 import UpdateHours from "../components/ui/UpdateHours.tsx";
 import DraftPost from "../components/ui/DraftPost.tsx";
-import AdminStaffGrid from "../components/ui/AdminStaffGrid.tsx";
+// import AdminStaffGrid from "../components/ui/AdminStaffGrid.tsx";
 
 const backArrow = "../../../images/arrow.svg";
 
 import {
-  officialStaffList,
+  // officialStaffList,
   officialStoreHours,
 } from "@/constants/storeInfo.ts";
-import type { StaffProps } from "@/constants/storeInfo.ts";
+// import type { StaffProps } from "@/constants/storeInfo.ts";
 
 const storeHours = await officialStoreHours();
-const staffMembers = (await officialStaffList()) as StaffProps[];
+// const staffMembers = (await officialStaffList()) as StaffProps[];
 
 import { getCollection } from "astro:content";
 

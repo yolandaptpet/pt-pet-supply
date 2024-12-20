@@ -174,7 +174,7 @@ const UpdateHours: React.FC<UpdateHoursProps> = ({ storeHours }) => {
             </tr>
           </thead>
           <tbody>
-            {Object.entries(storeHours).map(([day, hours]) => (
+            {Object.entries(storeHours).map(([day]) => (
               <tr key={day}>
                 <td className="p-2 border border-gray-300">{day}</td>
                 <td className="p-2 border border-gray-300">

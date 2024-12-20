@@ -10,6 +10,9 @@ export default {
 					'120': '30rem',
 					'144': '36rem',
 				},
+				margin: {
+					'44': '11rem',
+				},
 				keyframes: {
 					fadeInScale: {
 						'0%': { opacity: 0, transform: 'scale(0.9)' },
