@@ -79,3 +79,38 @@ html {
     transform: rotate(1deg);
   }
 }
+
+.custom-font {
+  font-family: "Sanelma", sans-serif;
+}
+
+.link-underline {
+  position: relative;
+  display: inline-block;
+  color: white;
+  text-decoration: none;
+}
+
+.link-underline::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 0;
+  height: 4px;
+  background-color: white;
+  transition:
+    width 0.4s ease,
+    left 0.4s ease;
+}
+
+.link-underline:hover::after {
+  width: 100%;
+  left: 0;
+}
+
+@media (hover: none) {
+  .link-underline:hover::after {
+    width: 0;
+  }
+}

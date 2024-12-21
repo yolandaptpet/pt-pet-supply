@@ -1,47 +1,37 @@
 <section class="flex">
-  <div class="relative top-9 flex flex-col items-center justify-center z-10">
-    <h3 class="text-2xl custom-font text-white underline">
+  <div
+    class="relative top-9 md:top-11 flex flex-col items-center justify-center z-10"
+  >
+    <h3
+      class="text-2xl md:text-3xl xl:text-4xl custom-font text-white underline"
+    >
       Customer Resources:
     </h3>
     <a
+      id="astro-loyalty-link"
       href="https://secure.astroloyalty.com/members.php?ld=xZzugnkcBMFfSCrQA%2F4%3D"
       target="_blank"
       rel="noopener noreferrer"
-      class="inline-flex items-center justify-center text-3xl tracking-wider custom-font link-underline z-10"
-      onmouseover="startViewTransition()"
-      onmouseout="startViewTransition()"
+      class="inline-flex items-center justify-center text-3xl xl:text-4xl pt-1.5 tracking-wider custom-font link-underline z-10"
     >
       Astro Loyalty
     </a>
   </div>
 </section>
 
-<style>
-  .custom-font {
-    font-family: "Sanelma", sans-serif;
-  }
+<script type="module">
+  document.addEventListener("DOMContentLoaded", () => {
+    const link = document.getElementById("astro-loyalty-link");
 
-  .link-underline {
-    position: relative;
-    display: inline-block;
-    color: white;
-  }
-
-  .link-underline::after {
-    content: "";
-    position: absolute;
-    left: 50%;
-    bottom: 0;
-    width: 0;
-    height: 4px;
-    background-color: white;
-    transition:
-      width 0.4s ease,
-      left 0.4s ease;
-  }
-
-  .link-underline:hover::after {
-    width: 100%;
-    left: 0;
-  }
-</style>
+    if (link) {
+      link.addEventListener("click", (e) => {
+        if ("startViewTransition" in document) {
+          e.preventDefault();
+          document.startViewTransition(() => {
+            window.location.href = link.href;
+          });
+        }
+      });
+    }
+  });
+</script>
