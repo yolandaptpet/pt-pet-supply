@@ -16,6 +16,12 @@ export interface StaffProps {
   imageSrc: string;
 }
 
+export interface ProductBrands {
+  dogs: string[];
+  cats: string[];
+  smallAnimals: string[];
+}
+
 export const officialStoreInfo = () => {
   let storeInfo: StoreInfo = {
     name: "PT Pet Supply",
@@ -77,5 +83,13 @@ export const officialStaffList = async (): Promise<StaffProps[]> => {
   } catch (error) {
     console.error("Error fetching staff list:", error);
     return [];
+  }
+};
+
+export const getProductBrands = (): ProductBrands => {
+  return {
+    dogs: [],
+    cats: [],
+    smallAnimals: []    
   }
 };
