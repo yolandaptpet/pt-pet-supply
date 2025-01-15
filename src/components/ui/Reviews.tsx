@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { useDebounce } from 'use-debounce';
+import React, { useEffect, useState } from "react";
+import { useDebounce } from "use-debounce";
 
 interface Review {
   id: string;
@@ -20,60 +20,85 @@ interface ReviewModalProps {
 
 declare const google: any;
 
-const Modal = ({ review, onClose }: ReviewModalProps) => (
-  <div
-    className="fixed inset-0 bg-gray-500 bg-opacity-50 z-50 flex justify-center items-center"
-    aria-modal="true"
-    role="dialog"
-  >
+const Modal = ({ review, onClose }: ReviewModalProps) => {
+  useEffect(() => {
+    const element = document.querySelector("#modal");
+    if (element && document.startViewTransition) {
+      document.startViewTransition(() => {
+        element.animate([{ transform: "scale(0.9)", opacity: 0 }, { transform: "scale(1)", opacity: 1 }], {
+          duration: 300,
+          easing: "ease-in-out",
+        });
+      });
+    }
+  }, []);
+
+  return (
     <div
-      key={review.id}
-      className="relative z-60 w-[320px] min-[500px]:w-[420px] md:w-[510px] lg:w-[510px] h-auto py-10 flex flex-col rounded-3xl bg-gradient-to-br from-[#f9dcb1] to-[#ffc76dd0] drop-shadow-2xl"
-      style={{ backdropFilter: "blur(35px)" }}
+      id="modal"
+      className="fixed inset-0 bg-gray-500 bg-opacity-50 z-50 flex justify-center items-center"
+      aria-modal="true"
+      role="dialog"
     >
-      <div className="px-6">
-        <div className="flex items-center">
-          <span className="font-semibold tracking-tighter">
-            {review.author.split(" ")[0]} &nbsp;
-            {review.author.split(" ")[1]?.[0].toUpperCase()}.
-          </span>
-          <span className="ml-2 text-yellow-500">{"★".repeat(review.rating)}</span>
+      <div
+        key={review.id}
+        className="relative z-60 w-[320px] min-[500px]:w-[420px] md:w-[510px] lg:w-[510px] h-auto py-10 flex flex-col rounded-3xl bg-gradient-to-br from-[#f9dcb1] to-[#ffc76dd0] drop-shadow-2xl"
+        style={{ backdropFilter: "blur(35px)" }}
+      >
+        <div className="flex flex-col items-center px-6 max-[500px]:mt-6">
+          <div className="bg-[#ffffffc9] px-3.5 pt-2 pb-1 mb-3 w-fit text-2xl rounded-xl drop-shadow-md">
+            <span className="font-semibold tracking-tighter">
+              {review.author.split(" ")[0]} &nbsp;
+              {review.author.split(" ")[1]?.[0].toUpperCase()}.
+            </span>
+            <span className="ml-2 text-yellow-500">{"★".repeat(review.rating)}</span>
+          </div>
+          <p className="text-[#452B1F] mt-1.5 mx-4 text-lg">{review.text}</p>
+          <button
+            onClick={onClose}
+            className="absolute top-4 left-4 p-1 bg-[#7F0201] hover:bg-[#A52A2A] text-white font-bold rounded-xl"
+            aria-label="Close modal"
+          >
+            <svg
+              className="w-8 h-8"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+          </button>
         </div>
-        <p className="text-[#452B1F] mt-1.5">{review.text}</p>
-        <button
-          onClick={onClose}
-          className="absolute top-4 right-4 bg-[#7F0201] hover:bg-[#A52A2A] text-white font-bold py-1.5 px-3 rounded-xl"
-          aria-label="Close modal"
-        >
-          Close
-        </button>
       </div>
     </div>
-  </div>
-);
+  );
+};
 
 const Reviews: React.FC<ReviewsProps> = ({ businessId, apiKey }) => {
   const [reviews, setReviews] = useState<Review[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [selectedReview, setSelectedReview] = useState<Review | null>(null);
-
   const [debouncedBusinessId] = useDebounce(businessId, 500);
 
   useEffect(() => {
     const fetchReviews = async () => {
-      if (typeof window === 'undefined' || !window.google) {
-        setError('Google Maps API not loaded');
+      if (typeof window === "undefined" || !window.google) {
+        setError("Google Maps API not loaded");
         setLoading(false);
         return;
       }
-
       try {
-        const service = new google.maps.places.PlacesService(document.createElement('div'));
+        const service = new google.maps.places.PlacesService(document.createElement("div"));
         service.getDetails(
           {
             placeId: businessId,
-            fields: ['reviews'],
+            fields: ["reviews"],
           },
           (place: google.maps.places.PlaceResult | null, status: google.maps.places.PlacesServiceStatus) => {
             if (status === google.maps.places.PlacesServiceStatus.OK && place?.reviews) {
@@ -83,19 +108,18 @@ const Reviews: React.FC<ReviewsProps> = ({ businessId, apiKey }) => {
                   id: review.time.toString(),
                   author: review.author_name,
                   rating: review.rating ?? 0,
-                  text: review.text ?? '',
+                  text: review.text ?? "",
                 }))
                 .slice(0, 3);
-
               setReviews(filteredReviews);
             } else {
-              setError('No reviews available');
+              setError("No reviews available");
             }
             setLoading(false);
           }
         );
       } catch (err) {
-        setError('Failed to fetch reviews');
+        setError("Failed to fetch reviews");
         setLoading(false);
       }
     };
@@ -104,13 +128,19 @@ const Reviews: React.FC<ReviewsProps> = ({ businessId, apiKey }) => {
   }, [businessId, apiKey, debouncedBusinessId]);
 
   const handleModalOpen = (review: Review) => {
-    document.body.style.overflow = 'hidden';
+    document.body.style.overflow = "hidden";
     setSelectedReview(review);
   };
 
   const handleModalClose = () => {
-    document.body.style.overflow = 'auto';
-    setSelectedReview(null);
+    if (document.startViewTransition) {
+      document.startViewTransition(() => {
+        setSelectedReview(null);
+      });
+    } else {
+      setSelectedReview(null);
+    }
+    document.body.style.overflow = "auto";
   };
 
   if (loading) return <p>Loading...</p>;
@@ -119,7 +149,7 @@ const Reviews: React.FC<ReviewsProps> = ({ businessId, apiKey }) => {
   return (
     <>
       {selectedReview && <Modal review={selectedReview} onClose={handleModalClose} />}
-      <section className="space-y-4 lg:space-y-0 lg:space-x-6 lg:flex mb-16">
+      <section className="space-y-4 lg:space-y-0 lg:space-x-6 lg:flex mb-8">
         {reviews.map((review) => (
           <div
             key={review.id}
@@ -134,16 +164,14 @@ const Reviews: React.FC<ReviewsProps> = ({ businessId, apiKey }) => {
               />
             </div>
             <div className="ml-12 px-4">
-              <div className="flex items-center">
+              <div className="flex items-center text-xl">
                 <span className="font-semibold tracking-tighter">
                   {review.author.split(" ")[0]} &nbsp;
                   {review.author.split(" ")[1]?.[0].toUpperCase()}.
                 </span>
                 <span className="ml-2 text-yellow-500">{"★".repeat(review.rating)}</span>
               </div>
-              <p className="text-[#452B1F] max-h-16 mt-1.5 tracking-tighter line-clamp-3">
-                {review.text}
-              </p>
+              <p className="text-[#452B1F] max-h-16 mt-1.5 tracking-tighter line-clamp-3">{review.text}</p>
             </div>
           </div>
         ))}

@@ -1,11 +1,9 @@
 import { useState } from "react";
 import type { ChangeEvent, FormEvent } from "react";
 import { z } from "zod";
-import emailjs from "emailjs-com";
 import imageCompression from "browser-image-compression";
 import { FaUpload, FaImage, FaTimes, FaQuestionCircle } from "react-icons/fa";
 
-// Define schema for validation
 const contactSchema = z.object({
   name: z.string().min(1, "Name is required"),
   email: z.string().email("Invalid email address"),
@@ -75,23 +73,29 @@ const ContactForm: React.FC = () => {
     e.preventDefault();
     try {
       contactSchema.parse(formData);
-
+  
       setIsSubmitting(true);
       setSuccessMessage(null);
-
+  
       const base64Images = await compressImages(images);
-
+  
       const emailData = {
         ...formData,
-        images: base64Images, // Include images as base64 strings
+        images: base64Images,
       };
-
-      const serviceID = "your_service_id";
-      const templateID = "your_template_id";
-      const userID = "your_user_id";
-
-      await emailjs.send(serviceID, templateID, emailData, userID);
-
+  
+      const response = await fetch("/api/contact-form", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(emailData),
+      });
+  
+      if (!response.ok) {
+        throw new Error("Failed to send message");
+      }
+  
       setFormData({ name: "", email: "", subject: "", message: "" });
       setImages([]);
       setErrors({});
@@ -105,7 +109,7 @@ const ContactForm: React.FC = () => {
     } finally {
       setIsSubmitting(false);
     }
-  };
+  };  
 
   return (
     <div className="flex items-center justify-center">
