@@ -32,6 +32,10 @@ export const officialStoreInfo = () => {
   return storeInfo;
 };
 
+const normalizeFileName = (name: string): string => {
+  return name.toLowerCase().replace(/[^a-z0-9]/g, ''); // Keep only alphanumeric characters
+};
+
 export const officialStoreHours = async (): Promise<StoreHours | null> => {
   try {
     const status = "http://localhost:4321";
@@ -77,14 +81,21 @@ export const officialStaffList = async (): Promise<StaffProps[]> => {
       return [];
     }
 
-    const staffList: StaffProps[] = data.members;
+    const staffList: StaffProps[] = data.members.map((member: StaffProps) => {
+      const normalizedFullName = normalizeFileName(member.fullName);
+      const imageSrc = `/src/assets/staff/${normalizedFullName}.webp`;
+      return {
+        ...member,
+        imageSrc,
+      };
+    });
 
     return staffList;
   } catch (error) {
     console.error("Error fetching staff list:", error);
     return [];
   }
-};
+}
 
 export const getProductBrands = (): ProductBrands => {
   return {

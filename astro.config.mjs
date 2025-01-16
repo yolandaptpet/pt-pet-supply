@@ -1,14 +1,12 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 import auth from 'auth-astro';
+import cloudflare from '@astrojs/cloudflare';
 
 import alpinejs from '@astrojs/alpinejs';
 import react from '@astrojs/react';
 import tailwind from '@astrojs/tailwind';
-import node from "@astrojs/node";
 
-
-// https://astro.build/config
 export default defineConfig({
   output: 'server',
   integrations: [
@@ -19,11 +17,5 @@ export default defineConfig({
     }),
     auth(),
   ],
-  server: {
-    host: true,
-    port: 4321
-  },
-  adapter: node({
-    mode: "standalone"
-  }),
+  adapter: cloudflare()
 });
