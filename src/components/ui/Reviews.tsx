@@ -1,3 +1,5 @@
+declare const google: any;
+
 import React, { useEffect, useState } from "react";
 import { useDebounce } from "use-debounce";
 
@@ -17,8 +19,6 @@ interface ReviewModalProps {
   review: Review;
   onClose: () => void;
 }
-
-declare const google: any;
 
 const Modal = ({ review, onClose }: ReviewModalProps) => {
   useEffect(() => {
@@ -103,7 +103,7 @@ const Reviews: React.FC<ReviewsProps> = ({ businessId, apiKey }) => {
           (place: google.maps.places.PlaceResult | null, status: google.maps.places.PlacesServiceStatus) => {
             if (status === google.maps.places.PlacesServiceStatus.OK && place?.reviews) {
               const filteredReviews = place.reviews
-                .filter((review) => (review.rating ?? 0) >= 4)
+                .filter((review: any) => (review.rating ?? 0) >= 4)
                 .map((review: google.maps.places.PlaceReview) => ({
                   id: review.time.toString(),
                   author: review.author_name,

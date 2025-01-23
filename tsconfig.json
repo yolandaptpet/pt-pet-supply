@@ -22,7 +22,8 @@
     "src/**/*.ts",
     "src/**/*.tsx",
     "src/**/*.astro",
-    "src/**/*.d.ts"
+    "src/**/*.d.ts",
+    "types"
   ],
   "exclude": [
     "node_modules",
