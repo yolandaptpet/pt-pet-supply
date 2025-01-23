@@ -13,7 +13,7 @@
     "@astrojs/alpinejs": "^0.4.0",
     "@astrojs/check": "^0.9.3",
     "@astrojs/cloudflare": "^11.2.0",
-    "@astrojs/react": "^3.6.2",
+    "@astrojs/react": "^3.6.3",
     "@astrojs/tailwind": "^5.1.1",
     "@astrojs/ts-plugin": "^1.10.2",
     "@astrojs/vercel": "^7.8.2",
@@ -58,7 +58,7 @@
     "@astrojs/node": "^8.3.4",
     "@types/file-saver": "^2.0.7",
     "@types/google.maps": "^3.58.1",
-    "@types/node": "^22.10.1",
+    "@types/node": "^18.19.74",
     "@types/nodemailer": "^6.4.17"
   }
 }
