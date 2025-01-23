@@ -2,7 +2,6 @@
 import { defineConfig } from 'astro/config';
 import auth from 'auth-astro';
 import vercel from '@astrojs/vercel/serverless';
-
 import alpinejs from '@astrojs/alpinejs';
 import react from '@astrojs/react';
 import tailwind from '@astrojs/tailwind';
