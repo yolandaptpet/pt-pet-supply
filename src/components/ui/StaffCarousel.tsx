@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ArrowBigLeft, ArrowBigRight } from "lucide-react";
 import MobileDetect from "mobile-detect";
 import StaffCard from "./StaffCard";

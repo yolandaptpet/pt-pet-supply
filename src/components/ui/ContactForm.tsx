@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import type { ChangeEvent, FormEvent } from "react";
 import { z } from "zod";
 import imageCompression from "browser-image-compression";

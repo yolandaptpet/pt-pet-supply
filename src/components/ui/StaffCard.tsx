@@ -5,6 +5,8 @@ interface StaffCardProps {
   imageSrc: string;
 };
 
+import React from 'react';
+
 const StaffCard: React.FC<StaffCardProps> = ({ fullName, role, bio, imageSrc }) => {
   return (
     <div className="p-4">
