@@ -1,7 +1,7 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 import auth from 'auth-astro';
-import cloudflare from '@astrojs/cloudflare';
+import vercel from '@astrojs/vercel/serverless';
 
 import alpinejs from '@astrojs/alpinejs';
 import react from '@astrojs/react';
@@ -17,5 +17,5 @@ export default defineConfig({
     }),
     auth(),
   ],
-  adapter: cloudflare()
+  adapter: vercel()
 });

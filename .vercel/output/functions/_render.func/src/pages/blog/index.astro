@@ -1,0 +1,328 @@
+---
+import BlogLayout from "@/components/layouts/BlogLayout.astro";
+import { getCollection } from "astro:content";
+import type { CollectionEntry } from "astro:content";
+
+const backArrow = "../../../images/arrow.svg";
+
+// Use the defined schema in content/config.ts to ensure type safety
+const posts: CollectionEntry<"blog">[] = await getCollection("blog");
+
+const sortedPosts = posts.sort((a, b) => {
+  return (
+    new Date(b.data.publishDate).getTime() -
+    new Date(a.data.publishDate).getTime()
+  );
+});
+
+// Pagination variables
+const postsPerPage = 12;
+const totalPages = Math.ceil(sortedPosts.length / postsPerPage);
+
+// Get the current page from query params, default to 1 if not available
+const currentPage = Number(Astro.url.searchParams.get("page") || 1);
+
+// Calculate the start and end indexes for slicing posts
+const startIndex = (currentPage - 1) * postsPerPage;
+const endIndex = startIndex + postsPerPage;
+
+// Get the posts for the current page
+const paginatedPosts = sortedPosts.slice(startIndex, endIndex);
+
+// Get unique tags from all posts
+const allTags = Array.from(new Set(posts.flatMap((post) => post.data.tags)));
+
+// Utility function to format the date to MM-DD-YYYY without leading zero
+const formatDate = (date: Date) => {
+  const month = date.getMonth() + 1; // Months are 0-indexed
+  const day = date.getDate();
+  const year = date.getFullYear();
+  return `${month}•${day}•${year}`;
+};
+---
+
+<BlogLayout
+  id="blog"
+  title="Blog | PT Pet Supply"
+  class="relative w-screen h-screen overflow-hidden"
+>
+  <div class="bg min-h-screen w-[100vw] pb-10 flex justify-center">
+    <div class="overlay"></div>
+    <div class="flex-col justify-center w-[100vw] max-w-[1200px]">
+      <div class="pt-4 pl-4 flex justify-between items-start drop-shadow-lg">
+        <button
+          class="flex items-center bg-[#7F0201] hover:bg-[#A52A2A] text-white font-bold py-1.5 px-3 rounded-xl no-underline"
+          data-astro-prefetch
+          onclick="window.location.href = '/'"
+        >
+          <img
+            src={backArrow}
+            alt="Back Arrow"
+            class="w-4 my-0"
+            style="filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(360deg) brightness(100%) contrast(100%);"
+          />
+          &nbsp; Store Page
+        </button>
+      </div>
+
+      <div
+        class="flex flex-col justify-center text-center w-3/4 md:w-2/3 pt-2 mx-auto"
+      >
+        <p class="font-bold text-[#452B1F]">
+          At PT Pet Supply, our mission is to provide pet parents with reliable,
+          natural, and sustainable products that promote the health, happiness,
+          and well-being of their pets. Through this blog, we aim to educate,
+          inspire, and empower pet owners to make informed choices about the
+          products and practices they incorporate into their pets&#39; lives. We
+          are committed to fostering a community that values the importance of
+          nature-based solutions and responsible pet care.
+        </p>
+        <div class="flex-col pr-4 -mr-4">
+          <div class="flex justify-start items-start space-x-1">
+            <h3
+              class="flex justify-start text-sm tracking-widest my-0 -mb-4 ml-10"
+            >
+              Filter by:
+            </h3>
+          </div>
+
+          <div class="scroll-wrapper">
+            <div
+              class="tag-container scrollbar-hide flex space-x-1 p-2 overflow-x-auto pb-1 drop-shadow-lg"
+            >
+              {/* Horizontal scroll container for tags */}
+              {
+                allTags.map((tag) => (
+                  <button
+                    class="tag-button bg-[#7F0201] hover:bg-[#A52A2A] text-white text-md tracking-narrow px-3 mb-3 rounded-xl whitespace-nowrap"
+                    data-tag={tag}
+                  >
+                    {tag}
+                  </button>
+                ))
+              }
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="post-container" class="flex justify-center max-w-[1200px]">
+        <div
+          class="grid min-[690px]:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-4 place-items-center sm:w-[690px] lg:w-[1020px] 2xl:w-[1530px] 2xl:-mx-20 px-4 pt-6 pb-16 drop-shadow-2xl"
+          id="post-grid"
+        >
+          {/* Post cards will be dynamically filtered */}
+          {
+            paginatedPosts.map((post) => (
+              <a href={`/blog/${post.slug}/`} class="no-underline">
+                <div
+                  class="post-card relative flex flex-col w-[320px] min-[450px]:w-[400px] min-[690px]:w-[320px] lg:w-[320px] rounded-3xl border bg-[#F9DCB1]"
+                  data-tags={post.data.tags.join(",")}
+                >
+                  <img
+                    src="https://placehold.co/400x270"
+                    alt="Hashtag photo"
+                    class="rounded-t-3xl my-0"
+                  />
+                  <div class="py-2 px-4 rounded-xl">
+                    <h1 class="mb-1 font-bold no-underline text-lg tracking-tighter">
+                      {post.data.title}
+                    </h1>
+                    <time class="absolute bottom-0 right-3 text-sm tracking-wider font-bold mb-2">
+                      {formatDate(new Date(post.data.publishDate))}
+                    </time>
+                    <div class="flex space-x-1">
+                      {post.data.tags.map((tag) => (
+                        <button class="bg-[#7F0201] text-white text-sm tracking-narrow px-2 rounded-xl pointer-events-none">
+                          {tag}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                  <p class="min-h-[70px] mt-2 mx-2 leading-5">
+                    {post.data.description}
+                  </p>
+                </div>
+              </a>
+            ))
+          }
+        </div>
+      </div>
+      {/* Pagination */}
+      <div class="pagination flex justify-center mt-4 space-x-4">
+        {
+          currentPage > 1 && (
+            <a href={`?page=${currentPage - 1}`} class="pagination-button">
+              Previous
+            </a>
+          )
+        }
+
+        {
+          Array.from({ length: totalPages }, (_, i) => (
+            <a
+              href={`?page=${i + 1}`}
+              class={`pagination-button ${currentPage === i + 1 ? "active" : ""}`}
+            >
+              {i + 1}
+            </a>
+          ))
+        }
+
+        {
+          currentPage < totalPages && (
+            <a href={`?page=${currentPage + 1}`} class="pagination-button">
+              Next
+            </a>
+          )
+        }
+      </div>
+    </div>
+  </div>
+</BlogLayout>
+
+<script>
+  document.addEventListener("astro:page-load", () => {
+    const tagButtons =
+      document.querySelectorAll<HTMLButtonElement>(".tag-button");
+    const postContainer = document.getElementById("post-grid");
+    const allPosts = [...document.querySelectorAll<HTMLElement>(".post-card")];
+    let selectedTag: string | null = null;
+
+    // Function to filter and re-render post cards
+    const filterPosts = (tag: string | null) => {
+      const filteredPosts = tag
+        ? allPosts.filter((post) =>
+            post.getAttribute("data-tags")?.split(",").includes(tag)
+          )
+        : allPosts;
+
+      // Clear current posts in the container
+      postContainer!.innerHTML = "";
+
+      // Append filtered posts (including <a> elements)
+      filteredPosts.forEach((post) => {
+        const anchor = post?.closest("a");
+        if (anchor) {
+          postContainer?.appendChild(anchor);
+        }
+      });
+    };
+
+    // Add click event listener for each tag button
+    tagButtons.forEach((button) => {
+      button.addEventListener("click", (event) => {
+        const target = event.target as HTMLButtonElement;
+        const clickedTag = target.getAttribute("data-tag");
+
+        // Toggle selected tag
+        if (selectedTag === clickedTag) {
+          selectedTag = null;
+        } else {
+          selectedTag = clickedTag;
+        }
+
+        // Update active button class
+        tagButtons.forEach((btn) => btn.classList.remove("active-tag"));
+        if (selectedTag) {
+          target.classList.add("active-tag");
+        }
+
+        // Filter posts based on the selected tag
+        filterPosts(selectedTag);
+      });
+    });
+  });
+</script>
+
+<style>
+  body {
+    scroll-behavior: smooth;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    height: 18px;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar-thumb {
+    background-color: #7f0201;
+    border-radius: 10px;
+  }
+
+  .scroll-wrapper {
+    position: relative;
+    overflow-x: auto;
+    padding: 12px 0;
+    scroll-behavior: smooth;
+  }
+
+  .scroll-wrapper::-webkit-scrollbar {
+    height: 14px;
+  }
+
+  .scroll-wrapper::-webkit-scrollbar-track {
+    background: linear-gradient(to right, #f9e3e3, #fce6e6);
+    border-radius: 10px;
+  }
+
+  .scroll-wrapper::-webkit-scrollbar-thumb {
+    background-color: #7f0201;
+    border-radius: 10px;
+    border: 3px solid transparent;
+    background-clip: content-box;
+  }
+
+  .scroll-wrapper:hover::-webkit-scrollbar-track {
+    background: linear-gradient(to right, #fce6e6, #ffeaea);
+    box-shadow: inset 0 0 6px rgba(255, 200, 200, 0.5);
+  }
+
+  .bg {
+    background-image: url(/src/assets/blog-post-background.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: bottom;
+  }
+
+  .active-tag {
+    background-color: #a52a2a;
+  }
+
+  .tag-container {
+    scroll-snap-type: x mandatory;
+    gap: 0.25rem;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    overscroll-behavior: contain;
+  }
+
+  .tag-button {
+    scroll-snap-align: center;
+    flex-shrink: 0;
+    transition:
+      background-color 0.3s ease,
+      transform 0.3s ease;
+  }
+
+  .tag-button:hover {
+    transform: scale(1.1);
+  }
+
+  .pagination-button {
+    padding: 8px 16px;
+    background-color: #7f0201;
+    color: white;
+    border-radius: 8px;
+    text-decoration: none;
+  }
+
+  .pagination-button.active {
+    background-color: #a52a2a;
+    font-weight: bold;
+  }
+
+  .pagination-button:hover {
+    background-color: #a52a2a;
+    transform: scale(1.05);
+  }
+</style>

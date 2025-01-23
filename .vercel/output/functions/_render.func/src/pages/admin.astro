@@ -1,0 +1,166 @@
+---
+import Layout from "../components/layouts/Layout.astro";
+import UpdateAnnouncement from "@/components/ui/UpdateAnnouncement";
+import UpdateHours from "../components/ui/UpdateHours.tsx";
+import DraftPost from "../components/ui/DraftPost.tsx";
+// import AdminStaffGrid from "../components/ui/AdminStaffGrid.tsx";
+
+const backArrow = "../../../images/arrow.svg";
+
+import {
+  // officialStaffList,
+  officialStoreHours,
+} from "@/constants/storeInfo.ts";
+// import type { StaffProps } from "@/constants/storeInfo.ts";
+
+const storeHours = await officialStoreHours();
+// const staffMembers = (await officialStaffList()) as StaffProps[];
+
+import { getCollection } from "astro:content";
+
+const allTags = await getCollection("blog").then((collection) => {
+  const tags = collection.flatMap((entry) => entry.data.tags);
+  return Array.from(new Set(tags));
+});
+---
+
+<Layout title="admin" class="h-screen">
+  <div class="pt-4 pl-4 flex justify-between items-start drop-shadow-lg">
+    <button
+      class="flex items-center bg-[#7F0201] hover:bg-[#A52A2A] text-white font-bold py-1.5 px-3 rounded-xl no-underline"
+      data-astro-prefetch
+      onclick="window.location.href = '/'"
+    >
+      <img
+        src={backArrow}
+        alt="Back Arrow"
+        class="w-4 my-0"
+        style="filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(360deg) brightness(100%) contrast(100%);"
+      />
+      &nbsp; Store Page
+    </button>
+  </div>
+
+  <div class="xl:mx-10 2xl:mx-20">
+    <div
+      class="flex justify-center font-bold text-md pl-4 pt-4 pb-8 drop-shadow-xl tracking-wide"
+    >
+      <div class="flex items-center text-center bg-[#F9DCB1] p-2 rounded-3xl">
+        <div class="text-xl">🚨</div>
+        <p class="px-2 text-sm sm:text-base">
+          For clarification on any of the website's functionality,
+          <a
+            href="https://docs.samsnug.net"
+            target="_blank"
+            class="max-md:block text-[#7F0201] underline"
+            >consult the documentation</a
+          >
+        </p>
+        <div class="text-xl">🚨</div>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+      <div class="lg:col-span-1">
+        <UpdateAnnouncement client:load />
+        <UpdateHours client:load storeHours={storeHours ?? {}} />
+      </div>
+
+      <DraftPost allTags={allTags} client:only="react" />
+    </div>
+
+    <!-- <div class="flex flex-col items-center pb-4 mx-auto">
+      <h1 class="font-bold text-2xl pb-2 mx-4">Update Staff Bios</h1>
+      <button
+        id="staff-toggle-button"
+        class="w-36 mb-4 mx-4 px-4 py-2 bg-[#7F0201] hover:bg-[#A52A2A] text-white font-bold rounded-3xl"
+      >
+        Show Staff List
+      </button>
+
+      <div id="staff-list-section" class="hidden w-full mx-4">
+        <AdminStaffGrid client:load staffMembers={staffMembers} />
+      </div>
+    </div> -->
+  </div>
+</Layout>
+
+<style>
+  /* Default styling when the input is enabled */
+  #toggledInput:enabled {
+    border: 1px solid #d1d5db;
+  }
+
+  /* Focused input */
+  #toggledInput:focus {
+    border-color: #000000;
+    outline: none;
+  }
+</style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const staffListSection = document.getElementById(
+      "staff-list-section"
+    ) as HTMLElement;
+    const toggleButton = document.getElementById(
+      "staff-toggle-button"
+    ) as HTMLElement;
+
+    // Toggle staff list visibility
+    toggleButton.addEventListener("click", () => {
+      const isHidden = staffListSection.classList.contains("hidden");
+      if (isHidden) {
+        staffListSection.classList.remove("hidden");
+        toggleButton.textContent = "Hide Staff List";
+      } else {
+        staffListSection.classList.add("hidden");
+        toggleButton.textContent = "Show Staff List";
+      }
+    });
+
+    // For the announcement banner toggle functionality
+    const announcementRadios = document.querySelectorAll(
+      'input[name="toggle"]'
+    );
+    const toggledInput = document.getElementById(
+      "toggledInput"
+    ) as HTMLInputElement;
+
+    announcementRadios.forEach((radio) => {
+      radio.addEventListener("change", () => {
+        if ((radio as HTMLInputElement).value === "on") {
+          toggledInput.disabled = false;
+          toggledInput.classList.remove("disabled:border-none");
+          toggledInput.classList.add("border-gray-300"); // Apply light gray border when enabled
+        } else {
+          toggledInput.disabled = true;
+          toggledInput.classList.remove("border-gray-300"); // Remove border when disabled
+          toggledInput.classList.add("disabled:border-none");
+        }
+      });
+    });
+
+    // For hours toggle functionality
+    const radioButtons = document.querySelectorAll(
+      'input[name="hours-toggle"]'
+    );
+    const timeInputs = document.querySelectorAll('input[type="time"]');
+
+    function toggleInputs(isDisabled: boolean) {
+      timeInputs.forEach((input) => {
+        (input as HTMLInputElement).disabled = isDisabled;
+      });
+    }
+
+    radioButtons.forEach((radio) => {
+      radio.addEventListener("change", () => {
+        if ((radio as HTMLInputElement).value === "default") {
+          toggleInputs(true);
+        } else {
+          toggleInputs(false);
+        }
+      });
+    });
+  });
+</script>

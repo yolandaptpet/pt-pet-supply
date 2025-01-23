@@ -16,6 +16,7 @@
     "@astrojs/react": "^3.6.2",
     "@astrojs/tailwind": "^5.1.1",
     "@astrojs/ts-plugin": "^1.10.2",
+    "@astrojs/vercel": "^7.8.2",
     "@auth/core": "^0.37.4",
     "@gamesome/astro-font": "^0.0.3",
     "@googlemaps/google-maps-services-js": "^3.4.0",
