@@ -1,6 +1,6 @@
 import { c as createComponent, r as renderTemplate, a as addAttribute, b as renderComponent, d as renderHead, e as createTransitionScope, f as renderSlot, g as createAstro } from './astro/server_CXfaa4O1.mjs';
 import 'kleur/colors';
-import { $ as $$Header, a as $$ViewTransitions, b as $$Footer } from './_astro_content_Dgtleold.mjs';
+import { $ as $$Header, a as $$ViewTransitions, b as $$Footer } from './_astro_content_DVOxf79D.mjs';
 /* empty css                          */
 /* empty css                          */
 

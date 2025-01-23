@@ -1,9 +1,9 @@
 import { c as createComponent, r as renderTemplate, b as renderComponent, m as maybeRenderHead, a as addAttribute } from '../chunks/astro/server_CXfaa4O1.mjs';
 import 'kleur/colors';
-import { $ as $$Layout } from '../chunks/Layout_CiNCg92t.mjs';
-import { jsx, jsxs } from 'react/jsx-runtime';
+import { $ as $$Layout } from '../chunks/Layout_DKADQWoF.mjs';
+import { jsx, jsxs } from 'react/jsx-runtime.js';
 import { useState, useEffect } from 'react';
-import { o as officialStoreHours, c as getCollection } from '../chunks/_astro_content_Dgtleold.mjs';
+import { o as officialStoreHours, c as getCollection } from '../chunks/_astro_content_DVOxf79D.mjs';
 /* empty css                                 */
 export { renderers } from '../renderers.mjs';
 
