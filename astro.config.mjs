@@ -20,8 +20,8 @@ export default defineConfig({
   vite: {
     build: {
       rollupOptions: {
-        external: ['alpinejs']
-      }
+        external: ['react-quill/dist/quill.snow.css']
+      },
     }
   }
 });
