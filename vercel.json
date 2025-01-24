@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "buildCommand": "astro build",
+  "buildCommand": "astro check && astro build",
   "outputDirectory": ".vercel/output",
   "framework": "astro"
 }

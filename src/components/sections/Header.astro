@@ -9,7 +9,7 @@ import Navbar from "./Navbar.astro";
 
 const fetchAnnouncements = async () => {
   try {
-    const baseUrl = "http://localhost:4321"; // Fallback for dev environment
+    const baseUrl = "http://localhost:3000"; // Fallback for dev environment
     const response = await fetch(`${baseUrl}/api/announcements`);
     if (!response.ok) {
       throw new Error(`Error: ${response.statusText}`);
