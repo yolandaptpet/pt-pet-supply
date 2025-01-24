@@ -16,5 +16,12 @@ export default defineConfig({
     }),
     auth(),
   ],
-  adapter: vercel()
+  adapter: vercel(),
+  vite: {
+    build: {
+      rollupOptions: {
+        external: ['alpinejs']
+      }
+    }
+  }
 });
