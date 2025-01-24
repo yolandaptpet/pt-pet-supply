@@ -114,3 +114,59 @@ html {
     width: 0;
   }
 }
+
+/* Product Grid */
+.vendor-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.tabs {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.tab {
+  padding: 0.5rem 1rem;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.tab.active {
+  color: #2196F3;
+}
+
+.vendors-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.vendor-item {
+  padding: 0.75rem;
+
+}
+
+.narrow-row {
+  grid-column: span calc((var(--columns) - 1)/2);
+}
+
+@media (min-width: 768px) {
+  .vendors-grid {
+    gap: 1rem;
+  }
+  
+  .narrow-row {
+    grid-column: span calc((var(--columns) + 1)/2);
+  }
+}
+
+@media (min-width: 1024px) {
+  .vendors-grid {
+    grid-template-columns: repeat(7, 1fr);
+  }
+}
