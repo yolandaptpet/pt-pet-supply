@@ -3,6 +3,8 @@ import BlogPostCard from "../ui/BlogPostCard.astro";
 import { getCollection } from "astro:content";
 import type { CollectionEntry } from "astro:content";
 import Button from "../ui/Button.astro";
+import brassSidebar from "../../assets/brass-sidebar.webp";
+import recentBlogPostsLogo from "../../assets/recent-blog-posts.webp";
 
 // Fetch all blog posts and ensure type safety
 const posts: CollectionEntry<"blog">[] = await getCollection("blog");
@@ -27,7 +29,7 @@ const recentPosts = uniquePosts.slice(0, 3);
 <section class="flex-col mx-10 px-4 my-8 lg:my-20 drop-shadow-2xl">
   <div class="left col-1">
     <img
-      src="/src/assets/brass-sidebar.webp"
+      src={brassSidebar.src}
       alt="Brass sidebar"
       class="hidden min-[900px]:block absolute bottom-36 left-0 min-[900px]:-ml-4 lg:ml-0 min-[1150px]:ml-8 xl:ml-20 2xl:ml-32 min-[1700px]:ml-64 min-[1900px]:ml-80 h-[600px] lg:h-[750px] drop-shadow-2xl w-auto object-contain transform -scale-x-100"
     />
@@ -35,8 +37,8 @@ const recentPosts = uniquePosts.slice(0, 3);
 
   <div class="center col-1">
     <img
-      src="/src/assets/recent-blog-posts.webp"
-      alt="Products logo"
+      src={recentBlogPostsLogo.src}
+      alt="Recent Blog Posts logo"
       class="h-[150px] md:h-[180px] lg:h-[235px] w-auto mx-auto mb-6"
     />
 
@@ -61,7 +63,7 @@ const recentPosts = uniquePosts.slice(0, 3);
 
   <div class="right col-1">
     <img
-      src="/src/assets/brass-sidebar.webp"
+      src={brassSidebar.src}
       alt="Brass sidebar"
       class="hidden min-[900px]:block absolute bottom-36 right-0 min-[900px]:-mr-4 lg:mr-0 min-[1150px]:mr-8 xl:mr-20 2xl:mr-32 min-[1700px]:mr-64 min-[1900px]:mr-80 h-[600px] lg:h-[750px] drop-shadow-2xl w-auto object-contain"
     />

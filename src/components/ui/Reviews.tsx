@@ -3,6 +3,8 @@ declare const google: any;
 import React, { useEffect, useState } from "react";
 import { useDebounce } from "use-debounce";
 
+import reviewIcon from "../../assets/review-icon.svg";
+
 interface Review {
   id: string;
   author: string;
@@ -36,7 +38,7 @@ const Modal = ({ review, onClose }: ReviewModalProps) => {
   return (
     <div
       id="modal"
-      className="fixed inset-0 bg-gray-500 bg-opacity-50 z-50 flex justify-center items-center"
+      className="fixed -inset-20 bg-gray-500 bg-opacity-50 z-50 flex justify-center items-center"
       aria-modal="true"
       role="dialog"
     >
@@ -158,7 +160,7 @@ const Reviews: React.FC<ReviewsProps> = ({ businessId, apiKey }) => {
           >
             <div className="absolute top-5 -left-2">
               <img
-                src="src/assets/review-icon.svg"
+                src={reviewIcon.src}
                 alt="Review author photo"
                 className="w-[55px] h-auto rounded-2xl p-1.5 bg-gradient-to-tl from-[#7F0201] via-[#A52A2A] to-[#FFC66D]"
               />
@@ -171,7 +173,7 @@ const Reviews: React.FC<ReviewsProps> = ({ businessId, apiKey }) => {
                 </span>
                 <span className="ml-2 text-yellow-500">{"★".repeat(review.rating)}</span>
               </div>
-              <p className="text-[#452B1F] max-h-16 mt-1.5 tracking-tighter line-clamp-3">{review.text}</p>
+              <p className="text-[#452B1F] max-h-16 mt-1.5 line-clamp-3">{review.text}</p>
             </div>
           </div>
         ))}

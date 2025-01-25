@@ -1,6 +1,16 @@
 ---
+import facebookLogo from "../../assets/facebook-logo.png";
+import xLogo from "../../assets/x-logo.png";
+import instagramLogo from "../../assets/instagram-logo.png";
+
 const { bgColor, hoverColor } = Astro.props;
-const socialPlatforms = ["facebook", "x", "instagram", "email"];
+const socialPlatforms = ["facebook", "x", "instagram"];
+
+const logos: { [key: string]: string } = {
+  facebook: facebookLogo.src,
+  x: xLogo.src,
+  instagram: instagramLogo.src,
+};
 ---
 
 <div class="flex items-center justify-center space-x-1">
@@ -10,9 +20,6 @@ const socialPlatforms = ["facebook", "x", "instagram", "email"];
       switch (platform) {
         case "x":
           href = "https://x.com/pt_pet";
-          break;
-        case "email":
-          href = "mailto:yolanda@ptpet.net";
           break;
         default:
           href = `https://www.${platform}.com/ptpetsupply`;
@@ -27,7 +34,7 @@ const socialPlatforms = ["facebook", "x", "instagram", "email"];
           style={`view-transition-name: social-icon-${index}; animation: fade-in 0.9s ${index * 0.7}s forwards;`}
         >
           <img
-            src={`src/assets/${platform}-logo.png`}
+            src={logos[platform]}
             alt={`${platform.charAt(0).toUpperCase() + platform.slice(1)} Logo`}
             class="w-6 h-6 rounded-full"
           />

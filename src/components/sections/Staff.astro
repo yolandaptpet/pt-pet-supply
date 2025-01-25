@@ -1,5 +1,6 @@
 ---
 import StaffCarousel from "../ui/StaffCarousel.tsx";
+import panel from "../../assets/panel.webp";
 
 import { officialStaffList } from "../../constants/storeInfo.ts";
 
@@ -11,7 +12,7 @@ const staffList = await officialStaffList();
   class="relative pb-10 tracking-wider text-center overflow-hidden -mt-48 mb-8 pt-56"
 >
   <img
-    src="src/assets/panel.webp"
+    src={panel.src}
     alt="Wood paneling background"
     class="absolute z-[-2] bottom-0 w-full h-[85%] object-cover"
   />

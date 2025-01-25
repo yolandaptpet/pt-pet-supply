@@ -1,5 +1,7 @@
 ---
 import Vendors from "../ui/Vendors";
+import products from "../../assets/products.webp";
+import divider from "../../assets/divider.webp";
 ---
 
 <section
@@ -7,7 +9,7 @@ import Vendors from "../ui/Vendors";
   class="md:mx-12 lg:mx-36 xl:mx-48 2xl:mx-64 min-[1700px]:mx-80 min-[1900px]:mx-110 -mt-36 pt-32 xl:pt-44"
 >
   <img
-    src="/src/assets/products.webp"
+    src={products.src}
     alt="Products logo"
     class="h-[130px] md:h-[160px] lg:h-[215px] w-auto mx-auto my-6 mt-16"
   />
@@ -25,9 +27,9 @@ import Vendors from "../ui/Vendors";
   </div>
   <div class="mx-6">
     <img
-      src="/src/assets/divider.webp"
+      src={divider.src}
       alt="Brass fixture section divider"
-      class="pt-3 my-4 lg:my-12 h-[30%] w-auto mx-auto transform -scale-x-100"
+      class="pt-3 my-4 lg:my-12 h-[30%] w-auto mx-auto"
     />
   </div>
 </section>

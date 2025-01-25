@@ -1,5 +1,7 @@
 import React from 'react';
 
+import storeHoursLogo from '../../assets/store-hours.webp';
+
 interface StoreHoursProps {
   storeHours: { [day: string]: { open: string; close: string } } | null;
 }
@@ -30,7 +32,7 @@ const StoreHours: React.FC<StoreHoursProps> = ({ storeHours }) => {
   return (
     <div className='lg:pt-6'>
         <img
-          src="/src/assets/store-hours.webp"
+          src={storeHoursLogo.src}
           alt="Products logo"
           className="h-[150px] md:h-[180px] lg:h-[235px] w-auto mx-auto mb-4"
         />

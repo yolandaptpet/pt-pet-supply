@@ -3,7 +3,7 @@ import BlogLayout from "@/components/layouts/BlogLayout.astro";
 import { getCollection } from "astro:content";
 import type { CollectionEntry } from "astro:content";
 
-const backArrow = "../../../images/arrow.svg";
+import backArrow from "../../images/arrow.svg";
 
 // Use the defined schema in content/config.ts to ensure type safety
 const posts: CollectionEntry<"blog">[] = await getCollection("blog");
@@ -56,7 +56,7 @@ const formatDate = (date: Date) => {
           onclick="window.location.href = '/'"
         >
           <img
-            src={backArrow}
+            src={backArrow.src}
             alt="Back Arrow"
             class="w-4 my-0"
             style="filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(360deg) brightness(100%) contrast(100%);"

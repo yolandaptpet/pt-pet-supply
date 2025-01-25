@@ -16,7 +16,10 @@ export default defineConfig({
     }),
     auth(),
   ],
-  adapter: vercel(),
+  adapter: vercel({
+    imageService: true,
+    devImageService: 'sharp',
+  }),
   vite: {
     build: {
       rollupOptions: {
