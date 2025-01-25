@@ -18,7 +18,8 @@ import { officialStoreHours } from "../../constants/storeInfo.js";
 import Map from "../ui/Map.astro";
 import messageUsLogo from "../../assets/message-us.webp";
 import brassDivider from "../../assets/brass-divider.webp";
-import backArrow from "../../../images/arrow.svg";
+
+const backArrow = "../../../images/arrow.svg";
 
 const storeHours: StoreHours | null = await officialStoreHours();
 ---
@@ -83,7 +84,7 @@ const storeHours: StoreHours | null = await officialStoreHours();
           class="w-10 sm:w-12 h-10 sm:h-12 mt-6 bg-[#7F0201] text-white text-xl font-bold tracking-wider rounded-xl drop-shadow-2xl hover:bg-[#A52A2A] focus:outline-none focus:ring-2 focus:ring-gray-300"
         >
           <img
-            src={backArrow.src}
+            src={backArrow}
             alt="back arrow"
             class="w-6 sm:w-7 m-auto"
             style="filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(360deg) brightness(100%) contrast(100%); drop-shadow-2xl"

@@ -215,21 +215,21 @@ const Vendors = () => {
   return (
     <div className="vendors-container">
       {/* Tabs */}
-      <div className="tabs">
+      <div className="tabs flex items-center justify-center font-bold custom-font">
         <button 
-          className={`tab ${activeTab === 'dog' ? 'active' : ''}`}
+          className={`link-underline min-[350px]:text-xl sm:text-2xl md:text-3xl tab ${activeTab === 'dog' ? 'active' : ''}`}
           onClick={() => setActiveTab('dog')}
         >
           Dogs
         </button>
         <button 
-          className={`tab ${activeTab === 'cat' ? 'active' : ''}`}
+          className={`link-underline min-[350px]:text-xl sm:text-2xl md:text-3xl tab ${activeTab === 'cat' ? 'active' : ''}`}
           onClick={() => setActiveTab('cat')}
         >
           Cats
         </button>
         <button 
-          className={`tab ${activeTab === 'smallanimal' ? 'active' : ''}`}
+          className={`link-underline min-[350px]:text-xl sm:text-2xl md:text-3xl tab ${activeTab === 'smallanimal' ? 'active' : ''}`}
           onClick={() => setActiveTab('smallanimal')}
         >
           Small Animals & Birds
@@ -237,7 +237,7 @@ const Vendors = () => {
       </div>
 
       {/* Vendors Grid */}
-      <div className="vendors-grid">
+      <div className="vendors-grid sm:mx-10">
         {activeTab === 'dog' && (
           dogVendors.map((vendor, index) => (
             <div key={index} className={`vendor-item ${index % 2 === 1 ? 'narrow-row' : ''}`}>
