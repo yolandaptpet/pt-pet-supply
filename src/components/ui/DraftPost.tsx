@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css';
+import "/node_modules/react-quill/dist/quill.snow.css"
 import { z } from 'zod';
 
 type DraftPostProps = {

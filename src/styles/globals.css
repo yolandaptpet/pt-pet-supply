@@ -134,17 +134,24 @@ html {
   cursor: pointer;
   color: black;
 }
+.tab.active {
+  color: #7F0201;
+}
 
 .vendors-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
   gap: 1rem;
   padding: 1rem;
 }
 
 .vendor-item {
   padding: 0.75rem;
-
+  letter-spacing: 0.05em;
+  font-weight: 600;
+  color: #452B1F;
+  margin-top: auto;
+  margin-bottom: auto;
 }
 
 .narrow-row {
@@ -161,8 +168,8 @@ html {
   }
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 900px) {
   .vendors-grid {
-    grid-template-columns: repeat(7, 1fr);
+    grid-template-columns: repeat(4, 1fr);
   }
 }

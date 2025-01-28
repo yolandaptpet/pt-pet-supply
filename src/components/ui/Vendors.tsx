@@ -215,7 +215,7 @@ const Vendors = () => {
   return (
     <div className="vendors-container">
       {/* Tabs */}
-      <div className="tabs flex items-center justify-center font-bold custom-font">
+      <div className="tabs flex items-center justify-center font-bold custom-font rounded-t-xl w-[88%] sm:w-[70%] 2xl:w-[60%] mx-auto mt-5 mb-3">
         <button 
           className={`link-underline min-[350px]:text-xl sm:text-2xl md:text-3xl tab ${activeTab === 'dog' ? 'active' : ''}`}
           onClick={() => setActiveTab('dog')}
@@ -237,7 +237,7 @@ const Vendors = () => {
       </div>
 
       {/* Vendors Grid */}
-      <div className="vendors-grid sm:mx-10">
+      <div className="vendors-grid sm:mx-10 xl:mx-1 2xl:mx-24">
         {activeTab === 'dog' && (
           dogVendors.map((vendor, index) => (
             <div key={index} className={`vendor-item ${index % 2 === 1 ? 'narrow-row' : ''}`}>

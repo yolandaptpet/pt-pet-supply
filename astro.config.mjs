@@ -23,7 +23,7 @@ export default defineConfig({
   vite: {
     build: {
       rollupOptions: {
-        external: ['react-quill/dist/quill.snow.css']
+        external: ['/node_modules/react-quill/dist/quill.snow.css']
       },
     }
   }
