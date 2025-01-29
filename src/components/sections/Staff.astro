@@ -23,6 +23,6 @@ const staffList = await officialStaffList();
     Meet Our Pack
   </h3>
   <div class="flex justify-center py-3 md:py-5">
-    <StaffCarousel staffList={staffList} client:visible />
+    <StaffCarousel staffList={staffList} client:only="react" />
   </div>
 </section>

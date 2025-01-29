@@ -1,3 +1,7 @@
+import type { ImageMetadata } from 'astro';
+
+const staffImages = import.meta.glob<{ default: ImageMetadata }>('/src/assets/staff/*.webp');
+
 interface StoreInfo {
   name: string;
   address: string;
@@ -94,14 +98,19 @@ export const officialStaffList = async (): Promise<StaffProps[]> => {
         continue;
       }
 
-      const staffList: StaffProps[] = data.members.map((member: StaffProps) => {
+      const staffList: StaffProps[] = await Promise.all(data.members.map(async (member: StaffProps) => {
         const normalizedFullName = normalizeFileName(member.fullName);
-        const imageSrc = `/src/assets/staff/${normalizedFullName}.webp`;
-        return {
-          ...member,
-          imageSrc,
-        };
-      });
+        const imagePath = `/src/assets/staff/${normalizedFullName}.webp`;
+        const imageModule = staffImages[imagePath];
+
+        if (!imageModule) {
+          console.warn(`Image not found for ${member.fullName}`);
+          return { ...member, imageSrc: '' };
+        }
+
+        const imageSrc = (await imageModule()).default.src;
+        return { ...member, imageSrc };
+      }));
 
       return staffList;
     } catch (error) {

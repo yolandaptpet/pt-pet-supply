@@ -13,6 +13,8 @@ const StaffCarousel = ({ staffList }: { staffList: StaffProps[] }) => {
   const [isPaused, setIsPaused] = useState<boolean>(false);
   let timeoutId: NodeJS.Timeout;
 
+  const isSmallScreen = window.innerWidth < 640;
+
   useEffect(() => {
     const userAgent = window.navigator.userAgent;
     const md = new MobileDetect(userAgent);
@@ -120,16 +122,16 @@ const StaffCarousel = ({ staffList }: { staffList: StaffProps[] }) => {
           {staffList.map((staff, index) => (
             <div
               key={index}
-              className={`flex-shrink-0 w-[70%] mx-2.5 ${
+              className={`flex-shrink-0 w-[40%] sm:w-[70%] mx-2.5 ${
                 index === staffMember ? "scale-100" : "scale-90"
-              } ${index === 0 ? "ml-56 md:ml-28" : ""}`}
+              } ${index === 0 ? "ml-62 sm:ml-29" : ""}`}
               style={{
-                transform: `translateX(${staffMember * 40}%)`,
+                transform: `translateX(${isSmallScreen ? (staffMember * 145) : (staffMember * 40)}%)`,
                 transition: "transform 0.9s",
               }}
             >
               <div
-                className="md:w-full min-h-[400px] flex items-center justify-center rounded-3xl drop-shadow-xl bg-[#7F0201] bg-opacity-50"
+                className="sm:w-full h-[630px] flex items-center justify-center rounded-3xl drop-shadow-xl bg-[#7F0201] bg-opacity-50"
                 style={{ backdropFilter: "blur(35px)" }}
               >
                 <StaffCard {...staff} />
