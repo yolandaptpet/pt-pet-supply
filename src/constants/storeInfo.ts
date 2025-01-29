@@ -37,10 +37,10 @@ const normalizeFileName = (name: string): string => {
 };
 
 const statusUrls = [
-  "http://localhost:4321",
-  "http://localhost:3000",
   "https://ptpet.net",
   "https://pt-pet-supply.vercel.app",
+  "http://localhost:4321",
+  "http://localhost:3000",
 ];
 
 export const officialStoreHours = async (): Promise<StoreHours | null> => {

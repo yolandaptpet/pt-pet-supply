@@ -1,11 +1,7 @@
-import GitHub from '@auth/core/providers/github';
-import { defineConfig } from 'auth-astro';
+import { Google } from "arctic";
 
-export default defineConfig({
-  providers: [
-    GitHub({
-      clientId: import.meta.env.GITHUB_CLIENT_ID,
-      clientSecret: import.meta.env.GITHUB_CLIENT_SECRET
-    })
-  ]
-});
+export const google = new Google(
+  (import.meta as any).env.GOOGLE_CLIENT_ID,
+  (import.meta as any).env.GOOGLE_CLIENT_SECRET,
+  "https://www.ptpet.net/admin"
+);

@@ -3,7 +3,7 @@ import BlogLayout from "@/components/layouts/BlogLayout.astro";
 import { getEntry } from "astro:content";
 import type { CollectionEntry } from "astro:content";
 
-const backArrow = "../../../images/arrow.svg";
+const backArrow = "../../../arrow.svg";
 
 const { slug } = Astro.params;
 
@@ -73,7 +73,7 @@ const formatDate = (date: Date) => {
           </div>
           <div class="flex space-x-1 pb-10 drop-shadow-lg">
             {
-              post?.data.tags.map((tag) => (
+              post?.data.tags.map((tag: string) => (
                 <button class="bg-[#7F0201] text-white text-md md:text-xl md:tracking-widest px-2 md:px-3 md:py-1 rounded-xl pointer-events-none">
                   {tag}
                 </button>

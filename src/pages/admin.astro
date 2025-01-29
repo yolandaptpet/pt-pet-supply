@@ -5,7 +5,7 @@ import UpdateHours from "../components/ui/UpdateHours.tsx";
 import DraftPost from "../components/ui/DraftPost.tsx";
 // import AdminStaffGrid from "../components/ui/AdminStaffGrid.tsx";
 
-const backArrow = "../../../images/arrow.svg";
+const backArrow = "../../../arrow.svg";
 
 import {
   // officialStaffList,
@@ -18,8 +18,8 @@ const storeHours = await officialStoreHours();
 
 import { getCollection } from "astro:content";
 
-const allTags = await getCollection("blog").then((collection) => {
-  const tags = collection.flatMap((entry) => entry.data.tags);
+const allTags = await getCollection("blog").then((collection: any) => {
+  const tags = collection.flatMap((entry: any) => entry.data.tags);
   return Array.from(new Set(tags));
 });
 ---

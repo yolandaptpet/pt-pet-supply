@@ -1,7 +1,7 @@
 ---
 title: "Mission Statement of This Blog"
 description: "PT Pet Supply’s blog serves as a comprehensive guide to holistic pet care, exploring topics from natural products to sustainable practices. Readers can expect in-depth insights and diverse information tailored to empower them with knowledge and foster a supportive community for their pets' well-being."
-publishDate: 2025-01-04
+publishDate: 2025-01-03
 tags: ["Store News"]
 ---
 

@@ -3,9 +3,8 @@ import BlogLayout from "@/components/layouts/BlogLayout.astro";
 import { getCollection } from "astro:content";
 import type { CollectionEntry } from "astro:content";
 
-const backArrow = "../../../images/arrow.svg";
+const backArrow = "../../../arrow.svg";
 
-// Use the defined schema in content/config.ts to ensure type safety
 const posts: CollectionEntry<"blog">[] = await getCollection("blog");
 
 const sortedPosts = posts.sort((a, b) => {
@@ -15,26 +14,20 @@ const sortedPosts = posts.sort((a, b) => {
   );
 });
 
-// Pagination variables
 const postsPerPage = 12;
 const totalPages = Math.ceil(sortedPosts.length / postsPerPage);
 
-// Get the current page from query params, default to 1 if not available
 const currentPage = Number(Astro.url.searchParams.get("page") || 1);
 
-// Calculate the start and end indexes for slicing posts
 const startIndex = (currentPage - 1) * postsPerPage;
 const endIndex = startIndex + postsPerPage;
 
-// Get the posts for the current page
 const paginatedPosts = sortedPosts.slice(startIndex, endIndex);
 
-// Get unique tags from all posts
 const allTags = Array.from(new Set(posts.flatMap((post) => post.data.tags)));
 
-// Utility function to format the date to MM-DD-YYYY without leading zero
 const formatDate = (date: Date) => {
-  const month = date.getMonth() + 1; // Months are 0-indexed
+  const month = date.getMonth() + 1;
   const day = date.getDate();
   const year = date.getFullYear();
   return `${month}•${day}•${year}`;
@@ -116,7 +109,7 @@ const formatDate = (date: Date) => {
             paginatedPosts.map((post) => (
               <a href={`/blog/${post.slug}/`} class="no-underline">
                 <div
-                  class="post-card relative flex flex-col w-[320px] min-[450px]:w-[400px] min-[690px]:w-[320px] lg:w-[320px] rounded-3xl border bg-[#F9DCB1]"
+                  class="post-card relative flex flex-col w-[320px] h-[500px] min-[450px]:w-[400px] min-[450px]:h-[520px] min-[690px]:w-[320px] min-[690px]:h-[490px] rounded-3xl border bg-[#F9DCB1]"
                   data-tags={post.data.tags.join(",")}
                 >
                   <img
@@ -132,14 +125,14 @@ const formatDate = (date: Date) => {
                       {formatDate(new Date(post.data.publishDate))}
                     </time>
                     <div class="flex space-x-1">
-                      {post.data.tags.map((tag) => (
+                      {post.data.tags.map((tag: string) => (
                         <button class="bg-[#7F0201] text-white text-sm tracking-narrow px-2 rounded-xl pointer-events-none">
                           {tag}
                         </button>
                       ))}
                     </div>
                   </div>
-                  <p class="min-h-[70px] mt-2 mx-2 leading-5">
+                  <p class="min-h-[70px] mt-3 mx-4 leading-5">
                     {post.data.description}
                   </p>
                 </div>
@@ -209,26 +202,22 @@ const formatDate = (date: Date) => {
       });
     };
 
-    // Add click event listener for each tag button
     tagButtons.forEach((button) => {
       button.addEventListener("click", (event) => {
         const target = event.target as HTMLButtonElement;
         const clickedTag = target.getAttribute("data-tag");
 
-        // Toggle selected tag
         if (selectedTag === clickedTag) {
           selectedTag = null;
         } else {
           selectedTag = clickedTag;
         }
 
-        // Update active button class
         tagButtons.forEach((btn) => btn.classList.remove("active-tag"));
         if (selectedTag) {
           target.classList.add("active-tag");
         }
 
-        // Filter posts based on the selected tag
         filterPosts(selectedTag);
       });
     });
