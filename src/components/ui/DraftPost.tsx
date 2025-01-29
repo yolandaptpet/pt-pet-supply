@@ -10,7 +10,7 @@ type DraftPostProps = {
 // Define the Zod schema
 const postSchema = z.object({
   title: z.string().max(40, 'Title must be 40 characters or less.'),
-  description: z.string().max(140, 'Description must be 140 characters or less.'),
+  description: z.string().max(300, 'Description must be 300 characters or less.'),
   body: z.string(),
   tags: z.array(z.string()),
   publishDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, 'Date must be in YYYY-MM-DD format'), // Ensure the date is valid
@@ -154,8 +154,8 @@ const DraftPost: React.FC<DraftPostProps> = ({ allTags }) => {
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#7F0201] focus:border-[#7F0201]"
-            placeholder="Enter a brief description of the blog post. Maximum of 140 characters."
-            maxLength={140}
+            placeholder="Enter a brief description of the blog post. Maximum of 300 characters."
+            maxLength={300}
             required
             onInvalid={(e) => (e.target as HTMLInputElement).setCustomValidity('Please enter a description.')}
           />

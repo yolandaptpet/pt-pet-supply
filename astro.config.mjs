@@ -19,10 +19,8 @@ export default defineConfig({
     devImageService: 'sharp',
   }),
   vite: {
-    build: {
-      rollupOptions: {
-        external: ['/node_modules/react-quill/dist/quill.snow.css']
-      },
+    ssr: {
+      noExternal: ['react-quill']
     }
   }
 });

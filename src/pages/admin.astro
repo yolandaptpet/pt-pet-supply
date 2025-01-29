@@ -86,7 +86,6 @@ const allTags = await getCollection("blog").then((collection) => {
 </Layout>
 
 <style>
-  /* Default styling when the input is enabled */
   #toggledInput:enabled {
     border: 1px solid #d1d5db;
   }
@@ -107,7 +106,6 @@ const allTags = await getCollection("blog").then((collection) => {
       "staff-toggle-button"
     ) as HTMLElement;
 
-    // Toggle staff list visibility
     toggleButton.addEventListener("click", () => {
       const isHidden = staffListSection.classList.contains("hidden");
       if (isHidden) {
@@ -119,7 +117,6 @@ const allTags = await getCollection("blog").then((collection) => {
       }
     });
 
-    // For the announcement banner toggle functionality
     const announcementRadios = document.querySelectorAll(
       'input[name="toggle"]'
     );
@@ -141,7 +138,6 @@ const allTags = await getCollection("blog").then((collection) => {
       });
     });
 
-    // For hours toggle functionality
     const radioButtons = document.querySelectorAll(
       'input[name="hours-toggle"]'
     );
