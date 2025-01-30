@@ -35,16 +35,4 @@ git clone https://github.com/your-username/pt-pet-supply.git
 cd pt-pet-supply
 npm install
 
-🛠 Key Dependencies
-Dependency	Description
-astro	Static site generator with hybrid rendering
-react	UI component library
-alpinejs	Lightweight JavaScript framework
-tailwindcss	Utility-first CSS framework
-mongodb	NoSQL database
-quill	WYSIWYG text editor
-nodemailer	Email service for contact forms
-swiper	Interactive carousel slider
-
-
 ```
