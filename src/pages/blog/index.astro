@@ -4,6 +4,7 @@ import { getCollection } from "astro:content";
 import type { CollectionEntry } from "astro:content";
 
 const backArrow = "../../../arrow.svg";
+import house from "../../assets/house.webp";
 
 const posts: CollectionEntry<"blog">[] = await getCollection("blog");
 
@@ -59,21 +60,37 @@ const formatDate = (date: Date) => {
       </div>
 
       <div
-        class="flex flex-col justify-center text-center w-3/4 md:w-2/3 pt-2 mx-auto"
+        class="relative flex flex-col items-center justify-center text-center pt-2 mx-auto overflow-visible"
       >
-        <p class="font-bold text-[#452B1F]">
-          At PT Pet Supply, our mission is to provide pet parents with reliable,
-          natural, and sustainable products that promote the health, happiness,
-          and well-being of their pets. Through this blog, we aim to educate,
-          inspire, and empower pet owners to make informed choices about the
-          products and practices they incorporate into their pets&#39; lives. We
-          are committed to fostering a community that values the importance of
-          nature-based solutions and responsible pet care.
-        </p>
-        <div class="flex-col pr-4 -mr-4">
+        <img
+          src={house.src}
+          alt="House background image"
+          class="absolute -top-47 min-[410px]:-top-60 md:-top-96 item-center w-auto max-w-full h-[550px] md:h-[700px] object-cover -z-40 rounded-b-2xl"
+        />
+        <div
+          class="w-[300px] min-[410px]:w-[370px] bg-[#d8ceced0] px-6 py-4 mb-4 rounded-2xl backdrop-filter drop-shadow-2xl"
+          style={{ backdropFilter: "blur(15px)" }}
+        >
+          <p
+            class="font-bold text-[#452B1F] text-lg leading-4 p-4 rounded-2xl bg-[#ffffff76]
+             drop-shadow-2xl"
+            style={{ backdropFilter: "blur(15px)" }}
+          >
+            At PT Pet Supply, we're dedicated to providing reliable, natural,
+            sustainable products for pets&#39; health, happiness, and
+            well-being. Via our blog, we aim to educate, inspire, and empower
+            pet owners to make informed choices about products and practices.
+            We&#39;re committed to fostering a community that values
+            nature-based solutions and responsible pet care.
+          </p>
+        </div>
+        <div
+          class="flex-col px-4 ml-2 min-[400px]:ml-16 sm:ml-32 -mr-4 w-full items-center bg-[#d8ceced0] rounded-l-2xl"
+          style={{ backdropFilter: "blur(20px)" }}
+        >
           <div class="flex justify-start items-start space-x-1">
             <h3
-              class="flex justify-start text-sm tracking-widest my-0 -mb-4 ml-10"
+              class="flex justify-start text-sm tracking-widest my-0 mt-2 -mb-4 ml-10 text-[#452B1F]"
             >
               Filter by:
             </h3>
@@ -114,14 +131,14 @@ const formatDate = (date: Date) => {
                 >
                   <img
                     src="https://placehold.co/400x270"
-                    alt="Hashtag photo"
+                    alt="Blog topic photo"
                     class="rounded-t-3xl my-0"
                   />
                   <div class="py-2 px-4 rounded-xl">
                     <h1 class="mb-1 font-bold no-underline text-lg tracking-tighter">
                       {post.data.title}
                     </h1>
-                    <time class="absolute bottom-0 right-3 text-sm tracking-wider font-bold mb-2">
+                    <time class="absolute bottom-0 right-3 text-md tracking-wider font-bold mb-2">
                       {formatDate(new Date(post.data.publishDate))}
                     </time>
                     <div class="flex space-x-1">
@@ -132,7 +149,7 @@ const formatDate = (date: Date) => {
                       ))}
                     </div>
                   </div>
-                  <p class="min-h-[70px] mt-3 mx-4 leading-5">
+                  <p class="min-h-[70px] mt-3 mx-4 leading-5 font-medium">
                     {post.data.description}
                   </p>
                 </div>

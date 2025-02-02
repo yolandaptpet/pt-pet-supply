@@ -6,7 +6,6 @@ import Button from "../ui/Button.astro";
 import brassSidebar from "../../assets/brass-sidebar.webp";
 import recentBlogPostsLogo from "../../assets/recent-blog-posts.webp";
 
-// Fetch all blog posts and ensure type safety
 const posts: CollectionEntry<"blog">[] = await getCollection("blog");
 
 // Sort posts by publish date (most recent first)
@@ -22,7 +21,6 @@ const uniquePosts = Array.from(new Set(sortedPosts.map((post) => post.slug)))
   .map((slug) => sortedPosts.find((post) => post.slug === slug))
   .filter((post): post is CollectionEntry<"blog"> => post !== undefined); // Filter undefined values
 
-// Take the first 3 unique posts (adjust the number as needed)
 const recentPosts = uniquePosts.slice(0, 3);
 ---
 

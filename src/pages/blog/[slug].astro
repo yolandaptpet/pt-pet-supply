@@ -3,6 +3,8 @@ import BlogLayout from "@/components/layouts/BlogLayout.astro";
 import { getEntry } from "astro:content";
 import type { CollectionEntry } from "astro:content";
 
+import { getImagesForTag } from "@/constants/postImages";
+
 const backArrow = "../../../arrow.svg";
 
 const { slug } = Astro.params;
@@ -12,8 +14,12 @@ const post: CollectionEntry<"blog"> | undefined = await getEntry(
   slug as string
 );
 
-// Render the content
 const { Content } = post ? await post.render() : { Content: null };
+
+const selectedTag = post?.data.tags?.[0] || "Store News";
+const tagImage =
+  (await getImagesForTag(selectedTag, "large")) ||
+  "https://placehold.co/1400x300";
 
 const formatDate = (date: Date) => {
   const month = date.getMonth() + 1;
@@ -66,9 +72,9 @@ const formatDate = (date: Date) => {
             </div>
             <h1 class="md:tracking-wider drop-shadow-md">{post?.data.title}</h1>
             <img
-              src="https://placehold.co/1400x300"
-              alt="Associated hashtag photo"
-              class="w-[100%] h-[100%]"
+              src={tagImage}
+              alt="Associated tag photo"
+              class="w-[100%] h-[100%] rounded-2xl"
             />
           </div>
           <div

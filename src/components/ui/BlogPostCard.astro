@@ -3,6 +3,13 @@ import type { CollectionEntry } from "astro:content";
 
 const { post }: { post?: CollectionEntry<"blog"> } = Astro.props;
 
+import { getImagesForTag } from "@/constants/postImages";
+
+const selectedTag = post?.data.tags?.[0] || "Store News";
+const tagImage =
+  (await getImagesForTag(selectedTag, "small")) ||
+  "https://placehold.co/1400x300";
+
 const formatDate = (date: Date) => {
   const month = date.getMonth() + 1; // Months are 0-indexed
   const day = date.getDate();
@@ -24,7 +31,7 @@ const postDate = post ? formatDate(post.data.publishDate) : "";
     >
       <div class="absolute top-6 -left-9 md:top-3 md:-left-5">
         <img
-          src="https://placehold.co/350x350/png"
+          src={tagImage}
           alt="Blog tag photo"
           class="w-[90px] 2xl:w-[115px] h-auto rounded-2xl"
         />
