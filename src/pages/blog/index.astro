@@ -6,6 +6,9 @@ import type { CollectionEntry } from "astro:content";
 const backArrow = "../../../arrow.svg";
 import house from "../../assets/house.webp";
 
+const { post }: { post?: CollectionEntry<"blog"> } = Astro.props;
+import { getImagesForTag } from "@/constants/postImages";
+
 const posts: CollectionEntry<"blog">[] = await getCollection("blog");
 
 const sortedPosts = posts.sort((a, b) => {
@@ -68,7 +71,7 @@ const formatDate = (date: Date) => {
           class="absolute -top-47 min-[410px]:-top-60 md:-top-96 item-center w-auto max-w-full h-[550px] md:h-[700px] object-cover -z-40 rounded-b-2xl"
         />
         <div
-          class="w-[300px] min-[410px]:w-[370px] bg-[#d8ceced0] px-6 py-4 mb-4 rounded-2xl backdrop-filter drop-shadow-2xl"
+          class="w-[300px] min-[410px]:w-[400px] sm:w-[500px] bg-[#d8ceced0] px-6 py-4 mb-4 min-[400px]:mb-8 sm:mb-12 sm:mt-10 rounded-2xl backdrop-filter drop-shadow-2xl"
           style={{ backdropFilter: "blur(15px)" }}
         >
           <p
@@ -123,38 +126,45 @@ const formatDate = (date: Date) => {
         >
           {/* Post cards will be dynamically filtered */}
           {
-            paginatedPosts.map((post) => (
-              <a href={`/blog/${post.slug}/`} class="no-underline">
-                <div
-                  class="post-card relative flex flex-col w-[320px] h-[500px] min-[450px]:w-[400px] min-[450px]:h-[520px] min-[690px]:w-[320px] min-[690px]:h-[490px] rounded-3xl border bg-[#F9DCB1]"
-                  data-tags={post.data.tags.join(",")}
-                >
-                  <img
-                    src="https://placehold.co/400x270"
-                    alt="Blog topic photo"
-                    class="rounded-t-3xl my-0"
-                  />
-                  <div class="py-2 px-4 rounded-xl">
-                    <h1 class="mb-1 font-bold no-underline text-lg tracking-tighter">
-                      {post.data.title}
-                    </h1>
-                    <time class="absolute bottom-0 right-3 text-md tracking-wider font-bold mb-2">
-                      {formatDate(new Date(post.data.publishDate))}
-                    </time>
-                    <div class="flex space-x-1">
-                      {post.data.tags.map((tag: string) => (
-                        <button class="bg-[#7F0201] text-white text-sm tracking-narrow px-2 rounded-xl pointer-events-none">
-                          {tag}
-                        </button>
-                      ))}
+            paginatedPosts.map(async (post) => {
+              const selectedTag = post.data.tags?.[0] || "Store News"; // Default to "Store News"
+              const tagImage =
+                (await getImagesForTag(selectedTag, "medium")) ||
+                "https://placehold.co/1400x300";
+
+              return (
+                <a href={`/blog/${post.slug}/`} class="no-underline">
+                  <div
+                    class="post-card relative flex flex-col w-[320px] h-[500px] min-[450px]:w-[400px] min-[450px]:h-[520px] min-[690px]:w-[320px] min-[690px]:h-[490px] rounded-3xl border bg-[#F9DCB1]"
+                    data-tags={post.data.tags.join(",")}
+                  >
+                    <img
+                      src={tagImage}
+                      alt="Blog topic photo"
+                      class="rounded-t-3xl my-0"
+                    />
+                    <div class="py-2 px-4 rounded-xl">
+                      <h1 class="mb-1 font-bold no-underline text-lg tracking-tighter">
+                        {post.data.title}
+                      </h1>
+                      <time class="absolute bottom-0 right-3 text-md tracking-wider font-bold mb-2">
+                        {formatDate(new Date(post.data.publishDate))}
+                      </time>
+                      <div class="flex space-x-1">
+                        {post.data.tags.map((tag: string) => (
+                          <button class="bg-[#7F0201] text-white text-sm tracking-narrow px-2 rounded-xl pointer-events-none">
+                            {tag}
+                          </button>
+                        ))}
+                      </div>
                     </div>
+                    <p class="min-h-[70px] mt-3 mx-4 leading-5 font-medium">
+                      {post.data.description}
+                    </p>
                   </div>
-                  <p class="min-h-[70px] mt-3 mx-4 leading-5 font-medium">
-                    {post.data.description}
-                  </p>
-                </div>
-              </a>
-            ))
+                </a>
+              );
+            })
           }
         </div>
       </div>

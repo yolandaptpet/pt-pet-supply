@@ -1,7 +1,7 @@
 ---
 title: "Getting to Know PT Pet Supply"
 description: "PT Pet Supply is dedicated to enhancing your pet's health and well-being with our comprehensive selection of natural and sustainable products. Beyond supplying essential items, we commit to educating and empowering you to make informed decisions for the best care of your beloved pets."
-publishDate: 2025-01-01
+publishDate: 2025-02-01
 tags: ["Store News"]
 ---
 
